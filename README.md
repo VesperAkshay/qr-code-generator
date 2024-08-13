@@ -25,8 +25,8 @@ Welcome to the QR Code Customization Website project! This web application allow
 1. **Clone the repository:**
 
    ```bash
-   git clone <your-repository-url>
-   cd <your-repository-directory>
+   git clone https://github.com/VesperAkshay/qr-code-generator
+   cd qr-code-generator
    ```
 2. **Install Dependencies:**
 
@@ -40,4 +40,4 @@ Welcome to the QR Code Customization Website project! This web application allow
     ```bash
     npm start
     ```
-    
+
