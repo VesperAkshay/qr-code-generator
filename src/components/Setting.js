@@ -4,6 +4,7 @@ import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import { useAuth } from '../context/AuthContext';
 import { updateProfile, updateEmail, updatePassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function Settings() {
   const { currentUser, logout } = useAuth();
@@ -66,7 +67,12 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-400 to-purple-500 p-6">
+    <motion.div
+      className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-400 to-purple-500 p-6"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-lg w-full space-y-6 transition-transform transform hover:scale-105">
         <div className="flex items-center justify-center">
           <FaUserCog className="text-blue-600 w-16 h-16" />
@@ -119,7 +125,7 @@ export default function Settings() {
             </div>
           </div>
 
-          <div className="flex space-x-4 mt-6">
+          <div className="flex flex-col space-y-4 mt-6 sm:flex-row sm:space-y-0 sm:space-x-4">
             <button
               type="button"
               onClick={handleUpdateProfile}
@@ -158,6 +164,6 @@ export default function Settings() {
           </div>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaSignInAlt, FaUserPlus, FaSignOutAlt } from 'react-icons/fa';
+import { FaUser, FaSignInAlt, FaUserPlus, FaSignOutAlt, FaQrcode, FaPaintBrush } from 'react-icons/fa';
 
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
@@ -19,9 +19,10 @@ export default function Navbar() {
   return (
     <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center">
-          <img src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Logo" className="h-8 mr-2" />
-          <Link to="/" className="text-white font-bold text-xl hover:text-indigo-200 transition duration-300">
+        <div className="flex items-center space-x-3">
+          <FaQrcode className="text-white h-8 w-8" />
+          <Link to="/" className="text-white font-bold text-xl flex items-center hover:text-indigo-200 transition duration-300">
+            <FaPaintBrush className="mr-2" />
             QR Code Customizer
           </Link>
         </div>

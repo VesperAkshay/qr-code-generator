@@ -1,48 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaQrcode, FaUser, FaChartLine, FaCog, FaLifeRing, FaSignOutAlt } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 export default function DashboardPage() {
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <Link to="/qr-code" className="bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 p-6 text-center">
-          <h2 className="text-xl font-semibold text-blue-600 mb-2">
-            <FaQrcode className="inline-block mr-2 text-2xl" /> Generate QR Code
-          </h2>
-          <p className="text-gray-600">Create customized QR codes easily.</p>
-        </Link>
-        <Link to="/profile" className="bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 p-6 text-center">
-          <h2 className="text-xl font-semibold text-green-600 mb-2">
-            <FaUser className="inline-block mr-2 text-2xl" /> View Profile
-          </h2>
-          <p className="text-gray-600">Manage your personal information.</p>
-        </Link>
-        <Link to="/analytics" className="bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 p-6 text-center">
-          <h2 className="text-xl font-semibold text-purple-600 mb-2">
-            <FaChartLine className="inline-block mr-2 text-2xl" /> View Analytics
-          </h2>
-          <p className="text-gray-600">Analyze your QR code performance.</p>
-        </Link>
-        <Link to="/settings" className="bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 p-6 text-center">
-          <h2 className="text-xl font-semibold text-yellow-600 mb-2">
-            <FaCog className="inline-block mr-2 text-2xl" /> Settings
-          </h2>
-          <p className="text-gray-600">Adjust your preferences and settings.</p>
-        </Link>
-        <Link to="/support" className="bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 p-6 text-center">
-          <h2 className="text-xl font-semibold text-red-600 mb-2">
-            <FaLifeRing className="inline-block mr-2 text-2xl" /> Support
-          </h2>
-          <p className="text-gray-600">Get help with any issues.</p>
-        </Link>
-        <Link to="/logout" className="bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 p-6 text-center">
-          <h2 className="text-xl font-semibold text-gray-600 mb-2">
-            <FaSignOutAlt className="inline-block mr-2 text-2xl" /> Logout
-          </h2>
-          <p className="text-gray-600">Sign out of your account.</p>
-        </Link>
+    <div className="min-h-screen bg-gray-50 p-8">
+      <h1 className="text-5xl font-bold text-center text-gray-800 mb-12">Dashboard</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        {[
+          { to: "/qr-code", icon: <FaQrcode />, title: "Generate QR Code", description: "Create customized QR codes easily.", color: "text-blue-600" },
+          { to: "/profile", icon: <FaUser />, title: "View Profile", description: "Manage your personal information.", color: "text-green-600" },
+          { to: "/analytics", icon: <FaChartLine />, title: "View Analytics", description: "Analyze your QR code performance.", color: "text-purple-600" },
+          { to: "/settings", icon: <FaCog />, title: "Settings", description: "Adjust your preferences and settings.", color: "text-yellow-600" },
+          { to: "/support", icon: <FaLifeRing />, title: "Support", description: "Get help with any issues.", color: "text-red-600" },
+          { to: "/logout", icon: <FaSignOutAlt />, title: "Logout", description: "Sign out of your account.", color: "text-gray-600" },
+        ].map(({ to, icon, title, description, color }, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ scale: 1.05, boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)" }}
+            whileTap={{ scale: 0.98 }}
+            className="p-6 bg-white rounded-2xl shadow-lg"
+          >
+            <Link to={to} className="text-center">
+              <div className={`text-5xl mb-4 ${color}`}>{icon}</div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">{title}</h2>
+              <p className="text-gray-600">{description}</p>
+            </Link>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
