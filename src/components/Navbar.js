@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaUser, FaSignInAlt, FaUserPlus, FaSignOutAlt } from 'react-icons/fa';
 
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
@@ -16,30 +17,37 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white font-bold text-xl">
-          QR Code Customizer
-        </Link>
-        <div>
+        <div className="flex items-center">
+          <img src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Logo" className="h-8 mr-2" />
+          <Link to="/" className="text-white font-bold text-xl hover:text-indigo-200 transition duration-300">
+            QR Code Customizer
+          </Link>
+        </div>
+        <div className="flex items-center space-x-4">
           {currentUser ? (
             <>
-              <Link to="/profile" className="text-white mr-4">
+              <Link to="/profile" className="text-white flex items-center hover:text-indigo-200 transition duration-300">
+                <FaUser className="mr-2" />
                 Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="bg-red-500 text-white py-2 px-4 rounded"
+                className="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-500 transition duration-300 flex items-center"
               >
+                <FaSignOutAlt className="mr-2" />
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="text-white mr-4">
+              <Link to="/login" className="text-white flex items-center hover:text-indigo-200 transition duration-300">
+                <FaSignInAlt className="mr-2" />
                 Login
               </Link>
-              <Link to="/register" className="bg-blue-500 text-white py-2 px-4 rounded">
+              <Link to="/register" className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-500 transition duration-300 flex items-center">
+                <FaUserPlus className="mr-2" />
                 Register
               </Link>
             </>

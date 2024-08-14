@@ -8,7 +8,8 @@ import ProfilePage from './pages/ProfilePage';
 import Login from './components/Login';
 import Register from './components/Register';
 import { AuthProvider } from './context/AuthContext';
-
+import Support from './components/Support';
+import Settings from './components/Setting';
 export default function App() {
   return (
     <AuthProvider>
@@ -21,6 +22,8 @@ export default function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/qr-code" element={<QRCodePage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </Router>
     </AuthProvider>
