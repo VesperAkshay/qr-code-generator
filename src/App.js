@@ -10,6 +10,7 @@ import Register from './components/Register';
 import { AuthProvider } from './context/AuthContext';
 import Support from './components/Support';
 import Settings from './components/Setting';
+import ImageQRCodeGenerator from './components/ImageQRCodeGenerator';
 export default function App() {
   return (
     <AuthProvider>
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/support" element={<Support />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/image-qr-code" element={<ImageQRCodeGenerator />} />
         </Routes>
       </Router>
     </AuthProvider>
