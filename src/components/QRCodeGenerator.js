@@ -3,8 +3,16 @@ import QRCodeStyling from 'qr-code-styling';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileAlt, faLink, faAddressCard, faWifi, faDownload } from '@fortawesome/free-solid-svg-icons';
+
+import { motion } from 'framer-motion';
+import CategorySelector from './CategorySelector';
+import VCardForm from './VCardForm';
+import WifiForm from './WifiForm';
+import ColorPicker from './ColorPicker';
+import QRCodeCanvas from './QRCodeCanvas';
+import SizeSlider from './SizeSlider';
+import FileUploader from './FileUploader';
+import DownloadButton from './DownloadButton';
 
 export default function QRCodeGenerator() {
   const [text, setText] = useState('');
@@ -110,106 +118,41 @@ export default function QRCodeGenerator() {
     }
   };
 
-  const handleVCardInputChange = (e) => {
-    const { name, value } = e.target;
-    setVCardDetails({ ...vCardDetails, [name]: value });
-    setText(`BEGIN:VCARD\nVERSION:3.0\nFN:${vCardDetails.fullName}\nORG:${vCardDetails.organization}\nTEL:${vCardDetails.phone}\nEMAIL:${vCardDetails.email}\nEND:VCARD`);
-  };
-
-  const handleWifiInputChange = (e) => {
-    const { name, value } = e.target;
-    setWifiDetails({ ...wifiDetails, [name]: value });
-    setText(`WIFI:T:${wifiDetails.encryption};S:${wifiDetails.ssid};P:${wifiDetails.password};;`);
-  };
-
-  const handleLogoChange = (e) => {
-    setLogoFile(e.target.files[0]);
-  };
-
-  const handleDownloadFormatChange = (e) => {
-    setDownloadFormat(e.target.value);
-  };
-
   return (
-    <div className="p-8 max-w-lg mx-auto bg-white rounded-lg shadow-lg mt-10 transition-transform transform hover:scale-105 duration-300">
-      <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">Generate QR Code</h1>
+    <motion.div
+      className="p-8 max-w-lg mx-auto bg-white rounded-lg shadow-lg mt-10"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      whileHover={{ scale: 1.02 }}
+    >
+      <motion.h1
+        className="text-4xl font-bold mb-6 text-center text-gray-800"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5, ease: 'easeOut' }}
+      >
+        Generate QR Code
+      </motion.h1>
 
-      <div className="flex justify-between mb-6">
-        {['text', 'URL', 'vCard', 'wifi'].map((cat) => (
-          <button
-            key={cat}
-            onClick={() => handleCategoryChange(cat)}
-            className={`p-3 rounded-lg font-medium focus:outline-none transition-colors duration-200 ${
-              category === cat ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
-          >
-            <FontAwesomeIcon icon={cat === 'text' ? faFileAlt : cat === 'URL' ? faLink : cat === 'vCard' ? faAddressCard : faWifi} />
-            <span className="ml-2 capitalize">{cat}</span>
-          </button>
-        ))}
-      </div>
+      <CategorySelector category={category} handleCategoryChange={handleCategoryChange} />
 
       {category === 'vCard' && (
-        <div className="space-y-4 mb-6">
-          {['fullName', 'organization', 'phone', 'email'].map((field) => (
-            <div key={field}>
-              <label className="block mb-2 text-gray-700 capitalize">{field}</label>
-              <input
-                type="text"
-                name={field}
-                placeholder={field === 'fullName' ? 'Full Name' : field.charAt(0).toUpperCase() + field.slice(1)}
-                value={vCardDetails[field]}
-                onChange={handleVCardInputChange}
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              />
-            </div>
-          ))}
-        </div>
+        <VCardForm vCardDetails={vCardDetails} setVCardDetails={setVCardDetails} setText={setText} />
       )}
-
       {category === 'wifi' && (
-        <div className="space-y-4 mb-6">
-          <div>
-            <label className="block mb-2 text-gray-700">SSID</label>
-            <input
-              type="text"
-              name="ssid"
-              placeholder="Wi-Fi Name"
-              value={wifiDetails.ssid}
-              onChange={handleWifiInputChange}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </div>
-          <div>
-            <label className="block mb-2 text-gray-700">Encryption</label>
-            <select
-              name="encryption"
-              value={wifiDetails.encryption}
-              onChange={handleWifiInputChange}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            >
-              <option value="WPA">WPA/WPA2</option>
-              <option value="WEP">WEP</option>
-              <option value="nopass">None</option>
-            </select>
-          </div>
-          <div>
-            <label className="block mb-2 text-gray-700">Password</label>
-            <input
-              type="text"
-              name="password"
-              placeholder="Wi-Fi Password"
-              value={wifiDetails.password}
-              onChange={handleWifiInputChange}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </div>
-        </div>
+        <WifiForm wifiDetails={wifiDetails} setWifiDetails={setWifiDetails} setText={setText} />
       )}
-
       {(category === 'text' || category === 'URL') && (
-        <div className="mb-6">
-          <label className="block mb-2 text-gray-700 capitalize">{category} Input</label>
+        <motion.div
+          className="mb-6"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2, duration: 0.5, ease: 'easeOut' }}
+        >
+          <label className="block mb-2 text-gray-700 capitalize">
+            {category} Input
+          </label>
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -217,134 +160,45 @@ export default function QRCodeGenerator() {
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
             placeholder={`Enter ${category}`}
           />
-        </div>
+        </motion.div>
       )}
 
-      <div className="space-y-4 mb-6">
-        <div>
-          <label className="block mb-2 text-gray-700">QR Code Size</label>
-          <input
-            type="range"
-            min="100"
-            max="500"
-            value={size}
-            onChange={(e) => setSize(Number(e.target.value))}
-            className="w-full"
-          />
-          <div className="text-center mt-2 text-gray-600">{size}px</div>
-        </div>
+      <SizeSlider size={size} setSize={setSize} />
+      <ColorPicker
+        color={color}
+        setColor={setColor}
+        bgColor={bgColor}
+        setBgColor={setBgColor}
+        eyeColor={eyeColor}
+        setEyeColor={setEyeColor}
+        shape={shape}
+        setShape={setShape}
+        frame={frame}
+        setFrame={setFrame}
+        eyeShape={eyeShape}
+        setEyeShape={setEyeShape}
+      />
+      <FileUploader handleLogoChange={(e) => setLogoFile(e.target.files[0])} />
 
-        <div className="flex space-x-4">
-          <div className="w-1/2">
-            <label className="block mb-2 text-gray-700">QR Code Color</label>
-            <input
-              type="color"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              className="w-full h-10 rounded-lg"
-            />
-          </div>
-          <div className="w-1/2">
-            <label className="block mb-2 text-gray-700">Background Color</label>
-            <input
-              type="color"
-              value={bgColor}
-              onChange={(e) => setBgColor(e.target.value)}
-              className="w-full h-10 rounded-lg"
-            />
-          </div>
-        </div>
+      <motion.button
+        onClick={handleGenerate}
+        className="bg-blue-600 text-white p-3 rounded-lg font-medium hover:bg-blue-700 mb-6"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.5, ease: 'easeOut' }}
+      >
+        Generate QR Code
+      </motion.button>
 
-        <div className="flex space-x-4">
-          <div className="w-1/2">
-            <label className="block mb-2 text-gray-700">Pattern Shape</label>
-            <select
-              value={shape}
-              onChange={(e) => setShape(e.target.value)}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            >
-              <option value="square">Square</option>
-              <option value="circle">Circle</option>
-            </select>
-          </div>
-          <div className="w-1/2">
-            <label className="block mb-2 text-gray-700">Frame Shape</label>
-            <select
-              value={frame}
-              onChange={(e) => setFrame(e.target.value)}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            >
-              <option value="square">Square</option>
-              <option value="circle">Circle</option>
-            </select>
-          </div>
-        </div>
+      <DownloadButton
+        handleDownload={handleDownload}
+        downloadFormat={downloadFormat}
+        setDownloadFormat={setDownloadFormat}
+      />
 
-        <div className="flex space-x-4">
-          <div className="w-1/2">
-            <label className="block mb-2 text-gray-700">Eye Shape</label>
-            <select
-              value={eyeShape}
-              onChange={(e) => setEyeShape(e.target.value)}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            >
-              <option value="square">Square</option>
-              <option value="circle">Circle</option>
-            </select>
-          </div>
-          <div className="w-1/2">
-            <label className="block mb-2 text-gray-700">Eye Color</label>
-            <input
-              type="color"
-              value={eyeColor}
-              onChange={(e) => setEyeColor(e.target.value)}
-              className="w-full h-10 rounded-lg"
-            />
-          </div>
-        </div>
-
-        <div className="mb-6">
-          <label className="block mb-2 text-gray-700">Upload Logo</label>
-          <input
-            type="file"
-            onChange={handleLogoChange}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-          />
-        </div>
-
-        <div className="mb-6">
-          <label className="block mb-2 text-gray-700">Download Format</label>
-          <select
-            value={downloadFormat}
-            onChange={handleDownloadFormatChange}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-          >
-            <option value="png">PNG</option>
-            <option value="jpeg">JPEG</option>
-            <option value="svg">SVG</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="text-center mb-6">
-        <button
-          onClick={handleGenerate}
-          className="w-full p-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors duration-200"
-        >
-          Generate QR Code
-        </button>
-      </div>
-
-      <div ref={qrCodeRef} className="mb-6 p-4 bg-gray-100 rounded-lg shadow-inner flex justify-center"></div>
-
-      <div className="text-center">
-        <button
-          onClick={handleDownload}
-          className="w-full p-4 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition-colors duration-200"
-        >
-          <FontAwesomeIcon icon={faDownload} className="mr-2" />Download QR Code
-        </button>
-      </div>
-    </div>
+      <QRCodeCanvas qrCodeRef={qrCodeRef} />
+    </motion.div>
   );
 }
