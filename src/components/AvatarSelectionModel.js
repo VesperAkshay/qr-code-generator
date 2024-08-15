@@ -10,6 +10,10 @@ const avatars = [
   '/avatars/avatar4.png',
   '/avatars/avatar5.png',
   '/avatars/avatar6.png',
+  '/avatars/avatar7.png',
+  '/avatars/avatar8.png',
+  '/avatars/avatar9.png',
+  '/avatars/avatar10.png',
 ];
 
 const AvatarSelectionModal = ({ isOpen, onClose, onSelectAvatar }) => {
