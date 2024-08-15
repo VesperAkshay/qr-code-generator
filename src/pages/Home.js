@@ -117,7 +117,7 @@ export default function Home() {
           <div className="text-left">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">1. Select which type</h3>
             <p className="text-md text-gray-600 mb-4">
-              You may choose from URL, vCard, Plain Text, Email, SMS, Twitter, WiFi, and Bitcoin. However, these free QR Codes are not editable and trackable.
+              You may choose from URL, vCard, Plain Text, WiFi. However, these free QR Codes are not editable and trackable.
             </p>
             <h3 className="text-lg font-semibold text-gray-800 mb-2">2. Fill in the details</h3>
             <p className="text-md text-gray-600 mb-4">
