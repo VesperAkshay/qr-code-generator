@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaQrcode, FaUser, FaChartLine, FaCog, FaLifeRing, FaSignOutAlt, FaImage } from 'react-icons/fa';
+import { FaQrcode, FaUser, FaChartLine, FaCog, FaLifeRing, FaSignOutAlt, FaImage, FaShareAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 export default function DashboardPage() {
@@ -10,7 +10,8 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {[
           { to: "/qr-code", icon: <FaQrcode />, title: "Generate QR Code", description: "Create customized QR codes easily.", color: "text-white", bgColor: "bg-blue-600" },
-          { to: "/image-qr-code", icon: <FaImage />, title: "Image to QR Code", description: "Generate QR codes from images.", color: "text-white", bgColor: "bg-indigo-600" }, // New Section
+          { to: "/image-qr-code", icon: <FaImage />, title: "Image to QR Code", description: "Generate QR codes from images.", color: "text-white", bgColor: "bg-indigo-600" },
+          { to: "/social-media-qr", icon: <FaShareAlt />, title: "Social Media QR Code", description: "Create QR codes for social media profiles.", color: "text-white", bgColor: "bg-pink-600" }, // New Section
           { to: "/profile", icon: <FaUser />, title: "View Profile", description: "Manage your personal information.", color: "text-white", bgColor: "bg-green-600" },
           { to: "/analytics", icon: <FaChartLine />, title: "View Analytics", description: "Analyze your QR code performance.", color: "text-white", bgColor: "bg-purple-600" },
           { to: "/settings", icon: <FaCog />, title: "Settings", description: "Adjust your preferences and settings.", color: "text-white", bgColor: "bg-yellow-600" },
