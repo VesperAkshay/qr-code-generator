@@ -11,6 +11,9 @@ import { AuthProvider } from './context/AuthContext';
 import Support from './components/Support';
 import Settings from './components/Setting';
 import ImageQRCodeGenerator from './components/ImageQRCodeGenerator';
+import  SocialMedia from './components/SocialMedia';
+import BulkQRCode from './components/BulkQRCode';
+import QRScanner from './components/QRScanner';
 export default function App() {
   return (
     <AuthProvider>
@@ -26,6 +29,9 @@ export default function App() {
           <Route path="/support" element={<Support />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/image-qr-code" element={<ImageQRCodeGenerator />} />
+          <Route path="/social-media-qr" element={<SocialMedia />} />
+          <Route path="/bulk-qr-code" element={<BulkQRCode />} />
+          <Route path="/qr-scanner" element={<QRScanner />} />
         </Routes>
       </Router>
     </AuthProvider>
