@@ -14,6 +14,7 @@ import ImageQRCodeGenerator from './components/ImageQRCodeGenerator';
 import  SocialMedia from './components/SocialMedia';
 import BulkQRCode from './components/BulkQRCode';
 import QRScanner from './components/QRScanner';
+import PdfQRCodeGenerator from './components/PDFToQR';
 export default function App() {
   return (
     <AuthProvider>
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/social-media-qr" element={<SocialMedia />} />
           <Route path="/bulk-qr-code" element={<BulkQRCode />} />
           <Route path="/qr-scanner" element={<QRScanner />} />
+          <Route path="/pdf-qr-code" element={<PdfQRCodeGenerator />} />
         </Routes>
       </Router>
     </AuthProvider>
