@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import QrScanner from 'react-qr-scanner';
 import jsQR from 'jsqr';
-import { FaClipboard, FaCamera, FaImage, FaTimes, FaCheck } from 'react-icons/fa';
+import { FaClipboard, FaCamera, FaImage, FaTimes, FaCheck, FaCameraRetro } from 'react-icons/fa';
 
 export default function QRScanner() {
   const [scannedData, setScannedData] = useState('');
   const [isCameraActive, setIsCameraActive] = useState(true);
+  const [cameraFacingMode, setCameraFacingMode] = useState('environment'); // Default to back camera
+  const [devices, setDevices] = useState([]);
+
+  useEffect(() => {
+    const fetchDevices = async () => {
+      const mediaDevices = await navigator.mediaDevices.enumerateDevices();
+      setDevices(mediaDevices.filter(device => device.kind === 'videoinput'));
+    };
+
+    fetchDevices();
+  }, []);
 
   const handleScan = (data) => {
     if (data) {
@@ -55,6 +66,10 @@ export default function QRScanner() {
       });
   };
 
+  const switchCamera = () => {
+    setCameraFacingMode((prevMode) => (prevMode === 'environment' ? 'user' : 'environment'));
+  };
+
   return (
     <div className="p-8 bg-white shadow-lg rounded-lg max-w-lg mx-auto">
       <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800 flex items-center justify-center">
@@ -73,12 +88,22 @@ export default function QRScanner() {
           {isCameraActive ? 'Turn Off Camera' : 'Turn On Camera'}
         </button>
         {isCameraActive && (
-          <QrScanner
-            delay={300}
-            onError={handleError}
-            onScan={handleScan}
-            style={{ width: '100%', border: '2px solid #e2e8f0', borderRadius: '8px' }}
-          />
+          <div>
+            <button
+              onClick={switchCamera}
+              className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mb-4 flex items-center justify-center"
+            >
+              <FaCameraRetro className="mr-2" />
+              Switch Camera
+            </button>
+            <QrScanner
+              delay={300}
+              onError={handleError}
+              onScan={handleScan}
+              facingMode={cameraFacingMode}
+              style={{ width: '100%', border: '2px solid #e2e8f0', borderRadius: '8px' }}
+            />
+          </div>
         )}
       </div>
 
