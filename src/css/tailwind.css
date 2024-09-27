@@ -8,7 +8,7 @@ svg.scan-region-highlight-svg {
 }
 
 svg.code-outline-highlight {
-    stroke: #3b82f6 !important;
-    stroke-dasharray: 0 !important;
-    stroke-width: 8px !important;
+    stroke: #eea615 !important;
+    stroke-dasharray: 35 !important;
+    stroke-width: 5px !important;
 }
