@@ -13,7 +13,9 @@ export default function QRScanner() {
 
     useEffect(() => {
         const initQrScanner = async () => {
-            if (!videoRef.current) return;
+            if (!videoRef.current || !isCameraActive) return;
+
+            resetScanner()
 
             qrScannerRef.current = new QrScanner(
                 videoRef.current,
@@ -53,16 +55,14 @@ export default function QRScanner() {
             }
         };
 
-        if (isCameraActive) {
-            initQrScanner();
-        }
+        initQrScanner();
 
         return () => {
             if (qrScannerRef.current) {
                 qrScannerRef.current.stop();
             }
         };
-    }, [isCameraActive, selectedDeviceId]); // Dipende da selectedDeviceId
+    }, [isCameraActive, selectedDeviceId]);
 
     const handleScan = (data) => {
         if (data) {
@@ -87,7 +87,16 @@ export default function QRScanner() {
             .catch(e => handleFileError(e));
     };
 
+    const resetScanner = () => {
+        if (qrScannerRef.current) {
+            qrScannerRef.current.stop();
+            qrScannerRef.current.destroy();
+            qrScannerRef.current = null;
+        }
+    }
+
     const toggleCamera = () => {
+        resetScanner();
         setIsCameraActive(!isCameraActive);
         setScannedData({});
     };
@@ -148,7 +157,7 @@ export default function QRScanner() {
                         </select>
                     )}
                 </div>
-                {isCameraActive && (
+                {(isCameraActive && !noCameraFound) && (
                     <div>
                         <video id="videoContainer" className="w-full h-full aspect-square object-cover rounded-lg" ref={videoRef}/>
                     </div>
