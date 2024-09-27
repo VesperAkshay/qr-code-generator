@@ -6,9 +6,10 @@ export default function QRScanner() {
     const [scannedData, setScannedData] = useState({});
     const [isCameraActive, setIsCameraActive] = useState(true);
     const [devices, setDevices] = useState([]);
-    const [noCameraFound, setNoCameraFound] = useState(false); // State to track if no camera is found
+    const [selectedDeviceId, setSelectedDeviceId] = useState(null);
+    const [noCameraFound, setNoCameraFound] = useState(false);
     const videoRef = useRef(null);
-    const qrScannerRef = useRef(null); // Ref for the QR Scanner
+    const qrScannerRef = useRef(null);
 
     useEffect(() => {
         const initQrScanner = async () => {
@@ -16,7 +17,7 @@ export default function QRScanner() {
 
             qrScannerRef.current = new QrScanner(
                 videoRef.current,
-                result => handleScan(result.data), // Use handleScan to update scanned data
+                result => handleScan(result.data),
                 {
                     onDecodeError: error => {
                         console.error('QR decoding error:', error);
@@ -28,6 +29,9 @@ export default function QRScanner() {
 
             try {
                 await fetchDevices();
+                if (selectedDeviceId) {
+                    await qrScannerRef.current.setCamera(selectedDeviceId);
+                }
                 await qrScannerRef.current.start();
             } catch (err) {
                 console.error('Error starting QR scanner:', err);
@@ -35,12 +39,14 @@ export default function QRScanner() {
         };
 
         const fetchDevices = async () => {
-            console.log('Fetching devices...');
             try {
                 const mediaDevices = await navigator.mediaDevices.enumerateDevices();
                 const videoDevices = mediaDevices.filter(device => device.kind === 'videoinput' && device.deviceId !== '');
                 setDevices(videoDevices);
                 setNoCameraFound(videoDevices.length === 0);
+                if (!selectedDeviceId && videoDevices.length > 0) {
+                    setSelectedDeviceId(videoDevices[0].deviceId);
+                }
             } catch (err) {
                 setNoCameraFound(true);
                 console.error('Error fetching devices:', err);
@@ -56,7 +62,7 @@ export default function QRScanner() {
                 qrScannerRef.current.stop();
             }
         };
-    }, [isCameraActive]);
+    }, [isCameraActive, selectedDeviceId]); // Dipende da selectedDeviceId
 
     const handleScan = (data) => {
         if (data) {
@@ -96,6 +102,14 @@ export default function QRScanner() {
             });
     };
 
+    const handleDeviceChange = (event) => {
+        const newDeviceId = event.target.value;
+        setSelectedDeviceId(newDeviceId); // Salva la telecamera selezionata nello stato
+        if (qrScannerRef.current) {
+            qrScannerRef.current.setCamera(newDeviceId); // Cambia la telecamera
+        }
+    };
+
     return (
         <div className="p-8 bg-white shadow-lg rounded-lg max-w-lg mx-auto">
             <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800 flex items-center justify-center">
@@ -122,12 +136,8 @@ export default function QRScanner() {
                         </div>
                     ) : (
                         <select
-                            onChange={(e) => {
-                                const selectedDeviceId = e.target.value;
-                                if (qrScannerRef.current) {
-                                    qrScannerRef.current.setCamera(selectedDeviceId);
-                                }
-                            }}
+                            onChange={handleDeviceChange}
+                            value={selectedDeviceId || ''} // Mantiene la telecamera selezionata
                             className="bg-gray-200 text-gray-800 w-60 px-4 py-2 rounded-md mb-4 flex items-center justify-center truncate"
                         >
                             {devices.map((device, index) => (
