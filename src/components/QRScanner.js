@@ -6,6 +6,7 @@ export default function QRScanner() {
     const [scannedData, setScannedData] = useState({});
     const [isCameraActive, setIsCameraActive] = useState(true);
     const [devices, setDevices] = useState([]);
+    const [noCameraFound, setNoCameraFound] = useState(false); // State to track if no camera is found
     const videoRef = useRef(null);
     const qrScannerRef = useRef(null); // Ref for the QR Scanner
 
@@ -25,21 +26,23 @@ export default function QRScanner() {
                 }
             );
 
-            try{
+            try {
+                await fetchDevices();
                 await qrScannerRef.current.start();
-                fetchDevices();
-            }
-            catch (err) {
+            } catch (err) {
                 console.error('Error starting QR scanner:', err);
             }
         };
 
         const fetchDevices = async () => {
-            try{
+            console.log('Fetching devices...');
+            try {
                 const mediaDevices = await navigator.mediaDevices.enumerateDevices();
-                setDevices(mediaDevices.filter(device => device.kind === 'videoinput'));
-            }
-            catch (err) {
+                const videoDevices = mediaDevices.filter(device => device.kind === 'videoinput' && device.deviceId !== '');
+                setDevices(videoDevices);
+                setNoCameraFound(videoDevices.length === 0);
+            } catch (err) {
+                setNoCameraFound(true);
                 console.error('Error fetching devices:', err);
             }
         };
@@ -103,29 +106,37 @@ export default function QRScanner() {
                 <h2 className="text-2xl font-bold text-gray-700 mb-4 flex items-center">
                     <FaCamera className="mr-2"/> Scan with Camera
                 </h2>
-                <div className="flex w-full justify-center gap-5">
+                <div className="flex w-full justify-center gap-5 items-center">
                     <button
                         onClick={toggleCamera}
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4 flex items-center justify-center"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4 flex items-center justify-center disabled:bg-gray-300 disabled:text-gray-600 disabled:opacity-50"
+                        disabled={noCameraFound}
                     >
-                        {isCameraActive ? <FaTimes className="mr-2"/> : <FaCheck className="mr-2"/>}
-                        {isCameraActive ? 'Turn Off Camera' : 'Turn On Camera'}
+                        {isCameraActive && !noCameraFound ? <FaTimes className="mr-2"/> : <FaCheck className="mr-2"/>}
+                        {isCameraActive && !noCameraFound ? 'Turn Off Camera' : 'Turn On Camera'}
                     </button>
-                    <select
-                        onChange={(e) => {
-                            const selectedDeviceId = e.target.value;
-                            if (qrScannerRef.current) {
-                                qrScannerRef.current.setCamera(selectedDeviceId);
-                            }
-                        }}
-                        className="bg-gray-200 text-gray-800 w-60 px-4 py-2 rounded-md mb-4 flex items-center justify-center truncate"
-                    >
-                        {devices.map((device, index) => (
-                            <option key={index} value={device.deviceId}>
-                                {device.label || `Camera ${index + 1}`}
-                            </option>
-                        ))}
-                    </select>
+                    {noCameraFound ? (
+                        <div className="px-4 py-2 rounded-md mb-4 bg-red-100 text-red-800 flex flex-col items-center">
+                            <p className="font-semibold flex items-center justify-between">No Camera Found!</p>
+                            <p className="text-xs">Check site permissions and devices</p>
+                        </div>
+                    ) : (
+                        <select
+                            onChange={(e) => {
+                                const selectedDeviceId = e.target.value;
+                                if (qrScannerRef.current) {
+                                    qrScannerRef.current.setCamera(selectedDeviceId);
+                                }
+                            }}
+                            className="bg-gray-200 text-gray-800 w-60 px-4 py-2 rounded-md mb-4 flex items-center justify-center truncate"
+                        >
+                            {devices.map((device, index) => (
+                                <option key={index} value={device.deviceId}>
+                                    {device.label || `Camera ${index + 1}`}
+                                </option>
+                            ))}
+                        </select>
+                    )}
                 </div>
                 {isCameraActive && (
                     <div>
@@ -161,6 +172,5 @@ export default function QRScanner() {
                 </div>
             )}
         </div>
-)
-    ;
+    );
 }
