@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+svg.scan-region-highlight-svg {
+    stroke: #3b82f6 !important;
+    animation: none !important;
+}
+
+svg.code-outline-highlight {
+    stroke: #3b82f6 !important;
+    stroke-dasharray: 0 !important;
+    stroke-width: 8px !important;
+}
