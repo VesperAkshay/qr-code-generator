@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 // Assuming you have the logos as local images
@@ -8,12 +8,14 @@ import FacebookLogo from '../assets/facebook-logo.png';
 import TwitterLogo from '../assets/twitter-logo.png';
 import InstagramLogo from '../assets/instagram-logo.png';
 import LinkedInLogo from '../assets/linkedin-logo.png';
+import WhatsappLogo from '../assets/whatsapp.png';
 
 const socialMediaOptions = [
   { name: 'Facebook', icon: <FaFacebook />, color: '#1877F2', logoUrl: FacebookLogo },
   { name: 'Twitter', icon: <FaTwitter />, color: '#1DA1F2', logoUrl: TwitterLogo },
   { name: 'Instagram', icon: <FaInstagram />, color: '#E1306C', logoUrl: InstagramLogo },
   { name: 'LinkedIn', icon: <FaLinkedin />, color: '#0077B5', logoUrl: LinkedInLogo },
+  { name: 'Whatsapp', icon: <FaWhatsapp />, color: '#25D366', logoUrl: WhatsappLogo },
 ];
 
 export default function SocialMedia() {
