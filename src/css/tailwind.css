@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+svg.scan-region-highlight-svg {
+    stroke: #3b82f6 !important;
+    animation: none !important;
+}
+
+svg.code-outline-highlight {
+    stroke: #eea615 !important;
+    stroke-dasharray: 35 !important;
+    stroke-width: 5px !important;
+}
 
 body {
     --sb-track-color: #232E33;
