@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaQrcode, FaSignInAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import handqrimage  from "../../public/logo512.png"
+
 export default function Home() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-600 to-indigo-600">
@@ -64,9 +64,9 @@ export default function Home() {
             Glad you asked! Here’s a few basics to get you started.
           </p>
           <img 
-            src={handqrimage}
+            src="path_to_your_image" 
             alt="Hand holding custom QR Codes" 
-            className="mx-auto mb-6 h-60 w-60"
+            className="mx-auto mb-6"
           />
           <p className="text-md text-gray-600 mb-4">
             QR Code is a two-dimensional version of the barcode, typically made up of black and white pixel patterns. Denso Wave, a Japanese subsidiary of the Toyota supplier Denso, developed them for marking components in order to accelerate logistics processes for their automobile production. Now, it has found its way into mobile marketing with the widespread adoption of smartphones. "QR" stands for "Quick Response", which refers to the instant access to the information hidden in the Code.
