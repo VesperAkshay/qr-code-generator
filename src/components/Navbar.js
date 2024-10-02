@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../context/ThemeContext'
+
 import {
   FaUser,
   FaSignInAlt,
@@ -17,9 +19,10 @@ import {
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  
+  const {darkMode, setDarkMode} = useContext(ThemeContext);
 
   const handleLogout = async () => {
     try {
@@ -55,7 +58,7 @@ export default function Navbar() {
   return (
     <nav
       className={`p-4 shadow-lg ${
-        darkMode ? 'bg-gray-900' : 'bg-gradient-to-r from-indigo-600 to-purple-600'
+        darkMode ? 'bg-[#00050e] border-b-[1px] border-[#333333]' : 'bg-gradient-to-r from-indigo-600 to-purple-600'
       }`}
     >
       <div className="container mx-auto flex justify-between items-center">
