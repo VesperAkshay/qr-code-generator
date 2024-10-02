@@ -72,7 +72,7 @@ export default function Navbar() {
             QR Code Customizer
           </Link>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="hidden md:flex items-center space-x-4">
           {currentUser ? (
             <>
               <div className="relative flex items-center">
@@ -149,7 +149,73 @@ export default function Navbar() {
             </>
           )}
         </div>
+        {/* Mobile Dropdown Button */}
+        <div className="md:hidden">
+          <button onClick={toggleDropdown} className="text-white">
+            <FaBars />
+          </button>
+        </div>
       </div>
+      {/* Mobile Dropdown Menu */}
+      {dropdownOpen && (
+        <div className="md:hidden mt-2 w-full bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-20">
+          {currentUser ? (
+            <>
+              <Link
+                to="/dashboard"
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+              >
+                <FaUser className="mr-2" />
+                Dashboard
+              </Link>
+              <Link
+                to="/profile"
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+              >
+                <FaUser className="mr-2" />
+                Profile
+              </Link>
+              <Link
+                to="/settings"
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+              >
+                <FaCog className="mr-2" />
+                Settings
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-red-500 hover:text-white transition duration-300 w-full"
+              >
+                <FaSignOutAlt className="mr-2" />
+                Logout
+              </button>
+              <button
+                onClick={toggleDarkMode}
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300 w-full"
+              >
+                {darkMode ? <FaSun /> : <FaMoon />} Toggle Dark Mode
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+              >
+                <FaSignInAlt className="mr-2" />
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+              >
+                <FaUserPlus className="mr-2" />
+                Register
+              </Link>
+            </>
+          )}
+        </div>
+      )}
     </nav>
   );
 }
