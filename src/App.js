@@ -15,9 +15,11 @@ import  SocialMedia from './components/SocialMedia';
 import BulkQRCode from './components/BulkQRCode';
 import QRScanner from './components/QRScanner';
 import PdfQRCodeGenerator from './components/PDFToQR';
+import { ThemeProvider } from './context/ThemeContext';
 export default function App() {
   return (
     <AuthProvider>
+      <ThemeProvider>
       <Router>
         <Navbar />
         <Routes>
@@ -36,6 +38,7 @@ export default function App() {
           <Route path="/pdf-qr-code" element={<PdfQRCodeGenerator />} />
         </Routes>
       </Router>
+      </ThemeProvider>
     </AuthProvider>
   );
 }

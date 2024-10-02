@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaQrcode, FaUser, FaChartLine, FaCog, FaLifeRing, FaSignOutAlt, FaImage, FaShareAlt, FaBoxes, FaFilePdf } from 'react-icons/fa'; // Import PDF icon
 import { motion } from 'framer-motion';
+import { ThemeContext } from '../context/ThemeContext';
+
 
 export default function DashboardPage() {
+  const {darkMode} = useContext(ThemeContext);
+  
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 p-8">
+    <div className={`min-h-screen bg-gradient-to-r p-8 ${darkMode ? 'bg-gradient-to-r from-[#192646] to-[#00050e]' : ' bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500'}`}>
       <h1 className="text-5xl font-extrabold text-center text-white mb-12">Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {[
@@ -25,7 +29,7 @@ export default function DashboardPage() {
             key={index}
             whileHover={{ scale: 1.05, boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)" }}
             whileTap={{ scale: 0.98 }}
-            className={`p-6 ${bgColor} rounded-2xl shadow-lg transition-transform duration-300`}
+            className={`p-6 ${ darkMode ? `${bgColor} filter brightness-100 ` : `${bgColor}`} rounded-2xl shadow-lg transition-transform duration-300`}
           >
             <Link to={to} className="text-center flex flex-col items-center">
               <div className={`text-6xl mb-4 ${color} p-4 rounded-full shadow-md transition-transform duration-300`}>
