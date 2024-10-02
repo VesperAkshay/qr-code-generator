@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaQrcode, FaSignInAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import handqrimage  from "../../public/logo512.png"
+import handqrimage  from "../public/logo512.png"
 export default function Home() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-600 to-indigo-600">
