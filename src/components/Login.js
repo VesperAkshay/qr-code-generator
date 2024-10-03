@@ -31,7 +31,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
+    <div className="flex justify-center items-start min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
       <motion.form 
         onSubmit={handleSubmit} 
         className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-sm"
@@ -47,7 +47,7 @@ export default function Login() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
+            className="w-full font-semibold p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
             required
             whileFocus={{ scale: 1.02, boxShadow: "0 0 10px rgba(99, 102, 241, 0.5)" }}
           />
@@ -58,7 +58,7 @@ export default function Login() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
+            className="w-full font-semibold p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
             required
             whileFocus={{ scale: 1.02, boxShadow: "0 0 10px rgba(99, 102, 241, 0.5)" }}
           />
@@ -73,7 +73,7 @@ export default function Login() {
         <motion.button
           type="button"
           onClick={handleGoogleLogin}
-          className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-300 shadow-lg flex items-center justify-center font-semibold"
+          className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-150 shadow-lg flex items-center justify-center font-semibold"
           whileHover={{ scale: 1.05 }}
         >
           <FcGoogle className="mr-2 size-8" />
