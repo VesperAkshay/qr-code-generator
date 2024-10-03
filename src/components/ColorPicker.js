@@ -8,7 +8,7 @@ export default function ColorPicker({ color, setColor, bgColor, setBgColor, eyeC
 
       <div>
         <label className="flex items-center mb-2 text-gray-800 font-bold">
-          <FaPalette className="mr-2 text-blue-500" /> QR Code Color
+          <FaPalette className="mr-2 text-indigo-500" /> QR Code Color
         </label>
         <motion.input
           type="color"
@@ -22,7 +22,7 @@ export default function ColorPicker({ color, setColor, bgColor, setBgColor, eyeC
 
       <div>
         <label className="flex items-center mb-2 text-gray-800 font-bold">
-          <FaPalette className="mr-2 text-blue-500" /> Background Color
+          <FaPalette className="mr-2 text-indigo-500" /> Background Color
         </label>
         <motion.input
           type="color"
@@ -36,7 +36,7 @@ export default function ColorPicker({ color, setColor, bgColor, setBgColor, eyeC
 
       <div>
         <label className="flex items-center mb-2 text-gray-800 font-bold">
-          <FaPalette className="mr-2 text-blue-500" /> Eye Color
+          <FaPalette className="mr-2 text-indigo-500" /> Eye Color
         </label>
         <motion.input
           type="color"
@@ -50,7 +50,7 @@ export default function ColorPicker({ color, setColor, bgColor, setBgColor, eyeC
 
       <div>
         <label className="flex items-center mb-2 text-gray-800 font-bold">
-          <FaSquare className="mr-2 text-blue-500" /> Shape
+          <FaSquare className="mr-2 text-indigo-500" /> Shape
         </label>
         <motion.select
           value={shape}
@@ -67,7 +67,7 @@ export default function ColorPicker({ color, setColor, bgColor, setBgColor, eyeC
 
       <div>
         <label className="flex items-center mb-2 text-gray-800 font-bold">
-          <FaBorderStyle className="mr-2 text-blue-500" /> Frame
+          <FaBorderStyle className="mr-2 text-indigo-500" /> Frame
         </label>
         <motion.select
           value={frame}
@@ -84,7 +84,7 @@ export default function ColorPicker({ color, setColor, bgColor, setBgColor, eyeC
 
       <div>
         <label className="flex items-center mb-2 text-gray-800 font-bold">
-          <FaCircle className="mr-2 text-blue-500" /> Eye Shape
+          <FaCircle className="mr-2 text-indigo-500" /> Eye Shape
         </label>
         <motion.select
           value={eyeShape}
