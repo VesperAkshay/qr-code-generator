@@ -9,6 +9,7 @@ Welcome to the QR Code Customization Website project! This web application allow
    4. [Installation Guide](#installation-guide)
    5. [Getting Started](#getting-started)
    6. [FAQ](#faq)
+   7. [Contact](#contact)
 
 ## Features
 
@@ -125,3 +126,8 @@ A: During the customization process, click on the Add Logo button and upload you
 #### Q: What formats can I download the QR codes in?
 
 A: Yes, you are free to use the generated QR codes for both personal and commercial purposes.
+
+## contact
+
+For Queries and issue related question you can contact me on Discord
+*Discord Username:* akshaypatell_
