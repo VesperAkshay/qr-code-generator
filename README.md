@@ -130,4 +130,5 @@ A: Yes, you are free to use the generated QR codes for both personal and commerc
 ## contact
 
 For Queries and issue related question you can contact me on Discord
+
 *Discord Username:* akshaypatell_
