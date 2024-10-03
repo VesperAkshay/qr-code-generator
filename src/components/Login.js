@@ -31,7 +31,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-start min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
       <motion.form 
         onSubmit={handleSubmit} 
         className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-sm"
