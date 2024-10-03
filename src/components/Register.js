@@ -4,6 +4,7 @@ import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FcGoogle } from 'react-icons/fc';
+import toast from 'react-hot-toast';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -15,8 +16,10 @@ export default function Register() {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
+      toast.success("Register Successful");
     } catch (error) {
-      alert(error.message);
+      toast.error('Something went wrong');
+      console.error(error.message);
     }
   };
 
@@ -25,8 +28,10 @@ export default function Register() {
     try {
       await signInWithPopup(auth, provider);
       navigate('/dashboard');
+      toast.success("Register Successful");
     } catch (error) {
-      alert(error.message);
+      toast.error('Something went wrong');
+      console.error(error.message);
     }
   };
 

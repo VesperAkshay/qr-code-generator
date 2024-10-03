@@ -8,6 +8,7 @@ import ColorPicker from './ColorPicker';
 import SizeSlider from './SizeSlider';
 import FileUploader from './FileUploader';
 import DownloadButton from './DownloadButton';
+import toast from 'react-hot-toast';
 
 export default function QRCodeGenerator() {
   const [text, setText] = useState('');
@@ -55,19 +56,24 @@ export default function QRCodeGenerator() {
     // Check for required fields based on selected category
     if (category === 'vCard') {
       if (!vCardDetails.fullName || !vCardDetails.organization || !vCardDetails.phone || !vCardDetails.email) {
-        alert("Please fill in all fields for vCard.");
+        toast.error("Please fill in all fields for vCard.")
         return;
       }
       setText(`BEGIN:VCARD\nVERSION:3.0\nFN:${vCardDetails.fullName}\nORG:${vCardDetails.organization}\nTEL:${vCardDetails.phone}\nEMAIL:${vCardDetails.email}\nEND:VCARD`);
     } else if (category === 'wifi') {
       if (!wifiDetails.ssid || !wifiDetails.password) {
-        alert("Please fill in the SSID and password for WiFi.");
+        toast.error("Please fill in the SSID and password for WiFi.");
         return;
       }
       setText(`WIFI:T:${wifiDetails.encryption};S:${wifiDetails.ssid};P:${wifiDetails.password};;`);
-    } else if (category === 'text' || category === 'URL') {
+    } else if (category === 'text') {
       if (!text.trim()) {
-        alert("Text field is empty. Please enter valid data.");
+        toast.error("Please fill in text field");
+        return;
+      }
+    } else if ( category === 'URL') {
+      if (!text.trim()) {
+        toast.error("Please fill in URL field");
         return;
       }
     }

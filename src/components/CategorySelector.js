@@ -35,13 +35,13 @@ export default function CategorySelector({ category, handleCategoryChange }) {
           }}
         >
           <motion.div
-            className={`text-2xl mb-2 p-2 rounded-full ${
-              category === name ? 'bg-white text-blue-500' : 'bg-gray-200 text-gray-700'
+            className={`text-2xl mb-2 p-2 rounded-full bg-white ${
+              category === name ? 'text-blue-500' : ' text-gray-700'
             }`}
             whileHover={{
-              scale: 1.25,
+              // scale: 1.25,
               backgroundColor: category === name ? '#FFFFFF' : '#E5E7EB',
-              transition: { duration: 0.1 },
+              // transition: { duration: 0.1 },
             }}
           >
             <FontAwesomeIcon icon={icon} />
