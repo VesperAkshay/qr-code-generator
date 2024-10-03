@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import { FaGoogle } from 'react-icons/fa';
+import { FcGoogle } from "react-icons/fc";
 import { motion } from 'framer-motion';
 
 export default function Login() {
@@ -73,11 +73,11 @@ export default function Login() {
         <motion.button
           type="button"
           onClick={handleGoogleLogin}
-          className="w-full mt-6 bg-red-600 text-white p-4 rounded-lg hover:bg-red-700 transition-colors duration-300 shadow-lg flex items-center justify-center font-semibold"
+          className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-300 shadow-lg flex items-center justify-center font-semibold"
           whileHover={{ scale: 1.05 }}
         >
-          <FaGoogle className="mr-2" />
-          Sign in with Google
+          <FcGoogle className="mr-2 size-8" />
+          Sign in with <span className="font-bold ml-1"> Google</span>
         </motion.button>
       </motion.form>
     </div>
