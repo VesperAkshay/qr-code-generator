@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaQrcode, FaSignInAlt } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import TwitterLogo from '../assets/twitter.png';
+import MetaLogo from '../assets/meta.png';
+import InstagramLogo from '../assets/instagram.png';
 
 export default function Home() {
   return (
@@ -166,6 +170,30 @@ export default function Home() {
             Don't have an account? 
             <Link to="/register" className="text-blue-600 hover:text-blue-800 transition-colors duration-300 hover:underline ml-1">Sign up here</Link>.
           </p>
+        </motion.div>
+        {/* Follow Us on Social Section */}
+        <motion.div
+          className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50 col-span-1 md:col-span-2 mt-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 1.3, ease: "easeOut" }}
+        >
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">Follow Us on Social</h3>
+          <h4 className='mb-4'>Follow us on social media to keep up with new features and exciting news!</h4>
+          <div className="flex justify-center space-x-6">
+            <a href="https://www.facebook.com" className="text-blue-600 text-3xl hover:text-blue-800">
+            <img src={MetaLogo} alt="Facebook" className="h-8 w-8" />
+            </a>
+            <a href="https://www.twitter.com" className="text-blue-400 text-3xl hover:text-blue-600">
+            <img src={TwitterLogo} alt="Twitter" className="mt-1 h-6 w-6" />
+            </a>
+            <a href="https://www.instagram.com" className="text-pink-600 text-3xl hover:text-pink-800">
+            <img src={InstagramLogo} alt="Instagram" className="h-8 w-8" />
+            </a>
+            <a href="https://www.linkedin.com" className="text-blue-700 text-3xl hover:text-blue-900">
+              <FaLinkedin />
+            </a>
+          </div>
         </motion.div>
       </motion.div>
     </div>
