@@ -50,7 +50,7 @@
 
 <hr>
 
-##:sparkles:Contributing
+## :sparkles:Contributing
 
 We welcome contributions from the open-source community! If you'd like to contribute:
 
@@ -97,7 +97,7 @@ npm install
 <hr>
 
 
-##⚡️Getting Started
+## ⚡️Getting Started
 
 ### Prerequisites
 
@@ -161,7 +161,7 @@ A: Yes, you are free to use the generated QR codes for both personal and commerc
 <hr>
 
 ## ⚡Contact 
-[![My Discord (YOURUSERID)](https://img.shields.io/badge/My-Discord-%235865F2.svg)](https://discord.com/users/YOURUSERID)
+[![My Discord (YOURUSERID)](https://img.shields.io/badge/My-Discord-%235865F2.svg)](https://discord.com/users/akshaypatell_)
 
 For Queries and issue related question you can contact me on Discord
 
