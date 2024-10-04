@@ -20,6 +20,7 @@
    5. [Getting Started](#getting-started)
    6. [FAQ](#faq)
    7. [Contact](#contact)
+   8. [Code of Conduct](#code-of-conduct)
 </details>
 <hr>
 
@@ -59,6 +60,12 @@ We welcome contributions from the open-source community! If you'd like to contri
 3. Commit your changes *(git commit -m 'Add some feature').*
 4. Push to the branch *(git push origin feature/your-feature).*
 5. Open a Pull Request.
+   
+To maintain quality and consistency, please adhere to the following guidelines:
+1. Code Style: Follow the coding style used throughout the project. Clean, readable code with comments is always appreciated.
+2. Commits: Write meaningful commit messages.
+3. Pull Requests: Make sure PRs are focused, well-explained, and reference any issues they address.
+4. Testing: Ensure that your changes are well-tested locally and don’t break existing functionality.
 
 <hr>
 
@@ -167,7 +174,9 @@ For Queries and issue related question you can contact me on Discord
 
 *Discord Username:* akshaypatell_
 
+## 🪄 Code of conduct
 
+Want to be part of the community? Check out our **[Code of Conduct](https://github.com/VesperAkshay/qr-code-generator/blob/main/Code_Of_Conduct.md)**
 
 <hr>
 <div>
