@@ -6,6 +6,7 @@ import { FaUserEdit, FaLock, FaSignOutAlt, FaEdit } from "react-icons/fa";
 import { MdMarkEmailRead } from "react-icons/md"; // Make sure the path is correct
 import { motion } from "framer-motion";
 import AvatarSelectionModal from "./AvatarSelectionModel";
+import toast from "react-hot-toast";
 
 const avatars = [
   "/avatars/avatar1.png",
@@ -38,10 +39,13 @@ export default function Profile() {
         displayName,
         photoURL: selectedAvatar,
       });
-      setSuccess("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
+      // setSuccess("Profile updated successfully!");
       setError("");
     } catch (error) {
-      setError(error.message);
+      toast.error("Cannot update Profile");
+      // setError(error.message);
+      console.error(error.message);
       setSuccess("");
     }
   };
@@ -50,23 +54,57 @@ export default function Profile() {
     try {
       if (newPassword) {
         await updatePassword(currentUser, newPassword);
-        setSuccess("Password updated successfully!");
+        // setSuccess("Password updated successfully!");
+        toast.success("Password updated successfully!");
         setError("");
       }
     } catch (error) {
-      setError(error.message);
+      toast.error("Cannot update Password");
+      // setError(error.message);
+      console.error(error.message);
       setSuccess("");
     }
   };
 
   const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/");
-    } catch (error) {
-      setError("Failed to log out: " + error.message);
-      setSuccess("");
-    }
+    // Show a confirmation toast
+    const confirmation = toast(
+      (t) => (
+        <div>
+          <p>Are you sure you want to log out?</p>
+          <div className="flex justify-between">
+            <button
+              onClick={() => {
+                toast.dismiss(t.id); // Dismiss the confirmation toast
+              }}
+              className="text-blue-600 hover:bg-blue-200 px-4 py-2 bg-blue-100 m-2 mt-4 rounded-md "
+            >
+              Cancel
+            </button>
+            <button
+              onClick={async () => {
+                toast.dismiss(t.id); // Dismiss the confirmation toast
+                try {
+                  await logout(); // Proceed with logout
+                  navigate("/"); // Redirect to the home page after logout
+                  toast.success("Logged out");
+                } catch (error) {
+                  console.error("Failed to log out", error);
+                  toast.error("Logout failed. Please try again."); // Show an error message
+                }
+              }}
+              className="text-red-600 hover:bg-red-200 px-4 py-2 bg-red-100 m-2 mt-4 rounded-md "
+            >
+              Log out
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        duration: 0, // Keep the toast open until dismissed
+        position: 'top-center', // Adjust position if needed
+      }
+    )
   };
 
   const openModal = () => setIsModalOpen(true);
@@ -140,13 +178,13 @@ export default function Profile() {
           <label className="block text-lg font-medium">Email</label>
           <div className="relative mt-2">
             <MdMarkEmailRead className="text-xl absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-300" />
-          <input
-            type="email"
-            value={currentUser.email}
-            disabled
-            className="font-semibold pl-12 py-3 border border-gray-400 rounded-lg w-full bg-gray-200 cursor-not-allowed text-gray-900"
-            placeholder="Your email address"
-          /></div>
+            <input
+              type="email"
+              value={currentUser.email}
+              disabled
+              className="font-semibold pl-12 py-3 border border-gray-400 rounded-lg w-full bg-gray-200 cursor-not-allowed text-gray-900"
+              placeholder="Your email address"
+            /></div>
         </motion.div>
 
         <motion.div
