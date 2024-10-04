@@ -16,6 +16,8 @@ import BulkQRCode from './components/BulkQRCode';
 import QRScanner from './components/QRScanner';
 import PdfQRCodeGenerator from './components/PDFToQR';
 import { ThemeProvider } from './context/ThemeContext';
+import { Toaster } from 'react-hot-toast';
+
 export default function App() {
   return (
     <AuthProvider>
@@ -38,6 +40,7 @@ export default function App() {
           <Route path="/pdf-qr-code" element={<PdfQRCodeGenerator />} />
         </Routes>
       </Router>
+      <Toaster />
       </ThemeProvider>
     </AuthProvider>
   );
