@@ -1,16 +1,24 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useRef } from 'react';
 
 const ThemeContext = createContext();
 
 const ThemeProvider = ({ children }) => {
-  // Check localStorage for the darkMode preference on initial load
   const [darkMode, setDarkMode] = useState(() => {
     const storedPreference = localStorage.getItem('qr-web-darkMode');
-    return storedPreference ? JSON.parse(storedPreference) : false; // Default to false(light theme)
+    return storedPreference ? JSON.parse(storedPreference) : false; // Default to false (light theme)
   });
 
-  // Update localStorage whenever it changes
+  // To avoid showing toast on initial render
+  const isFirstRender = useRef(true);
+
+  // Update localStorage and show toast whenever theme changes (but skip the first render)
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // Skip the first render
+    }
+
+    // Update localStorage
     localStorage.setItem('qr-web-darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
