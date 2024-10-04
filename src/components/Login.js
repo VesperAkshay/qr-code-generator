@@ -1,36 +1,56 @@
+
+
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { motion } from 'framer-motion';
-import toast from 'react-hot-toast';
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setCurrentUser } = useAuth(); // Get setCurrentUser from Auth context
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard');
-      toast.success("Login Successful");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Set currentUser from context
+      setCurrentUser(user);
+
+      // Navigate only if user is verified
+      if (user.emailVerified) {
+        navigate('/dashboard');
+      } else {
+        alert('Please verify your email before logging in.');
+      }
     } catch (error) {
-      toast.error('Something went wrong');
-      console.error(error.message);
+      alert(error.message);
     }
   };
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      navigate('/dashboard');
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+
+      // Set currentUser from context
+      setCurrentUser(user);
+
+      // Navigate only if user is verified
+      if (user.emailVerified) {
+        navigate('/dashboard');
+      } else {
+        alert('Please verify your email before logging in.');
+      }
     } catch (error) {
-      toast.error('Something went wrong');
-      console.error(error.message);
+      alert(error.message);
     }
   };
 
