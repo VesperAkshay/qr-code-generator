@@ -7,36 +7,62 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app" />
+      content="Web site created using create-react-app"
+    />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
     <title>QR Generator</title>
+
+    <style>
+      /* Scroll to Top button styles */
+      #scrollToTopBtn {
+          position: fixed;
+          bottom: 20px;
+          right: 30px;
+          z-index: 100;
+          border: none;
+          outline: none;
+          background-color: #007BFF; /* Button color */
+          color: white; /* Text color */
+          cursor: pointer;
+          padding: 10px 15px;
+          border-radius: 5px;
+          font-size: 16px;
+          display: none; /* Initially hidden */
+      }
+
+      #scrollToTopBtn:hover {
+          background-color: #0056b3; /* Darker button color on hover */
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <!-- Arrow icon for the Scroll to Top button -->
+    <button id="scrollToTopBtn" style="display: none;">&uarr;</button>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <script>
+      // Get the button
+      const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+      // Show or hide the button based on scroll position
+      window.onscroll = function() {
+          if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+              scrollToTopBtn.style.display = 'block'; // Show the button
+          } else {
+              scrollToTopBtn.style.display = 'none'; // Hide the button
+          }
+      };
+
+      // Scroll to the top when the button is clicked
+      scrollToTopBtn.onclick = function() {
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth' // Smooth scroll effect
+          });
+      };
+    </script>
   </body>
 </html>
