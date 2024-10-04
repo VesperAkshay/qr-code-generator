@@ -40,7 +40,7 @@
 
   
 ## <div>
-<h2><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/High%20Voltage.png" alt="High Voltage" width="35" height="35" />Technologies Used</h2>
+<h2><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/High%20Voltage.png" alt="High Voltage" width="35" height="35" /> Technologies Used</h2>
 </div>
 
 - **Front-end:** HTML, CSS, JavaScript, Bootstrap for a responsive design.
@@ -51,7 +51,7 @@
 
 <hr>
 
-## :sparkles:Contributing
+## ✨Contributing
 
 We welcome contributions from the open-source community! If you'd like to contribute:
 
