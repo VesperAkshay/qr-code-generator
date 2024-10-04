@@ -4,8 +4,8 @@ import { FaExpandArrowsAlt } from 'react-icons/fa';
 export default function SizeSlider({ size, setSize }) {
   return (
     <div className="mb-6">
-      <label className="mb-2 text-gray-700 flex items-center">
-        <FaExpandArrowsAlt className="mr-2 text-gray-500" />
+      <label className="mb-2 text-gray-700 dark:text-gray-200 flex items-center">
+        <FaExpandArrowsAlt className="mr-2 text-gray-500 dark:text-gray-200 " />
         Size
       </label>
       <div className="relative">

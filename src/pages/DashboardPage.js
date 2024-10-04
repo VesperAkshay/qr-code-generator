@@ -105,10 +105,7 @@ export default function DashboardPage() {
   ];
 
   const handleLogout = async () => {
-<<<<<<< HEAD
     // Show a confirmation toast
-=======
->>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
     const confirmation = toast(
       (t) => (
         <div>
@@ -143,19 +140,11 @@ export default function DashboardPage() {
       ),
       {
         duration: 0, // Keep the toast open until dismissed
-<<<<<<< HEAD
         position: 'top-center', // Adjust position if needed
       }
     )
   };
   
-=======
-        position: 'top-center',
-      }
-    );
-  };
-
->>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
   return (
     <div className="p-2">
     <div
@@ -175,11 +164,7 @@ export default function DashboardPage() {
                 boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
               }}
               whileTap={{ scale: 0.98 }}
-<<<<<<< HEAD
               className={`p-6 ${bgColor} dark:filter dark:brightness-100 rounded-2xl shadow-lg transition-transform duration-300`}
-=======
-              className={`p-6 ${bgColor} rounded-2xl shadow-lg transition-transform duration-300`}
->>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
             >
               <Link to={to} className="text-center flex flex-col items-center">
                 <div className={`text-6xl mb-4 ${color} p-4 rounded-full shadow-md transition-transform duration-300`}>
@@ -201,11 +186,7 @@ export default function DashboardPage() {
             boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
           }}
           whileTap={{ scale: 0.98 }}
-<<<<<<< HEAD
           className="p-6 bg-gray-600 dark:filter dark:brightness-100 rounded-2xl shadow-lg transition-transform duration-300 cursor-pointer"
-=======
-          className="p-6 bg-gray-600 rounded-2xl shadow-lg transition-transform duration-300 cursor-pointer"
->>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
         >
           <div className="text-center flex flex-col items-center">
             <div className="text-6xl mb-4 text-white p-4 rounded-full shadow-md transition-transform duration-300">

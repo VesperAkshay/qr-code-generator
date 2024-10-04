@@ -80,7 +80,10 @@ export default function SocialMedia() {
           max="512"
           value={size}
           onChange={(e) => setSize(e.target.value)}
-          className="w-full h-2 bg-gray-300 dark:bg-[#2b2661] rounded-lg appearance-none cursor-pointer slider-thumb"
+          className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+          style={{
+            background: `linear-gradient(to right, #4f46e5 ${((size - 128) / 384) * 100}%, #d1d5db ${((size - 128) / 384) * 100}%)`,
+          }}
         />
       </div>
 

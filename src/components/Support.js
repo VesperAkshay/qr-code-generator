@@ -33,7 +33,7 @@ export default function Support() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-2 p-3 border border-gray-400 dark:border-gray-600 rounded-lg w-full dark:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+              className="mt-2 p-3 border border-gray-400 dark:text-gray-100 dark:border-gray-600 rounded-lg w-full dark:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               placeholder="Enter your email"
               required
             />
@@ -43,7 +43,7 @@ export default function Support() {
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="mt-2 p-3 border border-gray-400 dark:border-gray-600 rounded-lg w-full dark:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+              className="mt-2 p-3 border border-gray-400 dark:text-gray-100 dark:border-gray-600 rounded-lg w-full dark:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               placeholder="Enter your message"
               rows="5"
               required

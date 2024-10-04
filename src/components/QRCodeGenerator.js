@@ -143,7 +143,7 @@ export default function QRCodeGenerator() {
 
   return (
     <motion.div
-      className="p-8 max-w-lg mx-auto bg-white rounded-lg shadow-lg mt-10"
+      className="p-8 max-w-lg mx-auto bg-purple-100 dark:bg-indigo-950 rounded-xl shadow-lg mt-10"
       initial={{ opacity: 0, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -180,7 +180,7 @@ export default function QRCodeGenerator() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             rows="4"
-            className="w-full dark:bg-[#2b2661] dark:text-gray-200 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 shadow-lg"
+            className="w-full dark:bg-[#2b2661] dark:text-gray-200 p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 shadow-lg"
             placeholder={`Enter ${category}`}
           />
         </motion.div>

@@ -16,7 +16,7 @@ export default function VCardForm({ vCardDetails, setVCardDetails, setText }) {
   };
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md max-w-4xl mx-auto mb-6">
+    <div className="p-4 bg-purple-100 dark:bg-[#2b2661] rounded-lg shadow-md max-w-4xl mx-auto mb-6">
       <div className="space-y-6">
         {[
           { name: 'fullName', label: 'Full Name', icon: faUser, placeholder: 'John Doe' },

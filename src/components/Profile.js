@@ -181,7 +181,7 @@ export default function Profile() {
               type="email"
               value={currentUser.email}
               disabled
-              className="font-semibold pl-12 py-3 border border-gray-400 rounded-lg w-full bg-gray-200 cursor-not-allowed text-gray-900"
+              className="font-semibold pl-12 py-3 border border-gray-400 rounded-lg w-full bg-gray-200 dark:text-gray-400 dark:bg-indigo-950 cursor-not-allowed text-gray-900"
               placeholder="Your email address"
             /></div>
         </motion.div>
