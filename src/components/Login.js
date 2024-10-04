@@ -104,6 +104,9 @@ export default function Login() {
           Sign in with <span className="font-bold ml-1"> Google</span>
         </motion.button>
       </motion.form>
+
+      
+
     </div>
   );
 }

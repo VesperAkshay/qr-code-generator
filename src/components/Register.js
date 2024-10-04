@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { FcGoogle } from 'react-icons/fc'; // Import Google icon
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -16,20 +16,19 @@ export default function Register() {
     const auth = getAuth();
 
     try {
-     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-  const user = userCredential.user;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-  await sendEmailVerification(user);
-  setSuccessMessage('Registration successful! Please check your email to verify your account.');
+      await sendEmailVerification(user);
+      setSuccessMessage('Registration successful! Please check your email to verify your account.');
 
-  // Navigate to the login page after 3 seconds
-  setTimeout(() => {
-    navigate('/login');
-  }, 3000); // 3000 milliseconds = 3 seconds
+      // Navigate to the login page after 3 seconds
+      setTimeout(() => {
+        navigate('/login');
+      }, 3000); // 3000 milliseconds = 3 seconds
 
-  // Clear message after 3 seconds
-  setTimeout(() => setSuccessMessage(''), 3000);
-
+      // Clear message after 3 seconds
+      setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
       setError(error.message);
       console.error("Error during registration", error);
@@ -52,6 +51,17 @@ export default function Register() {
         <motion.input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full p-4 border border-gray-300 rounded-lg mb-4" />
         <motion.input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full p-4 border border-gray-300 rounded-lg mb-8" />
         <motion.button type="submit" className="w-full bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg font-semibold">Register</motion.button>
+      
+        {/* Google Register Button */}
+        <motion.button
+          type="button"
+          // onClick={handleGoogleRegister} // Uncomment this when you define handleGoogleRegister
+          className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-150 shadow-lg flex items-center justify-center font-semibold"
+          whileHover={{ scale: 1.05 }}
+        >
+          <FcGoogle className="mr-2 size-8" />
+          Register with <span className="font-bold ml-1">Google</span>
+        </motion.button>
       </motion.form>
     </div>
   );
