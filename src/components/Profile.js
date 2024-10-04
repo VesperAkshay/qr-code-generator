@@ -6,7 +6,6 @@ import { FaUserEdit, FaLock, FaSignOutAlt, FaEdit } from "react-icons/fa";
 import { MdMarkEmailRead } from "react-icons/md"; // Make sure the path is correct
 import { motion } from "framer-motion";
 import AvatarSelectionModal from "./AvatarSelectionModel";
-import toast from "react-hot-toast";
 
 const avatars = [
   "/avatars/avatar1.png",
@@ -39,8 +38,7 @@ export default function Profile() {
         displayName,
         photoURL: selectedAvatar,
       });
-      // setSuccess("Profile updated successfully!");
-      toast.success("Profile updated successfully!");
+      setSuccess("Profile updated successfully!");
       setError("");
     } catch (error) {
       setError(error.message);
@@ -52,8 +50,7 @@ export default function Profile() {
     try {
       if (newPassword) {
         await updatePassword(currentUser, newPassword);
-        // setSuccess("Password updated successfully!");
-        toast.success("Password updated successfully!");
+        setSuccess("Password updated successfully!");
         setError("");
       }
     } catch (error) {
@@ -63,44 +60,13 @@ export default function Profile() {
   };
 
   const handleLogout = async () => {
-    // Show a confirmation toast
-    const confirmation = toast(
-      (t) => (
-        <div>
-          <p>Are you sure you want to log out?</p>
-          <div className="flex justify-between">
-            <button 
-              onClick={() => {
-                toast.dismiss(t.id); // Dismiss the confirmation toast
-              }}
-              className="text-blue-600 hover:bg-blue-200 px-4 py-2 bg-blue-100 m-2 mt-4 rounded-md "
-            >
-              Cancel
-            </button>
-            <button 
-              onClick={async () => {
-                toast.dismiss(t.id); // Dismiss the confirmation toast
-                try {
-                  await logout(); // Proceed with logout
-                  navigate("/"); // Redirect to the home page after logout
-                  toast.success("Logged out");
-                } catch (error) {
-                  console.error("Failed to log out", error);
-                  toast.error("Logout failed. Please try again."); // Show an error message
-                }
-              }}
-              className="text-red-600 hover:bg-red-200 px-4 py-2 bg-red-100 m-2 mt-4 rounded-md "
-            >
-              Log out
-            </button>
-          </div>
-        </div>
-      ),
-      {
-        duration: 0, // Keep the toast open until dismissed
-        position: 'top-center', // Adjust position if needed
-      }
-    );
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      setError("Failed to log out: " + error.message);
+      setSuccess("");
+    }
   };
 
   const openModal = () => setIsModalOpen(true);

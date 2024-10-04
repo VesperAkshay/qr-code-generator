@@ -4,7 +4,6 @@ import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { motion } from 'framer-motion';
-import toast from 'react-hot-toast';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -16,10 +15,8 @@ export default function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
-      toast.success("Login Successful");
     } catch (error) {
-      toast.error('Something went wrong');
-      console.error(error.message);
+      alert(error.message);
     }
   };
 
@@ -28,10 +25,8 @@ export default function Login() {
     try {
       await signInWithPopup(auth, provider);
       navigate('/dashboard');
-      toast.success("Login Successful");
     } catch (error) {
-      toast.error('Something went wrong');
-      console.error(error.message);
+      alert(error.message);
     }
   };
 
