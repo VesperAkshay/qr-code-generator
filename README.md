@@ -1,8 +1,18 @@
-# QR Code Customization Website
+<a id="top"></a>
+<h1 align="center">QR Code Customization</h1>
+<h3 align="center">
+   Welcome to the QR Code Customization Website project! This web application allows users to generate and customize QR codes with various options, including text input, color, pattern, frame, and more.
+ 
+</h3>
 
-Welcome to the QR Code Customization Website project! This web application allows users to generate and customize QR codes with various options, including text input, color, pattern, frame, and more.
+<hr/>
 
-## Table of Contents
+![image](https://github.com/user-attachments/assets/5c981030-6577-4d42-a57b-d5c9a6798562)
+
+
+<details>
+  <summary><h2>:pushpin:Table of Contents: </h2></summary>
+
    1. [Features](#features)
    2. [Technologies Used](#technologies-used)
    3. [Contributing](#contributing)
@@ -10,6 +20,9 @@ Welcome to the QR Code Customization Website project! This web application allow
    5. [Getting Started](#getting-started)
    6. [FAQ](#faq)
    7. [Contact](#contact)
+</details>
+<hr>
+
 
 ## Features
 
@@ -25,7 +38,9 @@ Welcome to the QR Code Customization Website project! This web application allow
 - **Profile Page:** Displays their *account information*, including their *name*, *email*, and associated authentication methods. The page also features a secure *logout* option.
 
   
-## Technologies Used
+## <div>
+<h2><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/High%20Voltage.png" alt="High Voltage" width="35" height="35" />Technologies Used</h2>
+</div>
 
 - **Front-end:** HTML, CSS, JavaScript, Bootstrap for a responsive design.
 - **Back-end:** Node.js, Express for server-side logic.
@@ -33,7 +48,9 @@ Welcome to the QR Code Customization Website project! This web application allow
 - **QR Code Generation:** QR Code API (e.g., QRCode.js, or other libraries).
 - **Hosting:** Deployed on platforms such as Firebase Hosting or Heroku.
 
-## Contributing
+<hr>
+
+## :sparkles:Contributing
 
 We welcome contributions from the open-source community! If you'd like to contribute:
 
@@ -43,9 +60,11 @@ We welcome contributions from the open-source community! If you'd like to contri
 4. Push to the branch *(git push origin feature/your-feature).*
 5. Open a Pull Request.
 
+<hr>
 
-## Installation Guide
-
+ <details>
+   <summary><h2>Installation Guide ⚡️</h2></summary>
+    
 #### PrePrerequisites
 Before installing the project locally, ensure you have the following installed:
 
@@ -72,10 +91,13 @@ npm install
 
 - Create a Firebase project and enable authentication and database services.
 - Add Firebase credentials to your project (Firebase config keys).
-    
+
+  </details>
+
+<hr>
 
 
-## Getting Started
+## ⚡️Getting Started
 
 ### Prerequisites
 
@@ -113,7 +135,14 @@ REACT_APP_FIREBASE_MESSAGING_SENDER_ID=""
 REACT_APP_FIREBASE_APP_ID=""
 REACT_APP_FIREBASE_MEASUREMENT_ID=""
 ```
-## FAQ
+
+
+<hr>
+
+
+ <details>
+    
+   <summary><h2>✍️FAQ</h2></summary>
 
 #### Q: Can I use the generated QR codes for commercial purposes?
 
@@ -127,8 +156,28 @@ A: During the customization process, click on the Add Logo button and upload you
 
 A: Yes, you are free to use the generated QR codes for both personal and commercial purposes.
 
-## contact
+</details>
+
+<hr>
+
+## ⚡Contact 
+[![My Discord (YOURUSERID)](https://img.shields.io/badge/My-Discord-%235865F2.svg)](https://discord.com/users/akshaypatell_)
 
 For Queries and issue related question you can contact me on Discord
 
 *Discord Username:* akshaypatell_
+
+
+
+<hr>
+<div>
+  <h2><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f_1f3fb/512.webp" width="35" height="35"> Support </h2>
+</div>
+
+<div>
+  Don't forget to leave a star<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f31f/512.webp" width="35" height="30"> for this project!
+</div> <br>
+
+<a href="#top" style="position: fixed; bottom: 20px; right: 20px; background-color: black ; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px; font-family: Arial; font-size: 16px;">Go to Top</a>
+
+
