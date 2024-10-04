@@ -4,7 +4,7 @@ import { FaExpandArrowsAlt } from 'react-icons/fa';
 export default function SizeSlider({ size, setSize }) {
   return (
     <div className="mb-6">
-      <label className=" mb-2 text-gray-700 flex items-center">
+      <label className="mb-2 text-gray-700 flex items-center">
         <FaExpandArrowsAlt className="mr-2 text-gray-500" />
         Size
       </label>
@@ -15,11 +15,10 @@ export default function SizeSlider({ size, setSize }) {
           max="600"
           value={size}
           onChange={(e) => setSize(e.target.value)}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-thumb"
-        />
-        <div
-          className="absolute top-0 left-0 h-full bg-indigo-500 rounded-lg"
-          style={{ width: `${((size - 100) / 500) * 100}%` }}
+          className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+          style={{
+            background: `linear-gradient(to right, #4f46e5 ${((size - 100) / 500) * 100}%, #d1d5db ${((size - 100) / 500) * 100}%)`,
+          }}
         />
       </div>
       <span className="block text-center text-gray-600 dark:text-gray-300 mt-2 text-lg font-semibold">

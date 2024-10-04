@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
+import toast from "react-hot-toast";
 
 import {
   FaUser,
@@ -58,9 +59,33 @@ export default function Navbar() {
       ),
       {
         duration: 0, // Keep the toast open until dismissed
+<<<<<<< HEAD
         position: "top-center", // Adjust position if needed
       }
     );
+=======
+        position: 'top-center', // Adjust position if needed
+      }
+    )
+  };
+
+  const handleToggleTheme = () => {
+    setDarkMode((prevMode) => {
+      const newMode = !prevMode;
+
+      // Show toast notification when theme changes
+      toast(`Theme changed to ${newMode ? 'Dark' : 'Light'} mode!`, {
+        icon: `${newMode ? '🌙' :'☀️'}`,
+        style: {
+          borderRadius: '10px',
+          background: `${newMode ? '#333' : '#fff'} `,
+          color: `${newMode ? '#fff' : '#333'}`,
+        },
+      });
+
+      return newMode;
+    });
+>>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
   };
 
   const handleToggleTheme = () => {
@@ -110,7 +135,16 @@ export default function Navbar() {
   }, [dropdownRef, buttonRef]);
 
   return (
+<<<<<<< HEAD
     <nav className="p-4">
+=======
+    <nav
+      className={`p-4 shadow-lg ${darkMode
+          ? "bg-[#00050e] border-b-[1px] border-[#333333]"
+          : "bg-gradient-to-r from-indigo-600 to-purple-600"
+        }`}
+    >
+>>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-3">
           <FaQrcode className="text-white h-8 w-8" />
@@ -202,9 +236,13 @@ export default function Navbar() {
                 </div>
               </div>
               <button
+<<<<<<< HEAD
                 onClick={() => {
                   setDarkMode(!darkMode);
                 }}
+=======
+                onClick={handleToggleTheme}
+>>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
                 className="text-white hover:text-indigo-200 transition duration-300 text-xl"
               >
                 {darkMode ? <MdLightMode /> : <FaMoon />}
@@ -270,6 +308,7 @@ export default function Navbar() {
                 Logout
               </button>
               <button
+<<<<<<< HEAD
                 onClick={() => {
                   setDarkMode(!darkMode);
                 }}
@@ -277,6 +316,12 @@ export default function Navbar() {
               >
                 {darkMode ? <MdLightMode size={16} /> : <FaMoon size={10} />}{" "}
                 Toggle Dark Mode
+=======
+                onClick={() => { setDarkMode(!darkMode); }}
+                className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300 w-full"
+              >
+                {darkMode ? <MdLightMode size={16} /> : <FaMoon size={10} />} Toggle Dark Mode
+>>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
               </button>
             </>
           ) : (

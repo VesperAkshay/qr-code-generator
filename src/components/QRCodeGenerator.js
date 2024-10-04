@@ -144,7 +144,7 @@ export default function QRCodeGenerator() {
   return (
     <motion.div
       className="p-8 max-w-lg mx-auto bg-white rounded-lg shadow-lg mt-10"
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       whileHover={{ scale: 1 }}

@@ -177,13 +177,13 @@ export default function Profile() {
           <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">Email</label>
           <div className="relative mt-2">
             <MdMarkEmailRead className="text-xl absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-300" />
-          <input
-            type="email"
-            value={currentUser.email}
-            disabled
-            className="font-semibold pl-12 py-3 border border-gray-400 rounded-lg w-full bg-gray-200 cursor-not-allowed text-gray-900"
-            placeholder="Your email address"
-          /></div>
+            <input
+              type="email"
+              value={currentUser.email}
+              disabled
+              className="font-semibold pl-12 py-3 border border-gray-400 rounded-lg w-full bg-gray-200 cursor-not-allowed text-gray-900"
+              placeholder="Your email address"
+            /></div>
         </motion.div>
 
         <motion.div

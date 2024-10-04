@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaQrcode,
@@ -20,7 +20,8 @@ import toast from "react-hot-toast";
 export default function DashboardPage() {
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const dasHBoardCards = [
+
+  const dashboardCards = [
     {
       to: "/qr-code",
       icon: <FaQrcode />,
@@ -68,7 +69,7 @@ export default function DashboardPage() {
       description: "Convert PDFs to QR codes.",
       color: "text-white",
       bgColor: "bg-red-600",
-    }, // New PDF to QR Section
+    },
     {
       to: "/profile",
       icon: <FaUser />,
@@ -104,7 +105,10 @@ export default function DashboardPage() {
   ];
 
   const handleLogout = async () => {
+<<<<<<< HEAD
     // Show a confirmation toast
+=======
+>>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
     const confirmation = toast(
       (t) => (
         <div>
@@ -139,11 +143,19 @@ export default function DashboardPage() {
       ),
       {
         duration: 0, // Keep the toast open until dismissed
+<<<<<<< HEAD
         position: 'top-center', // Adjust position if needed
       }
     )
   };
   
+=======
+        position: 'top-center',
+      }
+    );
+  };
+
+>>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
   return (
     <div className="p-2">
     <div
@@ -154,7 +166,7 @@ export default function DashboardPage() {
         Dashboard
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {dasHBoardCards.map(
+        {dashboardCards.map(
           ({ to, icon, title, description, color, bgColor }, index) => (
             <motion.div
               key={index}
@@ -163,12 +175,14 @@ export default function DashboardPage() {
                 boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
               }}
               whileTap={{ scale: 0.98 }}
+<<<<<<< HEAD
               className={`p-6 ${bgColor} dark:filter dark:brightness-100 rounded-2xl shadow-lg transition-transform duration-300`}
+=======
+              className={`p-6 ${bgColor} rounded-2xl shadow-lg transition-transform duration-300`}
+>>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
             >
               <Link to={to} className="text-center flex flex-col items-center">
-                <div
-                  className={`text-6xl mb-4 ${color} p-4 rounded-full shadow-md transition-transform duration-300`}
-                >
+                <div className={`text-6xl mb-4 ${color} p-4 rounded-full shadow-md transition-transform duration-300`}>
                   {icon}
                 </div>
                 <h2 className="text-2xl font-semibold text-white mb-2">
@@ -187,14 +201,14 @@ export default function DashboardPage() {
             boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
           }}
           whileTap={{ scale: 0.98 }}
+<<<<<<< HEAD
           className="p-6 bg-gray-600 dark:filter dark:brightness-100 rounded-2xl shadow-lg transition-transform duration-300 cursor-pointer"
+=======
+          className="p-6 bg-gray-600 rounded-2xl shadow-lg transition-transform duration-300 cursor-pointer"
+>>>>>>> c0c44062d6d49f810b75cec4038488603368bc6c
         >
-          <div
-            className="text-center flex flex-col items-center"
-          >
-            <div
-              className={`text-6xl mb-4 text-white p-4 rounded-full shadow-md transition-transform duration-300`}
-            >
+          <div className="text-center flex flex-col items-center">
+            <div className="text-6xl mb-4 text-white p-4 rounded-full shadow-md transition-transform duration-300">
               <FaSignOutAlt />
             </div>
             <h2 className="text-2xl font-semibold text-white mb-2">Logout</h2>
