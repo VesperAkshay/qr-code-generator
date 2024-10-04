@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaQrcode,
@@ -21,7 +21,8 @@ export default function DashboardPage() {
   const { darkMode } = useContext(ThemeContext);
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const dasHBoardCards = [
+
+  const dashboardCards = [
     {
       to: "/qr-code",
       icon: <FaQrcode />,
@@ -69,7 +70,7 @@ export default function DashboardPage() {
       description: "Convert PDFs to QR codes.",
       color: "text-white",
       bgColor: "bg-red-600",
-    }, // New PDF to QR Section
+    },
     {
       to: "/profile",
       icon: <FaUser />,
@@ -105,7 +106,6 @@ export default function DashboardPage() {
   ];
 
   const handleLogout = async () => {
-    // Show a confirmation toast
     const confirmation = toast(
       (t) => (
         <div>
@@ -140,11 +140,11 @@ export default function DashboardPage() {
       ),
       {
         duration: 0, // Keep the toast open until dismissed
-        position: 'top-center', // Adjust position if needed
+        position: 'top-center',
       }
-    )
+    );
   };
-  
+
   return (
     <div
       className={`min-h-screen bg-gradient-to-r p-8 ${
@@ -157,7 +157,7 @@ export default function DashboardPage() {
         Dashboard
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {dasHBoardCards.map(
+        {dashboardCards.map(
           ({ to, icon, title, description, color, bgColor }, index) => (
             <motion.div
               key={index}
@@ -166,14 +166,10 @@ export default function DashboardPage() {
                 boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
               }}
               whileTap={{ scale: 0.98 }}
-              className={`p-6 ${
-                darkMode ? `${bgColor} filter brightness-100 ` : `${bgColor}`
-              } rounded-2xl shadow-lg transition-transform duration-300`}
+              className={`p-6 ${bgColor} rounded-2xl shadow-lg transition-transform duration-300`}
             >
               <Link to={to} className="text-center flex flex-col items-center">
-                <div
-                  className={`text-6xl mb-4 ${color} p-4 rounded-full shadow-md transition-transform duration-300`}
-                >
+                <div className={`text-6xl mb-4 ${color} p-4 rounded-full shadow-md transition-transform duration-300`}>
                   {icon}
                 </div>
                 <h2 className="text-2xl font-semibold text-white mb-2">
@@ -192,16 +188,10 @@ export default function DashboardPage() {
             boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
           }}
           whileTap={{ scale: 0.98 }}
-          className={`p-6 ${
-            darkMode ? `bg-gray-600 filter brightness-100 ` : `bg-gray-600`
-          } rounded-2xl shadow-lg transition-transform duration-300 cursor-pointer`}
+          className="p-6 bg-gray-600 rounded-2xl shadow-lg transition-transform duration-300 cursor-pointer"
         >
-          <div
-            className="text-center flex flex-col items-center"
-          >
-            <div
-              className={`text-6xl mb-4 text-white p-4 rounded-full shadow-md transition-transform duration-300`}
-            >
+          <div className="text-center flex flex-col items-center">
+            <div className="text-6xl mb-4 text-white p-4 rounded-full shadow-md transition-transform duration-300">
               <FaSignOutAlt />
             </div>
             <h2 className="text-2xl font-semibold text-white mb-2">Logout</h2>
