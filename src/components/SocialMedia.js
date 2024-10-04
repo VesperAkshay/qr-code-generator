@@ -44,8 +44,8 @@ export default function SocialMedia() {
   };
 
   return (
-    <div className="p-8 bg-white shadow-lg rounded-lg max-w-lg mx-auto">
-      <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800">Generate Social Media QR Code</h1>
+    <div className="p-8 bg-indigo-100 dark:bg-indigo-950 shadow-lg rounded-lg max-w-lg mx-auto">
+      <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800 dark:text-gray-200">Generate Social Media QR Code</h1>
 
       <div className="flex flex-wrap justify-center mb-6">
         {socialMediaOptions.map((platform) => (
@@ -68,29 +68,29 @@ export default function SocialMedia() {
           placeholder="Enter your URL or text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 border border-gray-300 dark:border-gray-600  bg-purple-100 dark:bg-[#2b2661] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-lg"
         />
       </div>
 
       <div className="mb-4">
-        <label className="block mb-2 text-lg font-semibold">Size</label>
+        <label className="block mb-2 text-lg font-semibold dark:text-gray-200">Size</label>
         <input
           type="range"
           min="128"
           max="512"
           value={size}
           onChange={(e) => setSize(e.target.value)}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          className="w-full h-2 bg-gray-300 dark:bg-[#2b2661] rounded-lg appearance-none cursor-pointer slider-thumb"
         />
       </div>
 
       <div className="mb-4">
-        <label className="block mb-2 text-lg font-semibold">Background Color</label>
+        <label className="block mb-2 text-lg font-semibold dark:text-gray-200">Background Color</label>
         <input
           type="color"
           value={bgColor}
           onChange={(e) => setBgColor(e.target.value)}
-          className="w-full p-1 border border-gray-300 rounded-lg cursor-pointer"
+          className="w-full p-1 border border-gray-400 dark:bg-[#2b2661] dark:border-gray-600 rounded-lg cursor-pointer"
         />
       </div>
 

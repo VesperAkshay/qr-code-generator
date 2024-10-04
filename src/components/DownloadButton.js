@@ -12,7 +12,7 @@ export default function DownloadButton({ handleDownload, downloadFormat, setDown
       <motion.select
         value={downloadFormat}
         onChange={(e) => setDownloadFormat(e.target.value)}
-        className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="p-2 dark:bg-[#2b2661] dark:text-gray-200 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >

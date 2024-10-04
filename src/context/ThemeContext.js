@@ -1,24 +1,37 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from "react";
 
-const ThemeContext = createContext();
+export const ThemeContext = createContext();
 
-const ThemeProvider = ({ children }) => {
-  // Check localStorage for the darkMode preference on initial load
-  const [darkMode, setDarkMode] = useState(() => {
-    const storedPreference = localStorage.getItem('qr-web-darkMode');
-    return storedPreference ? JSON.parse(storedPreference) : false; // Default to false(light theme)
-  });
+export const ThemeProvider = ({ children }) => {
+  const getInitialTheme = () => {
+    if (typeof window !== "undefined") {
+      return (
+        localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light")
+      );
+    }
+    return "light"; // Default to light theme if window is not defined
+  };
 
-  // Update localStorage whenever it changes
+  const [theme, setTheme] = useState(getInitialTheme);
+
   useEffect(() => {
-    localStorage.setItem('qr-web-darkMode', JSON.stringify(darkMode));
-  }, [darkMode]);
+    // Remove the previous theme and add the new one
+    document.documentElement.classList.remove("dark", "light");
+    document.documentElement.classList.add(theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+  };
 
   return (
-    <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 };
-
-export { ThemeProvider, ThemeContext };

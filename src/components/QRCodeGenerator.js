@@ -120,14 +120,14 @@ export default function QRCodeGenerator() {
 
   return (
     <motion.div
-      className="p-8 max-w-lg mx-auto bg-white rounded-lg shadow-lg mt-10"
+      className="p-8 max-w-lg mx-auto bg-indigo-100 dark:bg-indigo-950 rounded-xl shadow-lg mt-10"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       whileHover={{ scale: 1.02 }}
     >
       <motion.h1
-        className="text-4xl font-bold mb-6 text-center text-gray-800"
+        className="text-4xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.5, ease: 'easeOut' }}
@@ -150,14 +150,14 @@ export default function QRCodeGenerator() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.5, ease: 'easeOut' }}
         >
-          <label className="block mb-2 text-gray-700 capitalize">
+          <label className="block mb-2 text-gray-700 dark:text-gray-200 capitalize">
             {category} Input
           </label>
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             rows="4"
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="w-full dark:bg-[#2b2661] dark:text-gray-200 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 shadow-lg"
             placeholder={`Enter ${category}`}
           />
         </motion.div>

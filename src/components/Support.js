@@ -16,34 +16,34 @@ export default function Support() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 p-6">
-      <div className="bg-white rounded-xl shadow-lg p-8 max-w-lg w-full space-y-6 transition-transform transform hover:scale-105">
+    <div className="min-h-screen flex items-center justify-center p-6">
+      <div className=" bg-purple-100 dark:bg-[#2b2661] rounded-xl shadow-lg p-8 max-w-lg w-full space-y-6 transition-transform transform hover:scale-105">
         <div className="flex items-center justify-center">
-          <BiSupport className="text-blue-600 w-16 h-16" />
+          <BiSupport className="text-blue-500 w-16 h-16" />
         </div>
-        <h1 className="text-3xl font-extrabold text-center text-gray-800">Support</h1>
-        <p className="text-center text-gray-600">Have any questions or need help? Fill out the form below, and we will get back to you as soon as possible.</p>
+        <h1 className="text-3xl font-extrabold text-center text-gray-800 dark:text-gray-200">Support</h1>
+        <p className="text-center text-gray-600 dark:text-gray-400">Have any questions or need help? Fill out the form below, and we will get back to you as soon as possible.</p>
         
         {success && <p className="text-green-500 text-center font-semibold">{success}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-lg font-medium text-gray-700">Email</label>
+            <label className="block text-lg font-medium text-gray-700 dark:text-gray-400">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+              className="mt-2 p-3 border border-gray-400 dark:border-gray-600 rounded-lg w-full dark:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               placeholder="Enter your email"
               required
             />
           </div>
           <div>
-            <label className="block text-lg font-medium text-gray-700">Message</label>
+            <label className="block text-lg font-medium text-gray-700 dark:text-gray-400">Message</label>
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+              className="mt-2 p-3 border border-gray-400 dark:border-gray-600 rounded-lg w-full dark:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               placeholder="Enter your message"
               rows="5"
               required

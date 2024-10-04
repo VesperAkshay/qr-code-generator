@@ -23,11 +23,11 @@ const avatars = [
 export default function Profile() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const [displayName, setDisplayName] = useState(currentUser.displayName || "");
-  const [newPassword, setNewPassword] = useState("");
-  const [selectedAvatar, setSelectedAvatar] = useState(
-    currentUser.photoURL ? currentUser.photoURL : avatars[0]
+  const [displayName, setDisplayName] = useState(
+    currentUser.displayName ? currentUser.displayName : ""
   );
+  const [newPassword, setNewPassword] = useState("");
+  const [selectedAvatar, setSelectedAvatar] = useState(currentUser.photoURL);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -81,13 +81,13 @@ export default function Profile() {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="p-6 md:p-8 max-w-md lg:max-w-lg mx-auto bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 rounded-2xl shadow-2xl space-y-8 mt-12 text-white"
+      className="p-6 md:p-8 max-w-md lg:max-w-lg mx-auto bg-purple-100 dark:bg-[#2b2661] rounded-2xl shadow-2xl space-y-8 mt-4 text-white"
     >
       <motion.h1
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="text-3xl md:text-4xl font-extrabold text-center"
+        className="text-3xl md:text-4xl font-extrabold text-gray-700 dark:text-gray-200 text-center"
       >
         Profile
       </motion.h1>
@@ -97,7 +97,6 @@ export default function Profile() {
       {success && (
         <p className="text-green-400 text-center font-semibold">{success}</p>
       )}
-
       <div className="text-center">
         <img
           src={selectedAvatar}
@@ -119,14 +118,14 @@ export default function Profile() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <label className="block text-lg font-medium">Display Name</label>
+          <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">Display Name</label>
           <div className="relative mt-2">
-            <FaUserEdit className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-300" />
+            <FaUserEdit className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="font-semibold pl-12 pr-4 py-3 border border-gray-400 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-black bg-gray-50 text-gray-900 transition duration-300"
+              className="font-semibold pl-12 pr-4 py-3 border border-gray-400 dark:text-gray-200 dark:bg-indigo-950 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-black bg-gray-50 text-gray-900 transition duration-300"
               placeholder="Enter your display name"
             />
           </div>
@@ -137,16 +136,17 @@ export default function Profile() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <label className="block text-lg font-medium">Email</label>
+          <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">Email</label>
           <div className="relative mt-2">
-            <MdMarkEmailRead className="text-xl absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-300" />
-          <input
-            type="email"
-            value={currentUser.email}
-            disabled
-            className="font-semibold pl-12 py-3 border border-gray-400 rounded-lg w-full bg-gray-200 cursor-not-allowed text-gray-900"
-            placeholder="Your email address"
-          /></div>
+            <MdMarkEmailRead className="text-xl absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400" />
+            <input
+              type="email"
+              value={currentUser.email}
+              disabled
+              className="font-semibold pl-12 py-3 border border-gray-400 dark:text-gray-200 dark:bg-indigo-950 rounded-lg w-full bg-gray-200 cursor-not-allowed text-gray-900"
+              placeholder="Your email address"
+            />
+          </div>
         </motion.div>
 
         <motion.div
@@ -154,14 +154,14 @@ export default function Profile() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
         >
-          <label className="block text-lg font-medium">New Password</label>
+          <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">New Password</label>
           <div className="relative mt-2">
-            <FaLock className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-300" />
+            <FaLock className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400" />
             <input
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="font-semibold pl-12 pr-4 py-3 border border-gray-400 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-black bg-gray-50 text-gray-900 transition duration-300"
+              className="font-semibold pl-12 pr-4 py-3 border border-gray-400 dark:text-gray-200 dark:bg-indigo-950 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-black bg-gray-50 text-gray-900 transition duration-300"
               placeholder="Enter new password"
             />
           </div>
