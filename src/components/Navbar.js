@@ -51,7 +51,7 @@ export default function Navbar() {
                   toast.error("Logout failed. Please try again."); // Show an error message
                 }
               }}
-              className="text-red-600 hover:bg-red-200 px-4 py-2 bg-red-100 m-2 mt-4 rounded-md "
+              className="text-red-600 hover:bg-red-200 px-4 py-2 bg-red-100 m-2 mt-4 rounded-md"
             >
               Log out
             </button>
@@ -67,14 +67,14 @@ export default function Navbar() {
 
   const handleToggleTheme = () => {
     toggleTheme();
-      toast(`Theme changed to ${theme==="light" ? "Dark" : "Light"} mode!`, {
-        icon: `${theme==="light" ? "🌙" : "☀️"}`,
-        style: {
-          borderRadius: "10px",
-          background: `${theme==="light" ? "#333" : "#fff"} `,
-          color: `${theme==="light" ? "#fff" : "#333"}`,
-        },
-      });
+    toast(`Theme changed to ${theme === "light" ? "Dark" : "Light"} mode!`, {
+      icon: `${theme === "light" ? "🌙" : "☀️"}`,
+      style: {
+        borderRadius: "10px",
+        background: `${theme === "light" ? "#333" : "#fff"} `,
+        color: `${theme === "light" ? "#fff" : "#333"}`,
+      },
+    });
   };
 
   const [dropdownOpen, setDropdownOpen] = useState(false);

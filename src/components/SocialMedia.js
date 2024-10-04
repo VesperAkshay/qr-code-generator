@@ -1,29 +1,60 @@
-import React, { useState, useRef } from 'react';
-import { QRCodeCanvas } from 'qrcode.react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from "react";
+import { QRCodeCanvas } from "qrcode.react";
+import {
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedin,
+  FaWhatsapp,
+} from "react-icons/fa";
+import { motion } from "framer-motion";
 
 // Assuming you have the logos as local images
-import FacebookLogo from '../assets/facebook-logo.png';
-import TwitterLogo from '../assets/twitter-logo.png';
-import InstagramLogo from '../assets/instagram-logo.png';
-import LinkedInLogo from '../assets/linkedin-logo.png';
-import WhatsappLogo from '../assets/whatsapp.png';
+import FacebookLogo from "../assets/facebook-logo.png";
+import TwitterLogo from "../assets/twitter-logo.png";
+import InstagramLogo from "../assets/instagram-logo.png";
+import LinkedInLogo from "../assets/linkedin-logo.png";
+import WhatsappLogo from "../assets/whatsapp.png";
 
 const socialMediaOptions = [
-  { name: 'Facebook', icon: <FaFacebook />, color: '#1877F2', logoUrl: FacebookLogo },
-  { name: 'Twitter', icon: <FaTwitter />, color: '#1DA1F2', logoUrl: TwitterLogo },
-  { name: 'Instagram', icon: <FaInstagram />, color: '#E1306C', logoUrl: InstagramLogo },
-  { name: 'LinkedIn', icon: <FaLinkedin />, color: '#0077B5', logoUrl: LinkedInLogo },
-  { name: 'Whatsapp', icon: <FaWhatsapp />, color: '#25D366', logoUrl: WhatsappLogo },
+  {
+    name: "Facebook",
+    icon: <FaFacebook />,
+    color: "#1877F2",
+    logoUrl: FacebookLogo,
+  },
+  {
+    name: "Twitter",
+    icon: <FaTwitter />,
+    color: "#1DA1F2",
+    logoUrl: TwitterLogo,
+  },
+  {
+    name: "Instagram",
+    icon: <FaInstagram />,
+    color: "#E1306C",
+    logoUrl: InstagramLogo,
+  },
+  {
+    name: "LinkedIn",
+    icon: <FaLinkedin />,
+    color: "#0077B5",
+    logoUrl: LinkedInLogo,
+  },
+  {
+    name: "Whatsapp",
+    icon: <FaWhatsapp />,
+    color: "#25D366",
+    logoUrl: WhatsappLogo,
+  },
 ];
 
 export default function SocialMedia() {
-  const [socialMedia, setSocialMedia] = useState('');
-  const [text, setText] = useState('');
+  const [socialMedia, setSocialMedia] = useState("");
+  const [text, setText] = useState("");
   const [size, setSize] = useState(256);
-  const [bgColor, setBgColor] = useState('#ffffff');
-  const [fgColor, setFgColor] = useState('#000000');
+  const [bgColor, setBgColor] = useState("#ffffff");
+  const [fgColor, setFgColor] = useState("#000000");
   const qrRef = useRef();
 
   const handleSocialMediaChange = (platform) => {
@@ -31,28 +62,34 @@ export default function SocialMedia() {
     setFgColor(platform.color);
   };
 
-  const selectedPlatform = socialMediaOptions.find(option => option.name === socialMedia);
+  const selectedPlatform = socialMediaOptions.find(
+    (option) => option.name === socialMedia
+  );
 
   const downloadQRCode = () => {
-    const canvas = qrRef.current.querySelector('canvas');
+    const canvas = qrRef.current.querySelector("canvas");
     if (canvas) {
-      const link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png');
-      link.download = 'qrcode.png';
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "qrcode.png";
       link.click();
     }
   };
 
   return (
     <div className="p-8 bg-indigo-100 dark:bg-indigo-950 shadow-lg rounded-lg max-w-lg mx-auto">
-      <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800 dark:text-gray-200">Generate Social Media QR Code</h1>
+      <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800 dark:text-gray-200">
+        Generate Social Media QR Code
+      </h1>
 
       <div className="flex flex-wrap justify-center mb-6">
         {socialMediaOptions.map((platform) => (
           <motion.button
             key={platform.name}
             onClick={() => handleSocialMediaChange(platform)}
-            className={`p-4 m-2 rounded-full shadow-lg transition-transform duration-300 ease-in-out ${socialMedia === platform.name ? 'transform scale-110' : ''}`}
+            className={`p-4 m-2 rounded-full shadow-lg transition-transform duration-300 ease-in-out ${
+              socialMedia === platform.name ? "transform scale-110" : ""
+            }`}
             style={{ backgroundColor: platform.color }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -73,7 +110,9 @@ export default function SocialMedia() {
       </div>
 
       <div className="mb-4">
-        <label className="block mb-2 text-lg font-semibold dark:text-gray-200">Size</label>
+        <label className="block mb-2 text-lg font-semibold dark:text-gray-200">
+          Size
+        </label>
         <input
           type="range"
           min="128"
@@ -82,13 +121,17 @@ export default function SocialMedia() {
           onChange={(e) => setSize(e.target.value)}
           className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer"
           style={{
-            background: `linear-gradient(to right, #4f46e5 ${((size - 128) / 384) * 100}%, #d1d5db ${((size - 128) / 384) * 100}%)`,
+            background: `linear-gradient(to right, #4f46e5 ${
+              ((size - 128) / 384) * 100
+            }%, #d1d5db ${((size - 128) / 384) * 100}%)`,
           }}
         />
       </div>
 
       <div className="mb-4">
-        <label className="block mb-2 text-lg font-semibold dark:text-gray-200">Background Color</label>
+        <label className="block mb-2 text-lg font-semibold dark:text-gray-200">
+          Background Color
+        </label>
         <input
           type="color"
           value={bgColor}
@@ -108,7 +151,7 @@ export default function SocialMedia() {
             includeMargin={false}
             renderAs="canvas"
             imageSettings={{
-              src: selectedPlatform?.logoUrl || '',
+              src: selectedPlatform?.logoUrl || "",
               x: null,
               y: null,
               height: 50,
