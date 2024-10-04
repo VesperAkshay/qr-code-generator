@@ -1,0 +1,31 @@
+name: Discord Notifications
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened, closed]
+  issues:
+    types: [opened, edited, closed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Discord Notification
+        uses: fjogeleit/http-request-action@v1.1.0
+        with:
+          url: https://discord.com/api/webhooks/1291641229796179969/A6hzDP7v2GLhXN3UQR1Jkng5g8p_ElxVIClsP7ZNhvmeZYHyFARJ7sbMvTpF4Ol0DYPB
+          method: POST
+          headers: '{"Content-Type": "application/json"}'
+          body: |
+            {
+              "content": "### GitHub Event Notification\n\n" +
+                         "**Event Type:** ${{ github.event_name }}\n" +
+                         "**Repository:** ${{ github.repository }}\n" +
+                         "**Actor:** ${{ github.actor }}\n" +
+                         "**Details:**\n" +
+                         "${{ toJson(github.event, 2) }}"
+            }
