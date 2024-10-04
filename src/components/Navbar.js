@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
-import { AnimatePresence, motion } from "framer-motion";
 
 import {
   FaUser,
@@ -24,12 +23,62 @@ export default function Navbar() {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/"); // Redirect to the home page after logout
-    } catch (error) {
-      console.error("Failed to log out", error);
-    }
+    // Show a confirmation toast
+    const confirmation = toast(
+      (t) => (
+        <div>
+          <p>Are you sure you want to log out?</p>
+          <div className="flex justify-between">
+            <button
+              onClick={() => {
+                toast.dismiss(t.id); // Dismiss the confirmation toast
+              }}
+              className="text-blue-600 hover:bg-blue-200 px-4 py-2 bg-blue-100 m-2 mt-4 rounded-md "
+            >
+              Cancel
+            </button>
+            <button
+              onClick={async () => {
+                toast.dismiss(t.id); // Dismiss the confirmation toast
+                try {
+                  await logout(); // Proceed with logout
+                  navigate("/"); // Redirect to the home page after logout
+                  toast.success("Logged out");
+                } catch (error) {
+                  console.error("Failed to log out", error);
+                  toast.error("Logout failed. Please try again."); // Show an error message
+                }
+              }}
+              className="text-red-600 hover:bg-red-200 px-4 py-2 bg-red-100 m-2 mt-4 rounded-md "
+            >
+              Log out
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        duration: 0, // Keep the toast open until dismissed
+        position: "top-center", // Adjust position if needed
+      }
+    );
+  };
+
+  const handleToggleTheme = () => {
+    setDarkMode((prevMode) => {
+      const newMode = !prevMode;
+
+      // Show toast notification when theme changes
+      toast(`Theme changed to ${newMode ? "Dark" : "Light"} mode!`, {
+        icon: `${newMode ? "🌙" : "☀️"}`,
+        style: {
+          borderRadius: "10px",
+          background: `${newMode ? "#333" : "#fff"} `,
+          color: `${newMode ? "#fff" : "#333"}`,
+        },
+      });
+
+      return newMode;
+    });
   };
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -39,7 +88,6 @@ export default function Navbar() {
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
-  
 
   // Close the dropdown if clicked outside
   useEffect(() => {
@@ -53,21 +101,17 @@ export default function Navbar() {
         setDropdownOpen(false); // Only close the dropdown when clicking outside
       }
     };
-  
+
     document.addEventListener("mousedown", handleClickOutside);
-  
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef, buttonRef]);
-  
 
   return (
-    <nav
-      className="p-4"
-    >
-      
-      <div className="container mx-auto flex justify-between items-center px-3">
+    <nav className="p-4">
+      <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-3">
           <FaQrcode className="text-white h-8 w-8" />
           <Link
@@ -148,8 +192,8 @@ export default function Navbar() {
                             onClick={toggleTheme}
                             className="md:hidden flex rounded-xl items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-cyan-500 text-lg hover:text-white transition duration-300 w-full"
                           >
-                            {theme === 'dark'  ? <MdLightMode /> : <FaMoon />}
-                            {theme === 'dark'  ? "Light Mode" : "Dark Mode"}
+                            {theme === "dark" ? <MdLightMode /> : <FaMoon />}
+                            {theme === "dark" ? "Light Mode" : "Dark Mode"}
                           </button>
                         </div>
                       </motion.div>
@@ -157,6 +201,14 @@ export default function Navbar() {
                   </AnimatePresence>
                 </div>
               </div>
+              <button
+                onClick={() => {
+                  setDarkMode(!darkMode);
+                }}
+                className="text-white hover:text-indigo-200 transition duration-300 text-xl"
+              >
+                {darkMode ? <MdLightMode /> : <FaMoon />}
+              </button>
             </>
           ) : (
             <>
@@ -180,10 +232,73 @@ export default function Navbar() {
             onClick={toggleTheme}
             className="max-md:hidden text-white hover:text-indigo-200 transition duration-300 text-xl"
           >
-            {theme==='dark' ? <MdLightMode /> : <FaMoon />}
+            {theme === "dark" ? <MdLightMode /> : <FaMoon />}
           </button>
         </div>
       </div>
+      {/* Mobile Dropdown Menu */}
+      {dropdownOpen && (
+        <div className="md:hidden mt-2 w-full bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-20">
+          {currentUser ? (
+            <>
+              <Link
+                to="/dashboard"
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+              >
+                <FaUser className="mr-2" />
+                Dashboard
+              </Link>
+              <Link
+                to="/profile"
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+              >
+                <FaUser className="mr-2" />
+                Profile
+              </Link>
+              <Link
+                to="/settings"
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+              >
+                <FaCog className="mr-2" />
+                Settings
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-red-500 hover:text-white transition duration-300 w-full"
+              >
+                <FaSignOutAlt className="mr-2" />
+                Logout
+              </button>
+              <button
+                onClick={() => {
+                  setDarkMode(!darkMode);
+                }}
+                className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300 w-full"
+              >
+                {darkMode ? <MdLightMode size={16} /> : <FaMoon size={10} />}{" "}
+                Toggle Dark Mode
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+              >
+                <FaSignInAlt className="mr-2" />
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+              >
+                <FaUserPlus className="mr-2" />
+                Register
+              </Link>
+            </>
+          )}
+        </div>
+      )}
     </nav>
   );
 }

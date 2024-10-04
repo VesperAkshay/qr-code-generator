@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -16,6 +16,8 @@ import BulkQRCode from "./components/BulkQRCode";
 import QRScanner from "./components/QRScanner";
 import PdfQRCodeGenerator from "./components/PDFToQR";
 import { ThemeProvider } from "./context/ThemeContext";
+import { Toaster } from "react-hot-toast";
+
 export default function App() {
   return (
     <AuthProvider>
@@ -39,6 +41,7 @@ export default function App() {
               <Route path="/pdf-qr-code" element={<PdfQRCodeGenerator />} />
             </Routes>
           </div>
+          <Toaster />
         </Router>
       </ThemeProvider>
     </AuthProvider>

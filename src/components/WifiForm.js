@@ -16,7 +16,7 @@ export default function WifiForm({ wifiDetails, setWifiDetails, setText }) {
   };
 
   return (
-    <div className="p-4 my-4 bg-white dark:bg-[#2b2661] rounded-lg shadow-md max-w-4xl mx-auto">
+    <div className="p-4 bg-white rounded-lg shadow-md max-w-4xl mx-auto">
       <div className="space-y-6">
         {[
           { name: 'ssid', label: 'SSID', icon: faWifi, placeholder: 'Your Network Name' },

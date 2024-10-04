@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaClipboard, FaCamera, FaImage, FaTimes, FaCheck, FaLightbulb } from 'react-icons/fa';
 import QrScanner from "qr-scanner";
+import toast from 'react-hot-toast';
 
 export default function QRScanner() {
     const [scannedData, setScannedData] = useState({});
@@ -114,9 +115,10 @@ export default function QRScanner() {
     const copyToClipboard = () => {
         navigator.clipboard.writeText(scannedData.result)
             .then(() => {
-                alert('Copied to clipboard');
+                toast.success('Copied to clipboard');
             })
             .catch(err => {
+                toast.error('Failed to copy');
                 console.error('Failed to copy: ', err);
             });
     };

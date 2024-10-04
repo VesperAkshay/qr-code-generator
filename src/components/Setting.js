@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { updateProfile, updateEmail, updatePassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 export default function Settings() {
   const { currentUser, logout } = useAuth();
@@ -19,10 +20,11 @@ export default function Settings() {
   const handleUpdateProfile = async () => {
     try {
       await updateProfile(currentUser, { displayName });
-      setSuccess('Profile updated successfully!');
+      toast.success('Profile updated successfully!');
       setError('');
     } catch (error) {
-      setError(error.message);
+      toast.error('Something went wrong');
+      console.error(error.message);
       setSuccess('');
     }
   };
@@ -32,11 +34,12 @@ export default function Settings() {
     try {
       if (email) {
         await updateEmail(currentUser, email);
-        setSuccess('Email updated successfully!');
+        toast.success('Email updated successfully!');
         setError('');
       }
     } catch (error) {
-      setError(error.message);
+      toast.error('Something went wrong');
+      console.error(error.message);
       setSuccess('');
     }
   };
@@ -46,24 +49,56 @@ export default function Settings() {
     try {
       if (newPassword) {
         await updatePassword(currentUser, newPassword);
-        setSuccess('Password updated successfully!');
+        toast.success('Password updated successfully!');
         setError('');
       }
     } catch (error) {
-      setError(error.message);
+      toast.error('Something went wrong');
+      console.error(error.message);
       setSuccess('');
     }
   };
 
   // Function to handle logout
   const handleLogout = async () => {
-    try {
-      await logout();
-      navigate('/'); // Redirect to the home page after logout
-    } catch (error) {
-      setError('Failed to log out: ' + error.message);
-      setSuccess('');
-    }
+    // Show a confirmation toast
+    const confirmation = toast(
+      (t) => (
+        <div>
+          <p>Are you sure you want to log out?</p>
+          <div className="flex justify-between">
+            <button
+              onClick={() => {
+                toast.dismiss(t.id); // Dismiss the confirmation toast
+              }}
+              className="text-blue-600 hover:bg-blue-200 px-4 py-2 bg-blue-100 m-2 mt-4 rounded-md "
+            >
+              Cancel
+            </button>
+            <button
+              onClick={async () => {
+                toast.dismiss(t.id); // Dismiss the confirmation toast
+                try {
+                  await logout(); // Proceed with logout
+                  navigate("/"); // Redirect to the home page after logout
+                  toast.success("Logged out");
+                } catch (error) {
+                  console.error("Failed to log out", error);
+                  toast.error("Logout failed. Please try again."); // Show an error message
+                }
+              }}
+              className="text-red-600 hover:bg-red-200 px-4 py-2 bg-red-100 m-2 mt-4 rounded-md "
+            >
+              Log out
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        duration: 0, // Keep the toast open until dismissed
+        position: 'top-center', // Adjust position if needed
+      }
+    )
   };
 
   return (
