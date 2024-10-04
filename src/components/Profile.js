@@ -1,42 +1,52 @@
-import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { updateProfile, updatePassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { FaUserEdit, FaLock, FaSignOutAlt, FaEdit } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-import AvatarSelectionModal from './AvatarSelectionModel'; // Make sure the path is correct
+import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { updateProfile, updatePassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { FaUserEdit, FaLock, FaSignOutAlt, FaEdit } from "react-icons/fa";
+import { MdMarkEmailRead } from "react-icons/md"; // Make sure the path is correct
+import { motion } from "framer-motion";
+import AvatarSelectionModal from "./AvatarSelectionModel";
+import toast from "react-hot-toast";
 
 const avatars = [
-  '/avatars/avatar1.png',
-  '/avatars/avatar2.png',
-  '/avatars/avatar3.png',
-  '/avatars/avatar4.png',
-  '/avatars/avatar5.png',
-  '/avatars/avatar6.png',
-  '/avatars/avatar7.png',
-  '/avatars/avatar8.png',
-  '/avatars/avatar9.png',
-  '/avatars/avatar10.png',
+  "/avatars/avatar1.png",
+  "/avatars/avatar2.png",
+  "/avatars/avatar3.png",
+  "/avatars/avatar4.png",
+  "/avatars/avatar5.png",
+  "/avatars/avatar6.png",
+  "/avatars/avatar7.png",
+  "/avatars/avatar8.png",
+  "/avatars/avatar9.png",
+  "/avatars/avatar10.png",
 ];
 
 export default function Profile() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const [displayName, setDisplayName] = useState(currentUser.displayName || '');
-  const [newPassword, setNewPassword] = useState('');
-  const [selectedAvatar, setSelectedAvatar] = useState(currentUser.photoURL || avatars[0]);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [displayName, setDisplayName] = useState(currentUser.displayName || "");
+  const [newPassword, setNewPassword] = useState("");
+  const [selectedAvatar, setSelectedAvatar] = useState(
+    currentUser.photoURL ? currentUser.photoURL : avatars[0]
+  );
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleUpdateProfile = async () => {
     try {
-      await updateProfile(currentUser, { displayName, photoURL: selectedAvatar });
-      setSuccess('Profile updated successfully!');
-      setError('');
+      await updateProfile(currentUser, {
+        displayName,
+        photoURL: selectedAvatar,
+      });
+      toast.success("Profile updated successfully!");
+      // setSuccess("Profile updated successfully!");
+      setError("");
     } catch (error) {
-      setError(error.message);
-      setSuccess('');
+      toast.error("Cannot update Profile");
+      // setError(error.message);
+      console.error(error.message);
+      setSuccess("");
     }
   };
 
@@ -44,23 +54,57 @@ export default function Profile() {
     try {
       if (newPassword) {
         await updatePassword(currentUser, newPassword);
-        setSuccess('Password updated successfully!');
-        setError('');
+        // setSuccess("Password updated successfully!");
+        toast.success("Password updated successfully!");
+        setError("");
       }
     } catch (error) {
-      setError(error.message);
-      setSuccess('');
+      toast.error("Cannot update Password");
+      // setError(error.message);
+      console.error(error.message);
+      setSuccess("");
     }
   };
 
   const handleLogout = async () => {
-    try {
-      await logout();
-      navigate('/');
-    } catch (error) {
-      setError('Failed to log out: ' + error.message);
-      setSuccess('');
-    }
+    // Show a confirmation toast
+    const confirmation = toast(
+      (t) => (
+        <div>
+          <p>Are you sure you want to log out?</p>
+          <div className="flex justify-between">
+            <button
+              onClick={() => {
+                toast.dismiss(t.id); // Dismiss the confirmation toast
+              }}
+              className="text-blue-600 hover:bg-blue-200 px-4 py-2 bg-blue-100 m-2 mt-4 rounded-md "
+            >
+              Cancel
+            </button>
+            <button
+              onClick={async () => {
+                toast.dismiss(t.id); // Dismiss the confirmation toast
+                try {
+                  await logout(); // Proceed with logout
+                  navigate("/"); // Redirect to the home page after logout
+                  toast.success("Logged out");
+                } catch (error) {
+                  console.error("Failed to log out", error);
+                  toast.error("Logout failed. Please try again."); // Show an error message
+                }
+              }}
+              className="text-red-600 hover:bg-red-200 px-4 py-2 bg-red-100 m-2 mt-4 rounded-md "
+            >
+              Log out
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        duration: 0, // Keep the toast open until dismissed
+        position: 'top-center', // Adjust position if needed
+      }
+    )
   };
 
   const openModal = () => setIsModalOpen(true);
@@ -74,21 +118,30 @@ export default function Profile() {
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className="p-6 md:p-8 max-w-md lg:max-w-lg mx-auto bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 rounded-2xl shadow-2xl space-y-8 mt-12 text-white"
     >
-      <motion.h1 
+      <motion.h1
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="text-3xl md:text-4xl font-extrabold text-center">
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="text-3xl md:text-4xl font-extrabold text-center"
+      >
         Profile
       </motion.h1>
-      {error && <p className="text-red-400 text-center font-semibold">{error}</p>}
-      {success && <p className="text-green-400 text-center font-semibold">{success}</p>}
-      
+      {error && (
+        <p className="text-red-400 text-center font-semibold">{error}</p>
+      )}
+      {success && (
+        <p className="text-green-400 text-center font-semibold">{success}</p>
+      )}
+
       <div className="text-center">
-        <img src={selectedAvatar} alt="Selected Avatar" className="w-24 h-24 mx-auto rounded-full shadow-lg" />
+        <img
+          src={selectedAvatar}
+          alt="Selected Avatar"
+          className="w-24 h-24 mx-auto rounded-full shadow-lg"
+        />
         <button
           onClick={openModal}
           className="mt-4 flex items-center justify-center bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
@@ -99,7 +152,7 @@ export default function Profile() {
       </div>
 
       <div className="space-y-6">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
@@ -111,28 +164,30 @@ export default function Profile() {
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="pl-12 pr-4 py-3 border border-gray-400 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-gray-50 text-gray-900 transition duration-300"
+              className="font-semibold pl-12 pr-4 py-3 border border-gray-400 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-black bg-gray-50 text-gray-900 transition duration-300"
               placeholder="Enter your display name"
             />
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
           <label className="block text-lg font-medium">Email</label>
-          <input
-            type="email"
-            value={currentUser.email}
-            disabled
-            className="mt-2 pl-4 py-3 border border-gray-400 rounded-lg w-full bg-gray-200 cursor-not-allowed text-gray-900"
-            placeholder="Your email address"
-          />
+          <div className="relative mt-2">
+            <MdMarkEmailRead className="text-xl absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-300" />
+            <input
+              type="email"
+              value={currentUser.email}
+              disabled
+              className="font-semibold pl-12 py-3 border border-gray-400 rounded-lg w-full bg-gray-200 cursor-not-allowed text-gray-900"
+              placeholder="Your email address"
+            /></div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
@@ -144,7 +199,7 @@ export default function Profile() {
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="pl-12 pr-4 py-3 border border-gray-400 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-gray-50 text-gray-900 transition duration-300"
+              className="font-semibold pl-12 pr-4 py-3 border border-gray-400 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-black bg-gray-50 text-gray-900 transition duration-300"
               placeholder="Enter new password"
             />
           </div>

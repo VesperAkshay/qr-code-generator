@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import QRCodeStyling from 'qr-code-styling';
-import { useAuth } from '../context/AuthContext';
-import { db } from '../firebase';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-
 import { motion } from 'framer-motion';
 import CategorySelector from './CategorySelector';
 import VCardForm from './VCardForm';
 import WifiForm from './WifiForm';
 import ColorPicker from './ColorPicker';
-import QRCodeCanvas from './QRCodeCanvas';
 import SizeSlider from './SizeSlider';
 import FileUploader from './FileUploader';
 import DownloadButton from './DownloadButton';
+import toast from 'react-hot-toast';
 
 export default function QRCodeGenerator() {
   const [text, setText] = useState('');
@@ -36,81 +32,108 @@ export default function QRCodeGenerator() {
     encryption: 'WPA',
     password: '',
   });
-  const qrCodeRef = useRef(null);
-  const { currentUser } = useAuth();
-  const [qrCode, setQrCode] = useState(null);
-  const [downloadFormat, setDownloadFormat] = useState('png');
 
-  useEffect(() => {
-    const qrCodeInstance = new QRCodeStyling({
+  const qrCodeRef = useRef(null);
+  const qrCodeInstance = useRef(null); // To keep QR code instance reference
+  const [downloadFormat, setDownloadFormat] = useState('png');
+  const [qrGenerated, setQrGenerated] = useState(false); // State to track if QR code is generated
+
+  // Initialize QRCodeStyling instance once
+  if (!qrCodeInstance.current) {
+    qrCodeInstance.current = new QRCodeStyling({
       width: size,
       height: size,
-      data: text,
-      dotsOptions: { color, type: shape },
+      data: '',
+      dotsOptions: { color: color, type: shape },
       cornersSquareOptions: { type: frame },
       cornersDotOptions: { type: eyeShape, color: eyeColor },
       backgroundOptions: { color: bgColor },
     });
-    setQrCode(qrCodeInstance);
-  }, [text, color, bgColor, size, shape, frame, eyeShape, eyeColor]);
+  }
 
   const handleGenerate = async () => {
-    if (qrCodeRef.current) {
-      qrCodeRef.current.innerHTML = ''; // Clear the previous QR code
+
+    // Check for required fields based on selected category
+    if (category === 'vCard') {
+      if (!vCardDetails.fullName || !vCardDetails.organization || !vCardDetails.phone || !vCardDetails.email) {
+        toast.error("Please fill in all fields for vCard.");
+        return;
+      }
+      setText(`BEGIN:VCARD\nVERSION:3.0\nFN:${vCardDetails.fullName}\nORG:${vCardDetails.organization}\nTEL:${vCardDetails.phone}\nEMAIL:${vCardDetails.email}\nEND:VCARD`);
+    } else if (category === 'wifi') {
+      if (!wifiDetails.ssid || !wifiDetails.password) {
+        toast.error("Please fill in the SSID and password for WiFi.");
+        return;
+      }
+      setText(`WIFI:T:${wifiDetails.encryption};S:${wifiDetails.ssid};P:${wifiDetails.password};;`);
+    } else if (category === 'text' || category === 'URL') {
+      if (!text.trim()) {
+        toast.error("Text field is empty. Please enter valid data.");
+        return;
+      }
+    } else if ( category === 'URL') {
+      if (!text.trim()) {
+        toast.error("Please fill in URL field");
+        return;
+      }
     }
 
-    let logoURL = '';
-    if (logoFile) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        logoURL = event.target.result;
-        qrCode.update({
-          data: text,
-          dotsOptions: { color, type: shape },
-          cornersSquareOptions: { type: frame },
-          cornersDotOptions: { type: eyeShape, color: eyeColor },
-          backgroundOptions: { color: bgColor },
-          image: logoURL,
-        });
-        qrCode.append(qrCodeRef.current);
-      };
-      reader.readAsDataURL(logoFile);
-    } else {
-      qrCode.update({
+    setQrGenerated(false); // Reset QR generated state
+
+    // Clear previous QR code if present
+    if (qrCodeRef.current) {
+      qrCodeRef.current.innerHTML = '';
+    }
+
+    // Create a promise to handle logo loading if applicable
+    const updateQRCode = (logoURL = '') => {
+      qrCodeInstance.current.update({
         data: text,
         dotsOptions: { color, type: shape },
         cornersSquareOptions: { type: frame },
         cornersDotOptions: { type: eyeShape, color: eyeColor },
         backgroundOptions: { color: bgColor },
+        image: logoURL, // Use logo URL if present
       });
-      qrCode.append(qrCodeRef.current);
-    }
 
-    const userRef = doc(db, "users", currentUser.uid);
-    const docSnap = await getDoc(userRef);
+      qrCodeInstance.current.append(qrCodeRef.current);
 
-    if (docSnap.exists()) {
-      const userData = docSnap.data();
-      if (userData.qrCount >= 10) {
-        alert("You have reached the daily limit of QR codes.");
-      } else {
-        await updateDoc(userRef, { qrCount: userData.qrCount + 1 });
-      }
+      // Delay a bit to ensure it's appended, then update state
+      setTimeout(() => {
+        setQrGenerated(true); // Mark QR code as generated
+      }, 500); // Set delay to ensure QR is rendered
+    };
+
+    if (logoFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const logoURL = event.target.result;
+        updateQRCode(logoURL);
+      };
+      reader.readAsDataURL(logoFile);
     } else {
-      await setDoc(userRef, { qrCount: 1 });
+      updateQRCode(); // No logo case
     }
   };
 
   const handleDownload = () => {
-    qrCode.download({ name: "qr_code", extension: downloadFormat });
+    qrCodeInstance.current.download({ name: "qr_code", extension: downloadFormat });
   };
 
   const handleCategoryChange = (category) => {
     setCategory(category);
+    setQrGenerated(false); // Reset QR generated state
+    setText(''); // Clear text input
+
+    // Clear previous QR code if present
+    if (qrCodeRef.current) {
+      qrCodeRef.current.innerHTML = '';
+    }
+
     if (category === 'vCard') {
       setText(`BEGIN:VCARD\nVERSION:3.0\nFN:${vCardDetails.fullName}\nORG:${vCardDetails.organization}\nTEL:${vCardDetails.phone}\nEMAIL:${vCardDetails.email}\nEND:VCARD`);
     } else if (category === 'URL') {
-      setText('https://example.com');
+      setText('');
     } else if (category === 'wifi') {
       setText(`WIFI:T:${wifiDetails.encryption};S:${wifiDetails.ssid};P:${wifiDetails.password};;`);
     } else if (category === 'text') {
@@ -121,10 +144,10 @@ export default function QRCodeGenerator() {
   return (
     <motion.div
       className="p-8 max-w-lg mx-auto bg-white rounded-lg shadow-lg mt-10"
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1 }}
     >
       <motion.h1
         className="text-4xl font-bold mb-6 text-center text-gray-800"
@@ -192,13 +215,18 @@ export default function QRCodeGenerator() {
         Generate QR Code
       </motion.button>
 
-      <DownloadButton
-        handleDownload={handleDownload}
-        downloadFormat={downloadFormat}
-        setDownloadFormat={setDownloadFormat}
-      />
 
-      <QRCodeCanvas qrCodeRef={qrCodeRef} />
+      {/* QR code will appear only if it's been generated */}
+      <div className='flex justify-center items-center' ref={qrCodeRef}></div>
+
+      {/* Only show download options if QR code has been generated */}
+      {qrGenerated && (
+        <DownloadButton
+          handleDownload={handleDownload}
+          downloadFormat={downloadFormat}
+          setDownloadFormat={setDownloadFormat}
+        />
+      )}
     </motion.div>
   );
 }

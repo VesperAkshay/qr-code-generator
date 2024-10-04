@@ -4,6 +4,7 @@ import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -15,8 +16,10 @@ export default function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
+      toast.success("Login Successful");
     } catch (error) {
-      alert(error.message);
+      toast.error('Something went wrong');
+      console.error(error.message);
     }
   };
 
@@ -26,7 +29,8 @@ export default function Login() {
       await signInWithPopup(auth, provider);
       navigate('/dashboard');
     } catch (error) {
-      alert(error.message);
+      toast.error('Something went wrong');
+      console.error(error.message);
     }
   };
 
@@ -47,7 +51,7 @@ export default function Login() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
+            className="w-full font-semibold p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
             required
             whileFocus={{ scale: 1.02, boxShadow: "0 0 10px rgba(99, 102, 241, 0.5)" }}
           />
@@ -58,7 +62,7 @@ export default function Login() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
+            className="w-full font-semibold p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
             required
             whileFocus={{ scale: 1.02, boxShadow: "0 0 10px rgba(99, 102, 241, 0.5)" }}
           />
@@ -73,7 +77,7 @@ export default function Login() {
         <motion.button
           type="button"
           onClick={handleGoogleLogin}
-          className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-300 shadow-lg flex items-center justify-center font-semibold"
+          className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-150 shadow-lg flex items-center justify-center font-semibold"
           whileHover={{ scale: 1.05 }}
         >
           <FcGoogle className="mr-2 size-8" />
