@@ -4,18 +4,10 @@ on:
   issues:
     types: [opened, closed, reopened]
   pull_request:
-    types: [opened, closed, reopened, merged, edited]
+    types: [opened, closed, reopened, merged]
   push:
     branches:
-      - main  # Specify other branches as needed
-  discussion:
-    types: [created, answered]
-  star:
-    types: [created]
-  fork:
-    types: [created]
-  workflow_run:
-    types: [completed]
+      - main  # You can specify other branches as well
 
 jobs:
   notify:
@@ -23,7 +15,7 @@ jobs:
     steps:
       - name: Send Discord Notification
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}  # Set your webhook URL in repo secrets
         run: |
           DISCORD_MESSAGE="🔔 **GitHub Event Notification** 🔔\n"
           DISCORD_MESSAGE+="---------------------------------------------\n"
@@ -33,76 +25,40 @@ jobs:
           DISCORD_MESSAGE+="**Timestamp**: $(date)\n"
           DISCORD_MESSAGE+="---------------------------------------------\n"
 
-          # Pull Request Details
+          # Handle pull request events
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             PR_TITLE=$(jq -r '.pull_request.title' "${GITHUB_EVENT_PATH}")
             PR_NUMBER=$(jq -r '.pull_request.number' "${GITHUB_EVENT_PATH}")
             PR_URL=$(jq -r '.pull_request.html_url' "${GITHUB_EVENT_PATH}")
             PR_BRANCH=$(jq -r '.pull_request.head.ref' "${GITHUB_EVENT_PATH}")
             PR_ACTION=$(jq -r '.action' "${GITHUB_EVENT_PATH}")
-            CHANGES_ADDED=$(jq -r '.pull_request.additions' "${GITHUB_EVENT_PATH}")
-            CHANGES_REMOVED=$(jq -r '.pull_request.deletions' "${GITHUB_EVENT_PATH}")
             DISCORD_MESSAGE+="🚀 **Pull Request** [#${PR_NUMBER} - ${PR_TITLE}](${PR_URL})\n"
             DISCORD_MESSAGE+="**Action**: ${PR_ACTION}\n"
             DISCORD_MESSAGE+="**Branch**: ${PR_BRANCH}\n"
-            DISCORD_MESSAGE+="**Additions**: ${CHANGES_ADDED} | **Deletions**: ${CHANGES_REMOVED}\n"
           fi
 
-          # Issue Event Details
+          # Handle issue events
           if [[ "${{ github.event_name }}" == "issues" ]]; then
             ISSUE_TITLE=$(jq -r '.issue.title' "${GITHUB_EVENT_PATH}")
             ISSUE_NUMBER=$(jq -r '.issue.number' "${GITHUB_EVENT_PATH}")
             ISSUE_URL=$(jq -r '.issue.html_url' "${GITHUB_EVENT_PATH}")
             ISSUE_ACTION=$(jq -r '.action' "${GITHUB_EVENT_PATH}")
-            ISSUE_LABELS=$(jq -r '.issue.labels[].name' "${GITHUB_EVENT_PATH}" | paste -sd ',' -)
             DISCORD_MESSAGE+="📄 **Issue** [#${ISSUE_NUMBER} - ${ISSUE_TITLE}](${ISSUE_URL})\n"
             DISCORD_MESSAGE+="**Action**: ${ISSUE_ACTION}\n"
-            DISCORD_MESSAGE+="**Labels**: ${ISSUE_LABELS}\n"
           fi
 
-          # Push Event Details
+          # Handle push events
           if [[ "${{ github.event_name }}" == "push" ]]; then
             COMMIT_MESSAGE=$(jq -r '.head_commit.message' "${GITHUB_EVENT_PATH}")
             COMMIT_URL=$(jq -r '.head_commit.url' "${GITHUB_EVENT_PATH}")
             PUSH_BRANCH=$(jq -r '.ref' "${GITHUB_EVENT_PATH}")
-            COMMITS_COUNT=$(jq -r '.commits | length' "${GITHUB_EVENT_PATH}")
             DISCORD_MESSAGE+="🛠️ **Push Event**\n"
             DISCORD_MESSAGE+="**Branch**: ${PUSH_BRANCH}\n"
             DISCORD_MESSAGE+="**Commit Message**: ${COMMIT_MESSAGE}\n"
-            DISCORD_MESSAGE+="**Number of Commits**: ${COMMITS_COUNT}\n"
             DISCORD_MESSAGE+="🔗 [View Commit](${COMMIT_URL})\n"
           fi
 
-          # Discussion Event Details
-          if [[ "${{ github.event_name }}" == "discussion" ]]; then
-            DISCUSSION_TITLE=$(jq -r '.discussion.title' "${GITHUB_EVENT_PATH}")
-            DISCUSSION_URL=$(jq -r '.discussion.html_url' "${GITHUB_EVENT_PATH}")
-            DISCUSSION_CATEGORY=$(jq -r '.discussion.category.name' "${GITHUB_EVENT_PATH}")
-            DISCORD_MESSAGE+="💬 **Discussion Created**: [${DISCUSSION_TITLE}](${DISCUSSION_URL})\n"
-            DISCORD_MESSAGE+="**Category**: ${DISCUSSION_CATEGORY}\n"
-          fi
-
-          # Star Event Details
-          if [[ "${{ github.event_name }}" == "star" ]]; then
-            DISCORD_MESSAGE+="⭐ **Repository Starred** by ${GITHUB_ACTOR}\n"
-          fi
-
-          # Fork Event Details
-          if [[ "${{ github.event_name }}" == "fork" ]]; then
-            FORK_URL=$(jq -r '.forkee.html_url' "${GITHUB_EVENT_PATH}")
-            DISCORD_MESSAGE+="🍴 **Repository Forked**: [View Fork](${FORK_URL})\n"
-          fi
-
-          # Workflow Run Completion
-          if [[ "${{ github.event_name }}" == "workflow_run" ]]; then
-            WORKFLOW_NAME=$(jq -r '.workflow.name' "${GITHUB_EVENT_PATH}")
-            WORKFLOW_STATUS=$(jq -r '.workflow_run.conclusion' "${GITHUB_EVENT_PATH}")
-            DISCORD_MESSAGE+="✅ **Workflow Run Completed**\n"
-            DISCORD_MESSAGE+="**Workflow**: ${WORKFLOW_NAME}\n"
-            DISCORD_MESSAGE+="**Status**: ${WORKFLOW_STATUS}\n"
-          fi
-
-          # Send the message to Discord
+          # Send the notification to Discord
           curl -H "Content-Type: application/json" \
                -d "{\"content\": \"$DISCORD_MESSAGE\"}" \
                $DISCORD_WEBHOOK_URL
