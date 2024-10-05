@@ -56,10 +56,13 @@
 We welcome contributions from the open-source community! If you'd like to contribute:
 
 1. Fork the repository.
-2. Create a new feature branch *(git checkout -b feature/your-feature).*
-3. Commit your changes *(git commit -m 'Add some feature').*
-4. Push to the branch *(git push origin feature/your-feature).*
+2. Create a new feature branch
+3. Commit your changes
+4. Push to the branch
 5. Open a Pull Request.
+
+We welcome all contributions to improve **QR Code Generator**! If you'd like to contribute, please follow the [Contributing.md](./Contributing.md) to get details on how to get started.
+
    
 To maintain quality and consistency, please adhere to the following guidelines:
 1. Code Style: Follow the coding style used throughout the project. Clean, readable code with comments is always appreciated.
