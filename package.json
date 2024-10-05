@@ -34,8 +34,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "dotenv": "^16.4.5",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.14",
     "postcss": "^8",
     "react-router-dom": "^6.26.0",
     "react-scripts": "5.0.1",
