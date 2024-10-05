@@ -1,8 +1,8 @@
+
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
-import toast from "react-hot-toast";
 
 import {
   FaUser,
@@ -22,68 +22,16 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-
   const { darkMode, setDarkMode } = useContext(ThemeContext);
 
   const handleLogout = async () => {
-    // Show a confirmation toast
-    const confirmation = toast(
-      (t) => (
-        <div>
-          <p>Are you sure you want to log out?</p>
-          <div className="flex justify-between">
-            <button
-              onClick={() => {
-                toast.dismiss(t.id); // Dismiss the confirmation toast
-              }}
-              className="text-blue-600 hover:bg-blue-200 px-4 py-2 bg-blue-100 m-2 mt-4 rounded-md "
-            >
-              Cancel
-            </button>
-            <button
-              onClick={async () => {
-                toast.dismiss(t.id); // Dismiss the confirmation toast
-                try {
-                  await logout(); // Proceed with logout
-                  navigate("/"); // Redirect to the home page after logout
-                  toast.success("Logged out");
-                } catch (error) {
-                  console.error("Failed to log out", error);
-                  toast.error("Logout failed. Please try again."); // Show an error message
-                }
-              }}
-              className="text-red-600 hover:bg-red-200 px-4 py-2 bg-red-100 m-2 mt-4 rounded-md "
-            >
-              Log out
-            </button>
-          </div>
-        </div>
-      ),
-      {
-        duration: 0, // Keep the toast open until dismissed
-        position: 'top-center', // Adjust position if needed
-      }
-    )
+    try {
+      await logout();
+      navigate("/"); // Redirect to the home page after logout
+    } catch (error) {
+      console.error("Failed to log out", error);
+    }
   };
-
-  const handleToggleTheme = () => {
-    setDarkMode((prevMode) => {
-      const newMode = !prevMode;
-
-      // Show toast notification when theme changes
-      toast(`Theme changed to ${newMode ? 'Dark' : 'Light'} mode!`, {
-        icon: `${newMode ? '🌙' :'☀️'}`,
-        style: {
-          borderRadius: '10px',
-          background: `${newMode ? '#333' : '#fff'} `,
-          color: `${newMode ? '#fff' : '#333'}`,
-        },
-      });
-
-      return newMode;
-    });
-  };
-
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -105,10 +53,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`p-4 shadow-lg ${darkMode
+      className={`p-4 shadow-lg ${
+        darkMode
           ? "bg-[#00050e] border-b-[1px] border-[#333333]"
           : "bg-gradient-to-r from-indigo-600 to-purple-600"
-        }`}
+      }`}
     >
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-3">
@@ -150,13 +99,15 @@ export default function Navbar() {
                 <div className="relative" ref={dropdownRef}>
                   {dropdownOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-20">
-                      <Link
-                        to="/dashboard"
-                        className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
-                      >
-                        <FaUser className="mr-2" />
-                        Dashboard
-                      </Link>
+                      {currentUser.emailVerified && ( // Check if the user is verified
+                        <Link
+                          to="/dashboard"
+                          className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+                        >
+                          <FaUser className="mr-2" />
+                          Dashboard
+                        </Link>
+                      )}
                       <Link
                         to="/profile"
                         className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
@@ -183,7 +134,9 @@ export default function Navbar() {
                 </div>
               </div>
               <button
-                onClick={handleToggleTheme}
+                onClick={() => {
+                  setDarkMode(!darkMode);
+                }}
                 className="text-white hover:text-indigo-200 transition duration-300 text-xl"
               >
                 {darkMode ? <MdLightMode /> : <FaMoon />}
@@ -220,13 +173,15 @@ export default function Navbar() {
         <div className="md:hidden mt-2 w-full bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-20">
           {currentUser ? (
             <>
-              <Link
-                to="/dashboard"
-                className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
-              >
-                <FaUser className="mr-2" />
-                Dashboard
-              </Link>
+              {currentUser.emailVerified && ( // Check if the user is verified
+                <Link
+                  to="/dashboard"
+                  className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
+                >
+                  <FaUser className="mr-2" />
+                  Dashboard
+                </Link>
+              )}
               <Link
                 to="/profile"
                 className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
@@ -249,7 +204,9 @@ export default function Navbar() {
                 Logout
               </button>
               <button
-                onClick={() => { setDarkMode(!darkMode); }}
+                onClick={() => {
+                  setDarkMode(!darkMode);
+                }}
                 className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300 w-full"
               >
                 {darkMode ? <MdLightMode size={16} /> : <FaMoon size={10} />} Toggle Dark Mode
@@ -278,3 +235,6 @@ export default function Navbar() {
     </nav>
   );
 }
+
+
+

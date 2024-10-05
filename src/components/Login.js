@@ -1,36 +1,63 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendEmailVerification } from "firebase/auth";
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { motion } from 'framer-motion';
-import toast from 'react-hot-toast';
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [emailAuthVerified, setEmailAuthVerified] = useState(false);
+  const [googleAuthVerified, setGoogleAuthVerified] = useState(false);
   const navigate = useNavigate();
+  const { setCurrentUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard');
-      toast.success("Login Successful");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      setCurrentUser(user);
+
+      if (user.emailVerified) {
+        setEmailAuthVerified(true);
+        navigate('/dashboard');
+      } else {
+        setShowVerificationModal(true);
+      }
     } catch (error) {
-      toast.error('Something went wrong');
-      console.error(error.message);
+      alert(error.message);
     }
   };
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      navigate('/dashboard');
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+      setCurrentUser(user);
+
+      if (user.emailVerified) {
+        setGoogleAuthVerified(true);
+        navigate('/dashboard');
+      } else {
+        setShowVerificationModal(true);
+      }
     } catch (error) {
-      toast.error('Something went wrong');
-      console.error(error.message);
+      alert(error.message);
+    }
+  };
+
+  const handleSendVerificationEmail = async () => {
+    try {
+      await sendEmailVerification(auth.currentUser);
+      alert('Verification email sent! Please check your inbox.');
+      setShowVerificationModal(false);
+    } catch (error) {
+      alert(error.message);
     }
   };
 
@@ -84,6 +111,27 @@ export default function Login() {
           Sign in with <span className="font-bold ml-1"> Google</span>
         </motion.button>
       </motion.form>
+
+      {showVerificationModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md">
+            <h2 className="text-2xl font-bold mb-4">Email Verification Required</h2>
+            <p className="mb-4">Your email address is not verified. Please verify your email to continue.</p>
+            <button
+              onClick={handleSendVerificationEmail}
+              className="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700 transition-colors duration-300 shadow-lg font-semibold"
+            >
+              Resend Verification Email
+            </button>
+            <button
+              onClick={() => setShowVerificationModal(false)}
+              className="w-full mt-3 bg-gray-200 text-black p-3 rounded-lg hover:bg-gray-300 transition-colors duration-150 shadow-lg font-semibold"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
