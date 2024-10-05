@@ -17,11 +17,11 @@ import {
   FaBars, // Icon for dropdown
 } from "react-icons/fa";
 import { MdLightMode } from "react-icons/md";
+import toast from "react-hot-toast";
 
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-<<<<<<< HEAD
 
   const { theme, toggleTheme } = useContext(ThemeContext);
 
@@ -82,6 +82,7 @@ export default function Navbar() {
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null); // Button ke liye separate ref
 
+
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
@@ -107,17 +108,8 @@ export default function Navbar() {
   }, [dropdownRef, buttonRef]);
 
   return (
-<<<<<<< HEAD
     <nav className="p-4">
-=======
-    <nav
-      className={`p-4 shadow-lg ${
-        darkMode
-          ? "bg-[#00050e] border-b-[1px] border-[#333333]"
-          : "bg-gradient-to-r from-indigo-600 to-purple-600"
-      }`}
-    >
->>>>>>> 72622978bd56c1314144541f8f7aed64be9bdc4d
+
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-3">
           <FaQrcode className="text-white h-8 w-8" />
@@ -157,7 +149,6 @@ export default function Navbar() {
                   <FaBars className="text-2xl ml-2 md:hidden" />
                 </button>
                 <div className="relative" ref={dropdownRef}>
-<<<<<<< HEAD
                   <AnimatePresence>
                     {dropdownOpen && (
                       <motion.div
@@ -210,45 +201,7 @@ export default function Navbar() {
                 </div>
               </div>
               {/* <button
-=======
-                  {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-20">
-                      {currentUser.emailVerified && ( // Check if the user is verified
-                        <Link
-                          to="/dashboard"
-                          className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
-                        >
-                          <FaUser className="mr-2" />
-                          Dashboard
-                        </Link>
-                      )}
-                      <Link
-                        to="/profile"
-                        className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
-                      >
-                        <FaUser className="mr-2" />
-                        Profile
-                      </Link>
-                      <Link
-                        to="/settings"
-                        className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-indigo-500 hover:text-white transition duration-300"
-                      >
-                        <FaCog className="mr-2" />
-                        Settings
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="flex items-center px-4 py-2 text-gray-700 dark:text-white hover:bg-red-500 hover:text-white transition duration-300 w-full"
-                      >
-                        <FaSignOutAlt className="mr-2" />
-                        Logout
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <button
->>>>>>> 72622978bd56c1314144541f8f7aed64be9bdc4d
+
                 onClick={() => {
                   setDarkMode(!darkMode);
                 }}
