@@ -8,7 +8,7 @@ export default function ProfilePage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
-      className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-6"
+      className="min-h-screen flex flex-col items-center justify-center p-6"
     >
       <motion.h1
         initial={{ y: -20, opacity: 0 }}

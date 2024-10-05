@@ -132,13 +132,13 @@ export default function QRScanner() {
     };
 
     return (
-        <div className="p-8 bg-white shadow-lg rounded-lg max-w-lg mx-auto">
-            <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800 flex items-center justify-center">
+        <div className="p-8 bg-purple-100 dark:bg-[#2b2661] shadow-lg rounded-lg max-w-lg mx-auto">
+            <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800 flex items-center justify-center dark:text-gray-200">
                 <FaCamera className="mr-2" /> QR Code Scanner
             </h1>
 
             <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-700 mb-4 flex items-center">
+                <h2 className="text-2xl font-bold text-gray-700 mb-4 flex items-center dark:text-gray-300">
                     <FaCamera className="mr-2" /> Scan with Camera
                 </h2>
                 <div className="flex w-full justify-center gap-5 items-center">
@@ -152,7 +152,7 @@ export default function QRScanner() {
                     </button>
 
                     {noCameraFound ? (
-                        <div className="px-4 py-2 rounded-md mb-4 bg-red-100 text-red-800 flex flex-col items-center">
+                        <div className="px-4 py-2 rounded-md mb-4 bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-100 flex flex-col items-center">
                             <p className="font-semibold flex items-center justify-between">No Camera Found!</p>
                             <p className="text-xs">Check site permissions and devices</p>
                         </div>
@@ -191,14 +191,14 @@ export default function QRScanner() {
             </div>
 
             <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-700 mb-4 flex items-center">
+                <h2 className="text-2xl font-bold text-gray-700 mb-4 flex items-center  dark:text-gray-200">
                     <FaImage className="mr-2" /> Scan from Image
                 </h2>
                 <input
                     type="file"
                     accept="image/*"
                     onChange={handleImageChange}
-                    className="mb-4 w-full p-2 border border-gray-300 rounded-lg"
+                    className="mb-4 w-full p-2 border border-gray-400  dark:text-gray-200 rounded-lg"
                 />
             </div>
 

@@ -103,60 +103,60 @@ export default function Settings() {
 
   return (
     <motion.div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-400 to-purple-500 p-6"
+      className="min-h-screen flex items-center justify-center p-6"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-white rounded-xl shadow-lg p-8 max-w-lg w-full space-y-6 transition-transform transform hover:scale-105">
+      <div className="bg-purple-100 dark:bg-[#2b2661] rounded-xl shadow-lg p-8 max-w-lg w-full space-y-6 transition-transform transform hover:scale-105">
         <div className="flex items-center justify-center">
-          <FaUserCog className="text-blue-600 w-16 h-16" />
+          <FaUserCog className="text-blue-500 w-16 h-16" />
         </div>
-        <h1 className="text-3xl font-extrabold text-center text-gray-800">Settings</h1>
+        <h1 className="text-3xl font-extrabold text-center text-gray-800 dark:text-gray-200">Settings</h1>
         
         {success && <p className="text-green-500 text-center font-semibold">{success}</p>}
         {error && <p className="text-red-500 text-center font-semibold">{error}</p>}
 
         <form className="space-y-4">
           <div>
-            <label className="block text-lg font-medium text-gray-700">Display Name</label>
+            <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">Display Name</label>
             <div className="relative">
               <input
                 type="text"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 pl-10"
+                className="mt-2 p-3 border border-gray-400 dark:bg-indigo-950 dark:text-gray-200 font-semibold rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 pl-10"
                 placeholder="Enter your display name"
               />
-              <FaUserCog className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+              <FaUserCog className="absolute text-xl left-2 top-1/2 mt-1 transform -translate-y-1/2 text-gray-400" />
             </div>
           </div>
 
           <div>
-            <label className="block text-lg font-medium text-gray-700">Email</label>
+            <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">Email</label>
             <div className="relative">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 pl-10"
+                className="mt-2 p-3 border border-gray-400 dark:bg-indigo-950 dark:text-gray-200 font-semibold rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 pl-10"
                 placeholder="Enter your email"
               />
-              <AiOutlineMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+              <AiOutlineMail className="absolute text-xl left-2 top-1/2 mt-1 transform -translate-y-1/2 text-gray-400" />
             </div>
           </div>
 
           <div>
-            <label className="block text-lg font-medium text-gray-700">New Password</label>
+            <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">New Password</label>
             <div className="relative">
               <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 pl-10"
+                className="mt-2 p-3 border border-gray-400 dark:bg-indigo-950 dark:text-gray-200 font-semibold rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 pl-10"
                 placeholder="Enter new password"
               />
-              <AiOutlineLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+              <AiOutlineLock className="absolute text-xl left-2 top-1/2 mt-1 transform -translate-y-1/2 text-gray-400" />
             </div>
           </div>
 
@@ -164,25 +164,25 @@ export default function Settings() {
             <button
               type="button"
               onClick={handleUpdateProfile}
-              className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md flex items-center justify-center"
+              className="bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md flex items-center justify-center"
             >
-              <FaUserCog className="mr-2" />
+              <FaUserCog className="mr-2 text-3xl" />
               Update Profile
             </button>
             <button
               type="button"
               onClick={handleUpdateEmail}
-              className="bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition duration-300 shadow-md flex items-center justify-center"
+              className="bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition duration-300 shadow-md flex items-center justify-center"
             >
-              <AiOutlineMail className="mr-2" />
+              <AiOutlineMail className="mr-2 text-3xl" />
               Update Email
             </button>
             <button
               type="button"
               onClick={handleUpdatePassword}
-              className="bg-yellow-600 text-white py-3 px-6 rounded-lg hover:bg-yellow-700 transition duration-300 shadow-md flex items-center justify-center"
+              className="bg-yellow-600 text-white py-3 px-4 rounded-lg hover:bg-yellow-700 transition duration-300 shadow-md flex items-center justify-center"
             >
-              <AiOutlineLock className="mr-2" />
+              <AiOutlineLock className="mr-2 text-3xl" />
               Update Password
             </button>
           </div>
@@ -193,7 +193,7 @@ export default function Settings() {
               onClick={handleLogout}
               className="bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 transition duration-300 shadow-md w-full flex items-center justify-center"
             >
-              <FaUserCog className="mr-2" />
+              <FaUserCog className="mr-2 text-xl" />
               Logout
             </button>
           </div>
