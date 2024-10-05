@@ -177,10 +177,6 @@ For Queries and issue related question you can contact me on Discord
 
 *Discord Username:* akshaypatell_
 
-## 🪄Code of conduct
-
-Want to be part of the community? Check out our **[Code of Conduct](https://github.com/VesperAkshay/qr-code-generator/blob/main/Code_Of_Conduct.md)**
-
 
 ## 👥 Team
 
@@ -188,6 +184,10 @@ Want to be part of the community? Check out our **[Code of Conduct](https://gith
 |:--:|
 | **Akshay Patel** <br> <sub>Project Admin</sub> | 
 | [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://linkedin.com/in/www.linkedin.com/in/akshay-patel-3b0b97284) | 
+
+## 🪄Code of conduct
+
+Want to be part of the community? Check out our **[Code of Conduct](https://github.com/VesperAkshay/qr-code-generator/blob/main/Code_Of_Conduct.md)**
 
 
 <hr>
