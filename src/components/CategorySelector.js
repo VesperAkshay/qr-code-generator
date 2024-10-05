@@ -12,7 +12,7 @@ export default function CategorySelector({ category, handleCategoryChange }) {
   ];
 
   return (
-    <div className="flex justify-around mb-8 p-4 bg-gradient-to-r from-gray-100 via-white to-gray-100 rounded-xl shadow-lg space-x-6">
+    <div className="flex justify-around mb-8 p-4 bg-gray-100 dark:bg-[#2b2661] rounded-xl shadow-lg space-x-6">
       {categories.map(({ name, icon }) => (
         <motion.button
           key={name}
@@ -20,7 +20,7 @@ export default function CategorySelector({ category, handleCategoryChange }) {
           className={`flex flex-col items-center p-4 rounded-lg font-medium focus:outline-none transition-transform ${
             category === name
               ? 'bg-blue-500 text-white shadow-2xl transform scale-105'
-              : 'bg-white text-gray-700 shadow-md'
+              : 'bg-white dark:bg-indigo-950 text-gray-700 dark:text-gray-200 shadow-md'
           }`}
           whileHover={{
             scale: 1.12,
@@ -35,14 +35,7 @@ export default function CategorySelector({ category, handleCategoryChange }) {
           }}
         >
           <motion.div
-            className={`text-2xl mb-2 p-2 rounded-full bg-white${
-              category === name ? 'text-blue-500' : ' text-gray-700'
-            }`}
-            whileHover={{
-              // scale: 1.25,
-              backgroundColor: category === name ? '#FFFFFF' : '#E5E7EB',
-              // transition: { duration: 0.1 },
-            }}
+            className={`text-2xl mb-2 p-2 rounded-full bg-white text-gray-700`}
           >
             <FontAwesomeIcon icon={icon} />
           </motion.div>

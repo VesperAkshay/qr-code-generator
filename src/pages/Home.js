@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaQrcode, FaSignInAlt } from "react-icons/fa";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
@@ -8,8 +8,10 @@ import TwitterLogo from "../assets/twitter.png";
 import MetaLogo from "../assets/meta.png";
 import InstagramLogo from "../assets/instagram.png";
 import { useAuth } from "../context/AuthContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function Home() {
+  // const { darkMode, setDarkMode } = useContext(ThemeContext);
   const { currentUser } = useAuth();
   const processStepCrads = [
     {
@@ -27,16 +29,17 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-600 to-purple-600">
+    <div className="flex justify-center items-center min-h-screen p-2 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800">
+      
       <motion.div
-        className="text-center p-8 bg-white bg-opacity-90 rounded-3xl shadow-2xl"
+        className="text-center p-8 bg-white dark:bg-indigo-950 bg-opacity-90 rounded-3xl shadow-2xl"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
         {/* QR Code Icon */}
         <motion.div
-          className="mx-auto text-gray-800 text-6xl mb-4"
+          className="mx-auto text-gray-800 dark:text-gray-200 text-6xl mb-4"
           initial={{ rotate: -45 }}
           animate={{ rotate: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
@@ -46,7 +49,7 @@ export default function Home() {
 
         {/* Welcome Message */}
         <motion.h1
-          className="text-5xl font-extrabold mb-6 text-gray-900"
+          className="text-5xl font-extrabold mb-6 text-gray-900 dark:text-gray-200"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
@@ -56,7 +59,7 @@ export default function Home() {
 
         {/* Introductory Text */}
         <motion.p
-          className="text-lg mb-8 text-gray-700"
+          className="text-lg mb-8 text-gray-700 dark:text-gray-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
@@ -68,15 +71,15 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Card 1: Why use QR Codes? */}
           <motion.div
-            className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-translate duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50"
+            className="bg-white dark:bg-indigo-900 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-translate duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50 dark:hover:bg-indigo-900"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
           >
-            <p className="text-lg text-gray-700 mb-4">
+            <p className="text-2xl font-semibold text-gray-900 dark:text-gray-200 mb-4">
               💡 <span className="font-semibold">Why use QR Codes?</span>
             </p>
-            <p className="text-md text-gray-600">
+            <p className="text-md text-gray-600 dark:text-gray-300">
               QR codes are a versatile tool for businesses and personal use.
               They can link to websites, contact information, and even payment
               options. With our tool, you can create custom QR codes that match
@@ -86,15 +89,15 @@ export default function Home() {
 
           {/* Card 2: Intro to QR Codes */}
           <motion.div
-            className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-translate  duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50"
+            className="bg-white dark:bg-indigo-900 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-translate duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50 dark:hover:bg-indigo-900"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
           >
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-200 mb-4">
               I’m new to QR Codes. What should I know?
             </h2>
-            <p className="text-md text-gray-600 mb-4">
+            <p className="text-md text-gray-600 dark:text-gray-300 mb-4">
               QR Code is a two-dimensional version of the barcode, typically
               made up of black and white pixel patterns. It was developed to
               accelerate logistics processes for automobile production. Now, it
@@ -102,7 +105,7 @@ export default function Home() {
             </p>
             <Link
               to="/more-info"
-              className="text-blue-600 hover:text-blue-800 transition-colors duration-300 hover:underline"
+              className="text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-400 text-lg transition-colors duration-300 hover:underline"
             >
               Tell me more
             </Link>
@@ -135,10 +138,10 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.9, ease: "easeOut" }}
           >
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               How do I create a free QR Code?
             </h2>
-            <p className="text-md text-gray-600 mb-4">
+            <p className="text-md text-gray-600 dark:text-gray-400 mb-4">
               We’ll show you how in just three simple steps:
             </p>
           </motion.div>
@@ -150,15 +153,15 @@ export default function Home() {
             return (
               <motion.div
                 key={index}
-                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-translate duration-200 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50"
+                className="bg-white dark:bg-indigo-900 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-translate duration-200 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50 dark:hover:bg-indigo-900"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.7, delay: 1, ease: "easeOut" }}
               >
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
                   {processStepCrad.heading}
                 </h3>
-                <p className="text-md text-gray-600 mb-4">
+                <p className="text-md text-gray-600 dark:text-gray-300 mb-4">
                   {processStepCrad.desc}
                 </p>
               </motion.div>
@@ -168,24 +171,24 @@ export default function Home() {
 
         {/* Centered Pro Tip Card */}
         <motion.div
-          className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-translate duration-300 transform hover:-translate-y-2 hover:scale-[102%] col-span-1 md:col-span-2"
+          className="bg-white dark:bg-indigo-900 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-translate duration-300 transform hover:-translate-y-2 hover:scale-[102%] col-span-1 md:col-span-2 text-gray-500 dark:text-gray-200 space-y-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 1.3, ease: "easeOut" }}
         >
-          <p className="text-gray-500 mb-2">
+          <p className="">
             Pro Tip: You can install this app on your mobile device by using
             Chrome's "Add to Home Screen" feature for quick access!
           </p>
-          <p className="text-gray-500 mb-2">
+          <p className="">
             Explore the endless possibilities with QR codes, from simplifying
             your business operations to enhancing your marketing efforts.
           </p>
-          <p className="text-gray-500">
+          <p className="">
             Don't have an account?
             <Link
               to="/register"
-              className="text-blue-600 hover:text-blue-800 transition-colors duration-300 hover:underline ml-1"
+              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 transition-colors duration-300 hover:underline ml-1"
             >
               Sign up here
             </Link>
@@ -194,15 +197,15 @@ export default function Home() {
         </motion.div>
         {/* Follow Us on Social Section */}
         <motion.div
-          className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-translate duration-300 transform hover:-translate-y-2 hover:scale-[102%] col-span-1 md:col-span-2 mt-8"
+          className="bg-white dark:bg-indigo-900 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-translate duration-300 transform hover:-translate-y-2 hover:scale-[102%] col-span-1 md:col-span-2 mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 1.3, ease: "easeOut" }}
         >
-          <h3 className="text-xl font-bold text-gray-800">
+          <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 ">
             Follow Us on Social
           </h3>
-          <h4 className="mb-4">
+          <h4 className="mb-4 dark:text-gray-100">
             Follow us on social media to keep up with new features and exciting
             news!
           </h4>

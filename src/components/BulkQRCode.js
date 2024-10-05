@@ -42,12 +42,12 @@ export default function BulkQRCode() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-8">
+    <div className="min-h-screen p-8">
       <h1 className="text-5xl font-extrabold text-center text-white mb-12">
         Bulk QR Code Generator
       </h1>
 
-      <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
+      <div className="bg-purple-100 dark:text-gray-200 dark:bg-[#2b2661] p-6 rounded-xl shadow-lg mb-8">
         <h2 className="text-2xl font-semibold mb-4 flex items-center">
           <FiSettings className="mr-2" /> Customize QR Codes
         </h2>
@@ -59,7 +59,7 @@ export default function BulkQRCode() {
               type="number"
               value={size}
               onChange={handleSizeChange}
-              className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="p-3 border dark:bg-indigo-950 border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               min={64}
               max={512}
             />
@@ -71,7 +71,7 @@ export default function BulkQRCode() {
               type="color"
               value={bgColor}
               onChange={(e) => setBgColor(e.target.value)}
-              className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="p-3 border dark:bg-indigo-950 border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div className="flex flex-col">
@@ -81,7 +81,7 @@ export default function BulkQRCode() {
               type="color"
               value={fgColor}
               onChange={(e) => setFgColor(e.target.value)}
-              className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="p-3 border dark:bg-indigo-950 border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
         </div>
@@ -89,14 +89,14 @@ export default function BulkQRCode() {
 
       <div className="flex flex-col space-y-6">
         {urls.map((url, index) => (
-          <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
+          <div key={index} className="bg-purple-100 dark:bg-[#2b2661] p-6 rounded-lg shadow-lg">
             <div className="mb-4">
               <input
                 type="text"
                 placeholder={`Enter URL or text for QR code ${index + 1}`}
                 value={url}
                 onChange={(e) => handleUrlChange(index, e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full p-3 border dark:bg-indigo-950 dark:text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 

@@ -18,7 +18,6 @@ import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
 export default function DashboardPage() {
-  const { darkMode } = useContext(ThemeContext);
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -106,6 +105,7 @@ export default function DashboardPage() {
   ];
 
   const handleLogout = async () => {
+    // Show a confirmation toast
     const confirmation = toast(
       (t) => (
         <div>
@@ -140,19 +140,17 @@ export default function DashboardPage() {
       ),
       {
         duration: 0, // Keep the toast open until dismissed
-        position: 'top-center',
+        position: 'top-center', // Adjust position if needed
       }
-    );
+    )
   };
-
+  
   return (
+    <div className="p-2">
     <div
-      className={`min-h-screen bg-gradient-to-r p-8 ${
-        darkMode
-          ? "bg-gradient-to-r from-[#192646] to-[#00050e]"
-          : " bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
-      }`}
+      className="min-h-screen rounded-3xl bg-gradient-to-r p-8 from-violet-500 via-purple-500 to-pink-500 dark:from-violet-950 dark:to-indigo-950"
     >
+    {/* bg-gradient-to-r from-[#192646] to-[#00050e] */}
       <h1 className="text-5xl font-extrabold text-center text-white mb-12">
         Dashboard
       </h1>
@@ -166,7 +164,7 @@ export default function DashboardPage() {
                 boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
               }}
               whileTap={{ scale: 0.98 }}
-              className={`p-6 ${bgColor} rounded-2xl shadow-lg transition-transform duration-300`}
+              className={`p-6 ${bgColor} dark:filter dark:brightness-100 rounded-2xl shadow-lg transition-transform duration-300`}
             >
               <Link to={to} className="text-center flex flex-col items-center">
                 <div className={`text-6xl mb-4 ${color} p-4 rounded-full shadow-md transition-transform duration-300`}>
@@ -188,7 +186,7 @@ export default function DashboardPage() {
             boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
           }}
           whileTap={{ scale: 0.98 }}
-          className="p-6 bg-gray-600 rounded-2xl shadow-lg transition-transform duration-300 cursor-pointer"
+          className="p-6 bg-gray-600 dark:filter dark:brightness-100 rounded-2xl shadow-lg transition-transform duration-300 cursor-pointer"
         >
           <div className="text-center flex flex-col items-center">
             <div className="text-6xl mb-4 text-white p-4 rounded-full shadow-md transition-transform duration-300">
@@ -199,6 +197,6 @@ export default function DashboardPage() {
           </div>
         </motion.div>
       </div>
-    </div>
+    </div></div>
   );
 }
