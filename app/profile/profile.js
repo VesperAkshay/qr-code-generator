@@ -89,18 +89,22 @@ export default function Profile() {
   return (
     <>
       <style jsx>{`
-        @keyframes hflip {
-          0% {
-            transform: rotateY(0);
-          }
-          100% {
-            transform: rotateY(180deg);
-          }
-        }
+@keyframes hflip {
+  0% {
+    transform: rotateY(0);
+  }
+  50% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
 
-        .hover-animate-hflip:hover {
-          animation: hflip 0.5s ease-in-out forwards;
-        }
+.hover-animate-hflip:hover {
+  animation: hflip 0.8s ease forwards;
+}
+
       `}</style>
 
       <motion.div
