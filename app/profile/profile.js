@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { FaUserEdit, FaLock, FaSignOutAlt, FaEdit } from "react-icons/fa";
 import { motion } from "framer-motion";
 import AvatarSelectionModal from "../AvatarSelectionModel/page";
+import { MdMarkEmailRead } from "react-icons/md";
 
 const avatars = [
   "/avatars/avatar1.png",
@@ -164,7 +165,7 @@ export default function Profile() {
           >
             <label className="block text-lg font-medium">Email</label>
             <div className="relative mt-2">
-              {/* <MdMarkEmailRead className="text-xl absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-300" /> */}
+              <MdMarkEmailRead className="text-xl absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-300" />
               <input
                 type="email"
                 value={currentUser.email}

@@ -161,14 +161,12 @@ export default function Navbar() {
             </>
           )}
         </div>
-        {/* Mobile Dropdown Button */}
         <div className="md:hidden">
           <button onClick={toggleDropdown} className="text-white">
             <FaBars />
           </button>
         </div>
       </div>
-      {/* Mobile Dropdown Menu */}
       {dropdownOpen && (
         <div className="md:hidden mt-2 w-full bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-20">
           {currentUser ? (

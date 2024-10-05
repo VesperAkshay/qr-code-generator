@@ -8,7 +8,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
-        {/* Corrected favicon path */}
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>My Next.js App</title>

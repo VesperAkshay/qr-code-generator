@@ -14,7 +14,6 @@ export default function Home() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        {/* QR Code Icon */}
         <motion.div
           className="mx-auto text-gray-800 text-6xl mb-4"
           initial={{ rotate: -45 }}
@@ -24,7 +23,6 @@ export default function Home() {
           <FaQrcode />
         </motion.div>
 
-        {/* Welcome Message */}
         <motion.h1
           className="text-5xl font-extrabold mb-6 text-gray-900"
           initial={{ y: -50, opacity: 0 }}
@@ -34,7 +32,6 @@ export default function Home() {
           Welcome to the QR Code Generator
         </motion.h1>
 
-        {/* Introductory Text */}
         <motion.p
           className="text-lg mb-8 text-gray-700"
           initial={{ opacity: 0 }}
@@ -44,10 +41,8 @@ export default function Home() {
           Create and customize your own QR codes easily.
         </motion.p>
 
-        {/* Card Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-          {/* Card 1: Why use QR Codes? */}
           <motion.div
             className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50"
             initial={{ opacity: 0 }}
@@ -63,7 +58,6 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Card 2: Intro to QR Codes */}
           <motion.div
             className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50"
             initial={{ opacity: 0 }}
@@ -79,7 +73,6 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          {/* Centered Login Button */}
           <motion.div
             className="col-span-1 md:col-span-2 flex justify-center my-7"
             initial={{ opacity: 0 }}
@@ -95,7 +88,6 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          {/* Card for Creating QR Code Section */}
           <motion.div
             className="col-span-1 md:col-span-2"
             initial={{ opacity: 0 }}
@@ -108,10 +100,8 @@ export default function Home() {
 
         </div>
 
-        {/* Steps Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
 
-          {/* Step 1 */}
           <motion.div
             className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50"
             initial={{ opacity: 0 }}
@@ -124,7 +114,6 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Step 2 */}
           <motion.div
             className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50"
             initial={{ opacity: 0 }}
@@ -137,7 +126,6 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Step 3 */}
           <motion.div
             className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50"
             initial={{ opacity: 0 }}
@@ -151,7 +139,6 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Centered Pro Tip Card */}
         <motion.div
           className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2 hover:scale-105 hover:bg-purple-50 col-span-1 md:col-span-2"
           initial={{ opacity: 0 }}

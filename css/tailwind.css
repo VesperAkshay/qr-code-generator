@@ -34,15 +34,15 @@ body {
     
   }
   
-  /* CSS for qrcode size slider */
+
   input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Remove default appearance */
-    height: 24px; /* Height of the thumb */
-    width: 24px; /* Width of the thumb */
-    background: #4f46e5; /* Color of the thumb (change this to desired color) */
-    border-radius: 50%; /* Make it circular */
-    cursor: pointer; /* Pointer cursor on hover */
-    margin-top: 0px; /* Center thumb vertically */
+    -webkit-appearance: none; 
+    height: 24px; 
+    width: 24px; 
+    background: #4f46e5; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    margin-top: 0px; 
 }
 
   @supports not selector(::-webkit-scrollbar) {
