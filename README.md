@@ -181,6 +181,15 @@ For Queries and issue related question you can contact me on Discord
 
 Want to be part of the community? Check out our **[Code of Conduct](https://github.com/VesperAkshay/qr-code-generator/blob/main/Code_Of_Conduct.md)**
 
+
+## 👥 Team
+
+| ![Akshay Patel](https://avatars.githubusercontent.com/u/118452811?v=4&s=80)|
+|:--:|
+| **Akshay Patel** <br> <sub>Project Admin</sub> | 
+| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://linkedin.com/in/www.linkedin.com/in/akshay-patel-3b0b97284) | 
+
+
 <hr>
 <div>
   <h2><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f_1f3fb/512.webp" width="35" height="35"> Support </h2>
