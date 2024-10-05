@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaQrcode, FaSignInAlt } from "react-icons/fa";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { RiDashboardHorizontalFill } from "react-icons/ri";
 import { motion } from "framer-motion";
 import TwitterLogo from "../assets/twitter.png";
 import MetaLogo from "../assets/meta.png";
 import InstagramLogo from "../assets/instagram.png";
 import { useAuth } from "../context/AuthContext";
+import LinkedinLogo from '../assets/linkedin-logo.png';
 import { ThemeContext } from "../context/ThemeContext";
 
 export default function Home() {
@@ -220,7 +220,7 @@ export default function Home() {
               href="https://www.twitter.com"
               className="text-blue-400 text-3xl hover:text-blue-600"
             >
-              <img src={TwitterLogo} alt="Twitter" className="mt-1 h-6 w-6" />
+              <img src={TwitterLogo} alt="Twitter" className="h-8 w-8" />
             </a>
             <a
               href="https://www.instagram.com"
@@ -232,7 +232,7 @@ export default function Home() {
               href="https://www.linkedin.com"
               className="text-blue-700 text-3xl hover:text-blue-900"
             >
-              <FaLinkedin />
+              <img src={LinkedinLogo} alt="Instagram" className="h-8 w-8" />
             </a>
           </div>
         </motion.div>
