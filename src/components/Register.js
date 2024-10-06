@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FcGoogle } from 'react-icons/fc'; // Import Google icon
+import { useAuth } from '../context/AuthContext';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -10,6 +11,16 @@ export default function Register() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+  const { currentUser, loading } = useAuth();
+
+  // Redirect to dashboard if user is signed in
+  useEffect(() => {
+    if (!loading) {
+      if (currentUser) {
+        navigate('/dashboard');
+      }
+    }
+  }, [currentUser, loading, navigate]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
