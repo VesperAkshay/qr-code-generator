@@ -1,7 +1,7 @@
 <a id="top"></a>
-<h1 align="center">QR Code Customization</h1>
+<h1 align="center">QR Code Generator</h1>
 <h3 align="center">
-   Welcome to the QR Code Customization Website project! This web application allows users to generate and customize QR codes with various options, including text input, color, pattern, frame, and more.
+   Welcome to the QR Code Generator Website project! This web application allows users to generate and customize QR codes with various options, including text input, color, pattern, frame, and more.
  
 </h3>
 
@@ -53,7 +53,7 @@
 
 ## ✨Contributing
 
-We welcome contributions from the open-source community! If you'd like to contribute:
+We welcome all the contributions from the open-source community! If you'd like to contribute follow these steps:
 
 1. Fork the repository.
 2. Create a new feature branch
@@ -183,7 +183,7 @@ For Queries and issue related question you can contact me on Discord
 | ![Akshay Patel](https://avatars.githubusercontent.com/u/118452811?v=4&s=80)|
 |:--:|
 | **Akshay Patel** <br> <sub>Project Admin</sub> | 
-| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://linkedin.com/in/www.linkedin.com/in/akshay-patel-3b0b97284) | 
+| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/akshay-patel-3b0b97284/) | 
 
 ## 🪄Code of conduct
 
