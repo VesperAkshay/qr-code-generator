@@ -14,6 +14,7 @@ svg.code-outline-highlight {
 }
 
 body {
+    cursor: url("../assets/custom-pointer.png"), auto;
     --sb-track-color: #232E33;
     --sb-thumb-color: #ffffff;
     --sb-size: 8px;
