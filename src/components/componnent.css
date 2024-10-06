@@ -1,0 +1,6 @@
+/* new Navbar custome gredient */
+
+.custome-gredient{
+    background: rgb(0,0,0);
+background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgb(53, 51, 205) 100%);
+}

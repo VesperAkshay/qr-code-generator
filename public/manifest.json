@@ -1,6 +1,8 @@
 {
+
   "short_name": "Qr Builder",
   "name": "Quick QR Builder",
+
   "icons": [
     {
       "src": "favicon.ico",

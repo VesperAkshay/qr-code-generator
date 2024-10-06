@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { FcGoogle } from 'react-icons/fc';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -12,7 +14,7 @@ export default function Register() {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard');
+      navigate('/new-dashboard');
     } catch (error) {
       alert(error.message);
     }
@@ -22,50 +24,62 @@ export default function Register() {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      navigate('/dashboard');
+      navigate('/new-dashboard');
     } catch (error) {
       alert(error.message);
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-green-400 to-blue-500">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Create an Account</h1>
-        <div className="mb-4">
-          <input
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
+      <motion.form 
+        onSubmit={handleSubmit} 
+        className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-sm"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        whileHover={{ scale: 1.02 }}
+      >
+        <h1 className="text-4xl font-extrabold text-center mb-8 text-gray-800">Create an Account</h1>
+        <div className="mb-6">
+          <motion.input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
             required
+            whileFocus={{ scale: 1.02, boxShadow: "0 0 10px rgba(59, 130, 246, 0.5)" }}
           />
         </div>
-        <div className="mb-6">
-          <input
+        <div className="mb-8">
+          <motion.input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
             required
+            whileFocus={{ scale: 1.02, boxShadow: "0 0 10px rgba(59, 130, 246, 0.5)" }}
           />
         </div>
-        <button
+        <motion.button
           type="submit"
-          className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors mb-4"
+          className="w-full bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg font-semibold"
+          whileHover={{ scale: 1.05 }}
         >
           Register
-        </button>
-        <button
+        </motion.button>
+        <motion.button
           type="button"
           onClick={handleGoogleRegister}
-          className="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 transition-colors"
+          className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-150 shadow-lg flex items-center justify-center font-semibold"
+          whileHover={{ scale: 1.05 }}
         >
-          Register with Google
-        </button>
-      </form>
+          <FcGoogle className="mr-2 size-8" />
+          Register with <span className="font-bold ml-1"> Google</span>
+        </motion.button>
+      </motion.form>
     </div>
   );
 }
