@@ -1,4 +1,8 @@
-# 🛡️ Contributing to QR Code Generator Repository
+<h1 style="display: flex; align-items: center;">
+  <img src="src/assets/QR Code.png" alt="Contributing Guide" width="50" height="50"/>
+  Contributing to QR Code Generator Repository
+</h1>
+
 
 Thank you for your interest in contributing to **QR Code Generator**! We’re excited to see what creative ideas you bring. Follow these simple guidelines below to get started.
 
