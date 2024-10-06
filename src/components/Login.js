@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendEmailVerification } from "firebase/auth";
+// login js
+import React, { useState, useEffect } from 'react';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendEmailVerification, onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
@@ -14,6 +15,21 @@ export default function Login() {
   const [googleAuthVerified, setGoogleAuthVerified] = useState(false);
   const navigate = useNavigate();
   const { setCurrentUser } = useAuth();
+
+  // Check if user is already signed in
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // If user is signed in and their email is verified, redirect to dashboard
+        if (user.emailVerified) {
+          navigate('/dashboard');
+        }
+      }
+    });
+
+    // Cleanup the listener on unmount
+    return () => unsubscribe();
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
