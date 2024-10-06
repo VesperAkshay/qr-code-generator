@@ -14,7 +14,7 @@ export default function Register() {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard');
+      navigate('/new-dashboard');
     } catch (error) {
       alert(error.message);
     }
@@ -24,7 +24,7 @@ export default function Register() {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      navigate('/dashboard');
+      navigate('/new-dashboard');
     } catch (error) {
       alert(error.message);
     }
