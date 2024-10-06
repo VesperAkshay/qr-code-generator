@@ -1,6 +1,5 @@
-// login js
 import React, { useState, useEffect } from 'react';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendEmailVerification, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendEmailVerification, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
@@ -13,6 +12,8 @@ export default function Login() {
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [emailAuthVerified, setEmailAuthVerified] = useState(false);
   const [googleAuthVerified, setGoogleAuthVerified] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
   const { setCurrentUser } = useAuth();
 
@@ -23,16 +24,20 @@ export default function Login() {
         // If user is signed in and their email is verified, redirect to dashboard
         if (user.emailVerified) {
           navigate('/dashboard');
+        } else {
+          // If user is signed in but not verified, log them out and show error
+          setError('Your email is not verified. Please check your inbox.');
+          signOut(auth); 
         }
       }
     });
 
-    // Cleanup the listener on unmount
     return () => unsubscribe();
   }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -45,12 +50,16 @@ export default function Login() {
         setShowVerificationModal(true);
       }
     } catch (error) {
-      alert(error.message);
+      setError(error.message);
+      console.error("Login Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
+    setLoading(true);
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
@@ -63,7 +72,10 @@ export default function Login() {
         setShowVerificationModal(true);
       }
     } catch (error) {
-      alert(error.message);
+      setError(error.message);
+      console.error("Google Login Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -88,6 +100,7 @@ export default function Login() {
         whileHover={{ scale: 1.02 }}
       >
         <h1 className="text-5xl font-extrabold text-center mb-8 text-gray-800">Welcome Back</h1>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="mb-6">
           <motion.input
             type="email"
@@ -112,16 +125,18 @@ export default function Login() {
         </div>
         <motion.button
           type="submit"
-          className="w-full bg-indigo-600 text-white p-4 rounded-lg hover:bg-indigo-700 transition-colors duration-300 shadow-lg font-semibold"
+          className={`w-full bg-indigo-600 text-white p-4 rounded-lg hover:bg-indigo-700 transition-colors duration-300 shadow-lg font-semibold ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           whileHover={{ scale: 1.05 }}
+          disabled={loading}
         >
-          Login
+          {loading ? 'Loading...' : 'Login'}
         </motion.button>
         <motion.button
           type="button"
           onClick={handleGoogleLogin}
-          className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-150 shadow-lg flex items-center justify-center font-semibold"
+          className={`w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-150 shadow-lg flex items-center justify-center font-semibold ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           whileHover={{ scale: 1.05 }}
+          disabled={loading}
         >
           <FcGoogle className="mr-2 size-8" />
           Sign in with <span className="font-bold ml-1"> Google</span>

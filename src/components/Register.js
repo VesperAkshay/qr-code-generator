@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FcGoogle } from 'react-icons/fc'; // Import Google icon
@@ -10,21 +10,23 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false); // New loading state
   const navigate = useNavigate();
-  const { currentUser, loading } = useAuth();
+  const { currentUser, loading: authLoading } = useAuth();
 
   // Redirect to dashboard if user is signed in
   useEffect(() => {
-    if (!loading) {
+    if (!authLoading) {
       if (currentUser) {
         navigate('/dashboard');
       }
     }
-  }, [currentUser, loading, navigate]);
+  }, [currentUser, authLoading, navigate]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const auth = getAuth();
+    setLoading(true); // Set loading to true when registration starts
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -32,6 +34,9 @@ export default function Register() {
 
       await sendEmailVerification(user);
       setSuccessMessage('Registration successful! Please check your email to verify your account.');
+
+      // Sign out the user after sending the verification email
+      await signOut(auth);
 
       // Navigate to the login page after 3 seconds
       setTimeout(() => {
@@ -43,6 +48,8 @@ export default function Register() {
     } catch (error) {
       setError(error.message);
       console.error("Error during registration", error);
+    } finally {
+      setLoading(false); // Set loading to false after registration is complete
     }
   };
 
@@ -59,9 +66,30 @@ export default function Register() {
         <h1 className="text-4xl font-extrabold text-center mb-8 text-gray-800">Create an Account</h1>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         {successMessage && <p className="text-green-500 mb-4">{successMessage}</p>}
-        <motion.input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full p-4 border border-gray-300 rounded-lg mb-4" />
-        <motion.input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full p-4 border border-gray-300 rounded-lg mb-8" />
-        <motion.button type="submit" className="w-full bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg font-semibold">Register</motion.button>
+        <motion.input 
+          type="email" 
+          placeholder="Email" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+          required 
+          className="w-full p-4 border border-gray-300 rounded-lg mb-4" 
+        />
+        <motion.input 
+          type="password" 
+          placeholder="Password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+          required 
+          className="w-full p-4 border border-gray-300 rounded-lg mb-8" 
+        />
+        
+        <motion.button 
+          type="submit" 
+          className="w-full bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg font-semibold" 
+          disabled={loading} // Disable button when loading
+        >
+          {loading ? 'Creating account...' : 'Register'} {/* Show loading message */}
+        </motion.button>
       
         {/* Google Register Button */}
         <motion.button
