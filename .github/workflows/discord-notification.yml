@@ -17,6 +17,8 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}  # Set your webhook URL in repo secrets
         run: |
+          set -e  # Exit immediately if a command exits with a non-zero status
+          
           DISCORD_MESSAGE="🔔 **GitHub Event Notification** 🔔\n"
           DISCORD_MESSAGE+="---------------------------------------------\n"
           DISCORD_MESSAGE+="**Event Type**: ${GITHUB_EVENT_NAME}\n"
@@ -25,6 +27,20 @@ jobs:
           DISCORD_MESSAGE+="**Timestamp**: $(date)\n"
           DISCORD_MESSAGE+="---------------------------------------------\n"
 
+          # Function to append message for specific events
+          append_message() {
+            local icon=$1
+            local title=$2
+            local url=$3
+            local action=$4
+            local extra_info=$5
+            DISCORD_MESSAGE+="$icon **$title** [#$2 - $3]($url)\n"
+            DISCORD_MESSAGE+="**Action**: $action\n"
+            if [ -n "$extra_info" ]; then
+              DISCORD_MESSAGE+="$extra_info\n"
+            fi
+          }
+
           # Handle pull request events
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             PR_TITLE=$(jq -r '.pull_request.title' "${GITHUB_EVENT_PATH}")
@@ -32,33 +48,28 @@ jobs:
             PR_URL=$(jq -r '.pull_request.html_url' "${GITHUB_EVENT_PATH}")
             PR_BRANCH=$(jq -r '.pull_request.head.ref' "${GITHUB_EVENT_PATH}")
             PR_ACTION=$(jq -r '.action' "${GITHUB_EVENT_PATH}")
-            DISCORD_MESSAGE+="🚀 **Pull Request** [#${PR_NUMBER} - ${PR_TITLE}](${PR_URL})\n"
-            DISCORD_MESSAGE+="**Action**: ${PR_ACTION}\n"
-            DISCORD_MESSAGE+="**Branch**: ${PR_BRANCH}\n"
-          fi
+            append_message "🚀" "$PR_NUMBER - $PR_TITLE" "$PR_URL" "$PR_ACTION" "**Branch**: $PR_BRANCH"
 
           # Handle issue events
-          if [[ "${{ github.event_name }}" == "issues" ]]; then
+          elif [[ "${{ github.event_name }}" == "issues" ]]; then
             ISSUE_TITLE=$(jq -r '.issue.title' "${GITHUB_EVENT_PATH}")
             ISSUE_NUMBER=$(jq -r '.issue.number' "${GITHUB_EVENT_PATH}")
             ISSUE_URL=$(jq -r '.issue.html_url' "${GITHUB_EVENT_PATH}")
             ISSUE_ACTION=$(jq -r '.action' "${GITHUB_EVENT_PATH}")
-            DISCORD_MESSAGE+="📄 **Issue** [#${ISSUE_NUMBER} - ${ISSUE_TITLE}](${ISSUE_URL})\n"
-            DISCORD_MESSAGE+="**Action**: ${ISSUE_ACTION}\n"
-          fi
+            append_message "📄" "$ISSUE_NUMBER - $ISSUE_TITLE" "$ISSUE_URL" "$ISSUE_ACTION"
 
           # Handle push events
-          if [[ "${{ github.event_name }}" == "push" ]]; then
+          elif [[ "${{ github.event_name }}" == "push" ]]; then
             COMMIT_MESSAGE=$(jq -r '.head_commit.message' "${GITHUB_EVENT_PATH}")
             COMMIT_URL=$(jq -r '.head_commit.url' "${GITHUB_EVENT_PATH}")
             PUSH_BRANCH=$(jq -r '.ref' "${GITHUB_EVENT_PATH}")
             DISCORD_MESSAGE+="🛠️ **Push Event**\n"
-            DISCORD_MESSAGE+="**Branch**: ${PUSH_BRANCH}\n"
-            DISCORD_MESSAGE+="**Commit Message**: ${COMMIT_MESSAGE}\n"
-            DISCORD_MESSAGE+="🔗 [View Commit](${COMMIT_URL})\n"
+            DISCORD_MESSAGE+="**Branch**: $PUSH_BRANCH\n"
+            DISCORD_MESSAGE+="**Commit Message**: $COMMIT_MESSAGE\n"
+            DISCORD_MESSAGE+="🔗 [View Commit]($COMMIT_URL)\n"
           fi
 
           # Send the notification to Discord
           curl -H "Content-Type: application/json" \
                -d "{\"content\": \"$DISCORD_MESSAGE\"}" \
-               $DISCORD_WEBHOOK_URL
+               "$DISCORD_WEBHOOK_URL"

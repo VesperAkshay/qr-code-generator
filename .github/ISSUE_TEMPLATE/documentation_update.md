@@ -1,19 +1,19 @@
 ---
-name: Documentation Update
-about: Suggest improvements or corrections to the documentation.
-title: "[DOCS] "
+name: "📖 Documentation Update"
+about: Suggest an improvement or correction to the documentation
+title: "[Docs]: [Section to update]"
 labels: documentation
-assignees: ""
+assignees: ''
 ---
 
-**Section of documentation:**
-Specify the document or section that needs an update.
+**Current Section**
+What is currently stated or missing.
 
-**Description of the update:**
-Briefly describe what changes need to be made.
+**Proposed Change**
+The updated content you propose.
 
-**Reason for update:**
-Why does this update improve the documentation?
+**Rationale**
+Explain why this change is needed or valuable.
 
-**Additional notes:**
-Any other relevant details.
+**Additional Information**
+Any other relevant context or resources.
