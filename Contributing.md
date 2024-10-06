@@ -1,7 +1,7 @@
-<div style="display: flex; align-items: center;">
-  <img style="padding-bottom:15" src="src/assets/QR Code.png" alt="Contributing Guide" width="45" height="45"/>
-  <h1>Contributing to QR Code Generator Repository</h1>
-</div>
+<h1 style="display: flex; align-items: center;">
+  <img src="src/assets/QR Code.png" alt="Contributing Guide" width="35" height="35" style="margin-top: 10px;"/>
+  Contributing to QR Code Generator Repository
+</h1>
 
 
 Thank you for your interest in contributing to **QR Code Generator**! We’re excited to see what creative ideas you bring. Follow these simple guidelines below to get started.
