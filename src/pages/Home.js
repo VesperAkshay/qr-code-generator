@@ -116,7 +116,7 @@ export default function Home() {
             transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
           >
             <Link
-              to={currentUser?'/dashboard':"/login"}
+              to={currentUser?'/new-dashboard':"/login"}
               className="inline-flex items-center text-white px-8 py-3 rounded-full transition-translate duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 text-xl font-semibold bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 hover:bg-gradient-to-bl"
             >
               {currentUser ? (
