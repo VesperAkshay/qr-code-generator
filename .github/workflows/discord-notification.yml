@@ -1,0 +1,64 @@
+name: Discord Notifications
+
+on:
+  issues:
+    types: [opened, closed, reopened]
+  pull_request:
+    types: [opened, closed, reopened, merged]
+  push:
+    branches:
+      - main  # You can specify other branches as well
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord Notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}  # Set your webhook URL in repo secrets
+        run: |
+          DISCORD_MESSAGE="🔔 **GitHub Event Notification** 🔔\n"
+          DISCORD_MESSAGE+="---------------------------------------------\n"
+          DISCORD_MESSAGE+="**Event Type**: ${GITHUB_EVENT_NAME}\n"
+          DISCORD_MESSAGE+="**Repository**: [${GITHUB_REPOSITORY}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY})\n"
+          DISCORD_MESSAGE+="**Triggered by**: ${GITHUB_ACTOR}\n"
+          DISCORD_MESSAGE+="**Timestamp**: $(date)\n"
+          DISCORD_MESSAGE+="---------------------------------------------\n"
+
+          # Handle pull request events
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            PR_TITLE=$(jq -r '.pull_request.title' "${GITHUB_EVENT_PATH}")
+            PR_NUMBER=$(jq -r '.pull_request.number' "${GITHUB_EVENT_PATH}")
+            PR_URL=$(jq -r '.pull_request.html_url' "${GITHUB_EVENT_PATH}")
+            PR_BRANCH=$(jq -r '.pull_request.head.ref' "${GITHUB_EVENT_PATH}")
+            PR_ACTION=$(jq -r '.action' "${GITHUB_EVENT_PATH}")
+            DISCORD_MESSAGE+="🚀 **Pull Request** [#${PR_NUMBER} - ${PR_TITLE}](${PR_URL})\n"
+            DISCORD_MESSAGE+="**Action**: ${PR_ACTION}\n"
+            DISCORD_MESSAGE+="**Branch**: ${PR_BRANCH}\n"
+          fi
+
+          # Handle issue events
+          if [[ "${{ github.event_name }}" == "issues" ]]; then
+            ISSUE_TITLE=$(jq -r '.issue.title' "${GITHUB_EVENT_PATH}")
+            ISSUE_NUMBER=$(jq -r '.issue.number' "${GITHUB_EVENT_PATH}")
+            ISSUE_URL=$(jq -r '.issue.html_url' "${GITHUB_EVENT_PATH}")
+            ISSUE_ACTION=$(jq -r '.action' "${GITHUB_EVENT_PATH}")
+            DISCORD_MESSAGE+="📄 **Issue** [#${ISSUE_NUMBER} - ${ISSUE_TITLE}](${ISSUE_URL})\n"
+            DISCORD_MESSAGE+="**Action**: ${ISSUE_ACTION}\n"
+          fi
+
+          # Handle push events
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            COMMIT_MESSAGE=$(jq -r '.head_commit.message' "${GITHUB_EVENT_PATH}")
+            COMMIT_URL=$(jq -r '.head_commit.url' "${GITHUB_EVENT_PATH}")
+            PUSH_BRANCH=$(jq -r '.ref' "${GITHUB_EVENT_PATH}")
+            DISCORD_MESSAGE+="🛠️ **Push Event**\n"
+            DISCORD_MESSAGE+="**Branch**: ${PUSH_BRANCH}\n"
+            DISCORD_MESSAGE+="**Commit Message**: ${COMMIT_MESSAGE}\n"
+            DISCORD_MESSAGE+="🔗 [View Commit](${COMMIT_URL})\n"
+          fi
+
+          # Send the notification to Discord
+          curl -H "Content-Type: application/json" \
+               -d "{\"content\": \"$DISCORD_MESSAGE\"}" \
+               $DISCORD_WEBHOOK_URL
