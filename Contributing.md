@@ -1,5 +1,5 @@
 <h1 style="display: flex; align-items: center;">
-  <img src="src/assets/QR Code.png" alt="Contributing Guide" width="50" height="50"/>
+  <img src="src/assets/QR Code.png" alt="Contributing Guide" width="65" height="80"/>
   Contributing to QR Code Generator Repository
 </h1>
 
