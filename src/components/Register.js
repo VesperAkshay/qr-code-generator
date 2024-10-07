@@ -12,22 +12,21 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // New loading state
   const navigate = useNavigate();
   const { currentUser, loading: authLoading } = useAuth();
-  const auth = getAuth();
+  const auth = getAuth(); // Initialize auth globally
 
+  // Redirect to dashboard if user is signed in
   useEffect(() => {
-    if (!authLoading) {
-      if (currentUser) {
-        navigate('/dashboard');
-      }
+    if (!authLoading && currentUser) {
+      navigate('/dashboard');
     }
   }, [currentUser, authLoading, navigate]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); // Set loading to true when registration starts
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -36,8 +35,10 @@ export default function Register() {
       await sendEmailVerification(user);
       setSuccessMessage('Registration successful! Please check your email to verify your account.');
 
+      // Sign out the user after sending the verification email
       await signOut(auth);
 
+      // Navigate to the login page after 3 seconds
       setTimeout(() => {
         navigate('/login');
       }, 3000);
@@ -45,24 +46,28 @@ export default function Register() {
       setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
       setError(error.message);
+      console.error("Error during registration", error);
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading to false after registration is complete
     }
   };
 
   const handleGoogleRegister = async () => {
-    const provider = new GoogleAuthProvider();
-    setLoading(true);
+    const provider = new GoogleAuthProvider(); // Initialize Google provider
+    setLoading(true); // Set loading to true while signing in
 
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider); // Open Google sign-in popup
       const user = result.user;
+
+      // Handle successful registration (e.g., navigate or store user info)
       setSuccessMessage('Google registration successful!');
-      navigate('/dashboard');
+      navigate('/dashboard'); // Navigate to dashboard after successful login
     } catch (error) {
       setError(error.message);
+      console.error("Error during Google registration", error);
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading to false after operation completes
     }
   };
 
@@ -107,17 +112,19 @@ export default function Register() {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
+        
         <motion.button 
           type="submit" 
           className="w-full bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg font-semibold" 
-          disabled={loading}
+          disabled={loading} // Disable button when loading
         >
           {loading ? 'Creating account...' : 'Register'}
         </motion.button>
-
+      
+        {/* Google Register Button */}
         <motion.button
           type="button"
-          onClick={handleGoogleRegister}
+          onClick={handleGoogleRegister} // Call the Google registration function
           className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-150 shadow-lg flex items-center justify-center font-semibold"
           whileHover={{ scale: 1.05 }}
         >
@@ -128,4 +135,5 @@ export default function Register() {
     </div>
   );
 }
+
 
