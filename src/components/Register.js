@@ -3,19 +3,20 @@ import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signOut
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FcGoogle } from 'react-icons/fc'; // Import Google icon
-import { useAuth } from '../context/AuthContext'; // Adjust the path as necessary
+import { useAuth } from '../context/AuthContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [loading, setLoading] = useState(false); // New loading state
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { currentUser, loading: authLoading } = useAuth();
-  const auth = getAuth(); // Initialize auth
+  const auth = getAuth();
 
-  // Redirect to dashboard if user is signed in
   useEffect(() => {
     if (!authLoading) {
       if (currentUser) {
@@ -26,7 +27,7 @@ export default function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading to true when registration starts
+    setLoading(true);
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -35,42 +36,38 @@ export default function Register() {
       await sendEmailVerification(user);
       setSuccessMessage('Registration successful! Please check your email to verify your account.');
 
-      // Sign out the user after sending the verification email
       await signOut(auth);
 
-      // Navigate to the login page after 3 seconds
       setTimeout(() => {
         navigate('/login');
-      }, 3000); // 3000 milliseconds = 3 seconds
+      }, 3000);
 
-      // Clear message after 3 seconds
       setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
       setError(error.message);
-      console.error("Error during registration", error);
     } finally {
-      setLoading(false); // Set loading to false after registration is complete
+      setLoading(false);
     }
   };
 
-  // Function to handle Google registration
   const handleGoogleRegister = async () => {
-    const provider = new GoogleAuthProvider(); // Initialize Google provider
-    setLoading(true); // Set loading to true while signing in
+    const provider = new GoogleAuthProvider();
+    setLoading(true);
 
     try {
-      const result = await signInWithPopup(auth, provider); // Open Google sign-in popup
+      const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
-      // Handle successful registration (e.g., navigate or store user info)
       setSuccessMessage('Google registration successful!');
-      navigate('/dashboard'); // Navigate to dashboard after successful login
+      navigate('/dashboard');
     } catch (error) {
       setError(error.message);
-      console.error("Error during Google registration", error);
     } finally {
-      setLoading(false); // Set loading to false after operation completes
+      setLoading(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
   };
 
   return (
@@ -94,27 +91,33 @@ export default function Register() {
           required 
           className="w-full p-4 border border-gray-300 rounded-lg mb-4" 
         />
-        <motion.input 
-          type="password" 
-          placeholder="Password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          required 
-          className="w-full p-4 border border-gray-300 rounded-lg mb-8" 
-        />
-        
+        <div className="relative">
+          <motion.input 
+            type={showPassword ? 'text' : 'password'} 
+            placeholder="Password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+            className="w-full p-4 border border-gray-300 rounded-lg mb-8" 
+          />
+          <span 
+            className="absolute right-4 top-4 cursor-pointer text-gray-600"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
         <motion.button 
           type="submit" 
           className="w-full bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg font-semibold" 
-          disabled={loading} // Disable button when loading
+          disabled={loading}
         >
-          {loading ? 'Creating account...' : 'Register'} {/* Show loading message */}
+          {loading ? 'Creating account...' : 'Register'}
         </motion.button>
-      
-        {/* Google Register Button */}
+
         <motion.button
           type="button"
-          onClick={handleGoogleRegister} // Call the Google registration function
+          onClick={handleGoogleRegister}
           className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-150 shadow-lg flex items-center justify-center font-semibold"
           whileHover={{ scale: 1.05 }}
         >
@@ -125,3 +128,4 @@ export default function Register() {
     </div>
   );
 }
+
