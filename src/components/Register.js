@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FcGoogle } from 'react-icons/fc'; // Import Google icon
+import { FcGoogle } from 'react-icons/fc';
 import { useAuth } from '../context/AuthContext';
+import {FaEye, FaEyeSlash} from 'react-icons/fa';
 
 export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false); // New loading state
@@ -53,6 +55,10 @@ export default function Register() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
       <motion.form 
@@ -74,14 +80,22 @@ export default function Register() {
           required 
           className="w-full p-4 border border-gray-300 rounded-lg mb-4" 
         />
+        <div className="relative">
         <motion.input 
-          type="password" 
+          type={showPassword ? 'text' : 'password'} 
           placeholder="Password" 
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
           required 
           className="w-full p-4 border border-gray-300 rounded-lg mb-8" 
         />
+        <span 
+            className="absolute right-4 top-4 cursor-pointer text-gray-600"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
         
         <motion.button 
           type="submit" 
