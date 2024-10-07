@@ -52,3 +52,17 @@ body {
                        var(--sb-track-color);
     }
   }
+
+  input:-webkit-autofill {
+    background-color: white !important;
+    color: black !important;
+    box-shadow: 0 0 0px 1000px white inset !important;
+    -webkit-text-fill-color: black !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  input:-moz-autofill {
+    background-color: white !important;
+    color: black !important;
+    box-shadow: 0 0 0px 1000px white inset !important;
+  }
