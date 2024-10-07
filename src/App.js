@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import DashboardPage from "./pages/DashboardPage";
@@ -20,12 +20,22 @@ import { ThemeProvider } from "./context/ThemeContext";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from './components/ProtectedRoute';
 
+function BackgroundWrapper({children}) {
+  const location = useLocation();
+
+  return (
+    <div className={`min-h-screen ${location.pathname === "/register" ? "bg-white" : "bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800"}`}>
+      {children}
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <AuthProvider>
       <ThemeProvider>
         <Router>
-          <div className="min-h-screen bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800">
+          <BackgroundWrapper>
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -43,7 +53,7 @@ export default function App() {
               <Route path="/qr-scanner" element={<QRScanner />} />
               <Route path="/pdf-qr-code" element={<PdfQRCodeGenerator />} />
             </Routes>
-          </div>
+          </BackgroundWrapper>
           <Toaster />
         </Router>
       </ThemeProvider>
