@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
 
 import {
@@ -22,6 +22,7 @@ import toast from "react-hot-toast";
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { theme, toggleTheme } = useContext(ThemeContext);
 
@@ -108,7 +109,7 @@ export default function Navbar() {
   }, [dropdownRef, buttonRef]);
 
   return (
-    <nav className="p-4">
+    <nav className={`p-4 ${location.pathname === "/register" ? "bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800" : ""}"`} >
 
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-3">
@@ -304,6 +305,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-
-
