@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { motion } from 'framer-motion';
 import { useAuth } from "../context/AuthContext";
+import {FaEye, FaEyeSlash} from 'react-icons/fa';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [emailAuthVerified, setEmailAuthVerified] = useState(false);
   const [googleAuthVerified, setGoogleAuthVerified] = useState(false);
@@ -89,6 +91,10 @@ export default function Login() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
       <motion.form 
@@ -112,9 +118,9 @@ export default function Login() {
             whileFocus={{ scale: 1.02, boxShadow: "0 0 10px rgba(99, 102, 241, 0.5)" }}
           />
         </div>
-        <div className="mb-8">
+        <div className="mb-8 relative">
           <motion.input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -122,6 +128,12 @@ export default function Login() {
             required
             whileFocus={{ scale: 1.02, boxShadow: "0 0 10px rgba(99, 102, 241, 0.5)" }}
           />
+          <span 
+            className="absolute right-4 top-4 cursor-pointer text-gray-600"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
         </div>
         <motion.button
           type="submit"
