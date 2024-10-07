@@ -76,13 +76,23 @@ export default function QRCodeGenerator() {
       );
     } else if (category === "text" || category === "URL") {
       if (!text.trim()) {
-        toast.error("Text field is empty. Please enter valid data.");
+        toast.error(`Please fill in ${category} field.`);
         return;
       }
-    } else if (category === "URL") {
-      if (!text.trim()) {
-        toast.error("Please fill in URL field");
-        return;
+      if (category === "URL") {
+        const urlPattern = new RegExp(
+          '^(https?:\\/\\/)?' + // validate the protocol
+          '((([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]{2,})|' + // domain name
+          '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR IP address
+          '(\\:\\d+)?(\\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?' + // port and path
+          '(\\?[;&a-zA-Z0-9%_+.~#?&//=]*)?' + // query string
+          '(\\#[-a-zA-Z0-9_]*)?$','i' // fragment locator
+        );
+        
+        if (!urlPattern.test(text.trim())) {
+          toast.error("Invalid URL. Please enter a valid URL.");
+          return;
+        }
       }
     }
 
