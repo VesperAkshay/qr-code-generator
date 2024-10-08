@@ -29,10 +29,11 @@ export default function Register() {
     setLoading(true); // Set loading to true when registration starts
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      // Register user
+      await createUserWithEmailAndPassword(auth, email, password);
 
-      await sendEmailVerification(user);
+      // Send email verification
+      await sendEmailVerification(auth.currentUser);
       setSuccessMessage('Registration successful! Please check your email to verify your account.');
 
       // Sign out the user after sending the verification email
@@ -45,7 +46,12 @@ export default function Register() {
 
       setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
-      setError(error.message);
+      // Check if email is already in use
+      if (error.code === 'auth/email-already-in-use') {
+        setError('This email is already in use. Please login or use a different email.');
+      } else {
+        setError(error.message);
+      }
       console.error("Error during registration", error);
     } finally {
       setLoading(false); // Set loading to false after registration is complete
@@ -57,10 +63,7 @@ export default function Register() {
     setLoading(true); // Set loading to true while signing in
 
     try {
-      const result = await signInWithPopup(auth, provider); // Open Google sign-in popup
-      const user = result.user;
-
-      // Handle successful registration (e.g., navigate or store user info)
+      await signInWithPopup(auth, provider); // Open Google sign-in popup
       setSuccessMessage('Google registration successful!');
       navigate('/dashboard'); // Navigate to dashboard after successful login
     } catch (error) {
@@ -127,6 +130,7 @@ export default function Register() {
           onClick={handleGoogleRegister} // Call the Google registration function
           className="w-full mt-6 bg-slate-100 text-black p-4 rounded-lg hover:bg-gray-200 transition-colors duration-150 shadow-lg flex items-center justify-center font-semibold"
           whileHover={{ scale: 1.05 }}
+          disabled={loading} // Disable button when loading
         >
           <FcGoogle className="mr-2 size-8" />
           Register with <span className="font-bold ml-1">Google</span>
@@ -135,5 +139,3 @@ export default function Register() {
     </div>
   );
 }
-
-
