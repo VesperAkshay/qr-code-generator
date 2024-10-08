@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { FaUserCog } from 'react-icons/fa';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import { useAuth } from '../context/AuthContext';
-import { updateProfile, updateEmail, updatePassword } from 'firebase/auth';
+import { updateProfile, updateEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
+// import { updateProfile, updateEmail, updatePassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -13,9 +14,12 @@ export default function Settings() {
   const [displayName, setDisplayName] = useState(currentUser.displayName || '');
   const [email, setEmail] = useState(currentUser.email || '');
   const [newPassword, setNewPassword] = useState('');
+  const [prevPassword, setPrevPassword] = useState(''); // State for previous password
+  const [confirmPassword, setConfirmPassword] = useState(''); // State for confirming new password
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+   
   // Function to update the user's display name
   const handleUpdateProfile = async () => {
     try {
@@ -44,22 +48,64 @@ export default function Settings() {
     }
   };
 
-  // Function to update the user's password
-  const handleUpdatePassword = async () => {
+  // // Function to update the user's password
+  // const handleUpdatePassword = async () => {
+  //   try {
+  //     if (newPassword) {
+  //       await updatePassword(currentUser, newPassword);
+  //       toast.success('Password updated successfully!');
+  //       setError('');
+  //     }
+  //   } catch (error) {
+  //     toast.error('Something went wrong');
+  //     console.error(error.message);
+  //     setSuccess('');
+  //   }
+  // };
+
+ // Function to reauthenticate user with the old password
+ const reauthenticateUser = async () => {
+  const credential = EmailAuthProvider.credential(currentUser.email, prevPassword);
+  try {
+    await reauthenticateWithCredential(currentUser, credential);
+    return true;
+  } catch (error) {
+    toast.error('Invalid current password');
+    return false;
+  }
+};
+
+// Function to update the user's password
+const handleUpdatePassword = async () => {
+  if (!newPassword || !prevPassword || !confirmPassword) {
+    setError('All fields are required.');
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    setError('New password and confirm password do not match.');
+    return;
+  }
+
+  const isReauthenticated = await reauthenticateUser();
+  if (isReauthenticated) {
     try {
-      if (newPassword) {
-        await updatePassword(currentUser, newPassword);
-        toast.success('Password updated successfully!');
-        setError('');
-      }
+      await updatePassword(currentUser, newPassword);
+      toast.success('Password updated successfully!');
+      setError('');
+      setNewPassword('');
+      setPrevPassword('');
+      setConfirmPassword('');
     } catch (error) {
-      toast.error('Something went wrong');
+      toast.error('Failed to update password');
       console.error(error.message);
       setSuccess('');
     }
-  };
+  }
+};
 
-  // Function to handle logout
+
+ // Function to handle logout
   const handleLogout = async () => {
     // Show a confirmation toast
     const confirmation = toast(
@@ -146,6 +192,33 @@ export default function Settings() {
             </div>
           </div>
 
+          {/* <div>
+            <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">New Password</label>
+            <div className="relative">
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="mt-2 p-3 border border-gray-400 dark:bg-indigo-950 dark:text-gray-200 font-semibold rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 pl-10"
+                placeholder="Enter new password"
+              />
+              <AiOutlineLock className="absolute text-xl left-2 top-1/2 mt-1 transform -translate-y-1/2 text-gray-400" />
+            </div>
+          </div> */}
+           <div>
+            <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">Current Password</label>
+            <div className="relative">
+              <input
+                type="password"
+                value={prevPassword}
+                onChange={(e) => setPrevPassword(e.target.value)}
+                className="mt-2 p-3 border border-gray-400 dark:bg-indigo-950 dark:text-gray-200 font-semibold rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 pl-10"
+                placeholder="Enter current password"
+              />
+              <AiOutlineLock className="absolute text-xl left-2 top-1/2 mt-1 transform -translate-y-1/2 text-gray-400" />
+            </div>
+          </div>
+
           <div>
             <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">New Password</label>
             <div className="relative">
@@ -159,6 +232,21 @@ export default function Settings() {
               <AiOutlineLock className="absolute text-xl left-2 top-1/2 mt-1 transform -translate-y-1/2 text-gray-400" />
             </div>
           </div>
+
+          <div>
+            <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">Confirm New Password</label>
+            <div className="relative">
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="mt-2 p-3 border border-gray-400 dark:bg-indigo-950 dark:text-gray-200 font-semibold rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 pl-10"
+                placeholder="Confirm new password"
+              />
+              <AiOutlineLock className="absolute text-xl left-2 top-1/2 mt-1 transform -translate-y-1/2 text-gray-400" />
+            </div>
+          </div>
+          
 
           <div className="flex flex-col space-y-4 mt-6 sm:flex-row sm:space-y-0 sm:space-x-4">
             <button
