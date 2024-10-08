@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import DashboardPage from "./pages/DashboardPage";
@@ -18,13 +23,20 @@ import QRScanner from "./components/QRScanner";
 import PdfQRCodeGenerator from "./components/PDFToQR";
 import { ThemeProvider } from "./context/ThemeContext";
 import { Toaster } from "react-hot-toast";
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from "./components/ProtectedRoute";
+import NotFoundPage from "./components/Error404";
 
-function BackgroundWrapper({children}) {
+function BackgroundWrapper({ children }) {
   const location = useLocation();
 
   return (
-    <div className={`min-h-screen ${location.pathname === "/register" ? "bg-white" : "bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800"}`}>
+    <div
+      className={`min-h-screen ${
+        location.pathname === "/register"
+          ? "bg-white"
+          : "bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800"
+      }`}
+    >
       {children}
     </div>
   );
@@ -41,17 +53,88 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-              <Route path="/qr-code" element={<QRCodePage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/support" element={<Support />} />
-              <Route path="/settings" element={<Settings />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <DashboardPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <ProfilePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/qr-code"
+                element={
+                  <ProtectedRoute>
+                    <QRCodePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/support"
+                element={
+                  <ProtectedRoute>
+                    <Support />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/more-info" element={<Moreinfo />} />
-              <Route path="/image-qr-code" element={<ImageQRCodeGenerator />} />
-              <Route path="/social-media-qr" element={<SocialMedia />} />
-              <Route path="/bulk-qr-code" element={<BulkQRCode />} />
-              <Route path="/qr-scanner" element={<QRScanner />} />
-              <Route path="/pdf-qr-code" element={<PdfQRCodeGenerator />} />
+              <Route
+                path="/image-qr-code"
+                element={
+                  <ProtectedRoute>
+                    <ImageQRCodeGenerator />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/social-media-qr"
+                element={
+                  <ProtectedRoute>
+                    <SocialMedia />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/bulk-qr-code"
+                element={
+                  <ProtectedRoute>
+                    <BulkQRCode />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/qr-scanner"
+                element={
+                  <ProtectedRoute>
+                    <QRScanner />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/pdf-qr-code"
+                element={
+                  <ProtectedRoute>
+                    <PdfQRCodeGenerator />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </BackgroundWrapper>
           <Toaster />
