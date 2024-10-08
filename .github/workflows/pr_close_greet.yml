@@ -1,4 +1,5 @@
 name: Comment on PR Closure
+
 on:
   pull_request_target:
     types:
@@ -16,7 +17,11 @@ jobs:
           script: |
             const { owner, repo, number } = context.issue;
             const commentAuthor = context.payload.pull_request.user.login;
-            const commentBody = `Thank you  @${commentAuthor} , for your valuable time and contribution in our GameZone 💗. \n It’s our GameZone, so Let’s build this GameZone altogether !!🤝\n  Hoping to see you soon with another PR again 😇 \n Wishing you all the best for your journey into Open Source🚀
+            const commentBody = `
+              Thank you @${commentAuthor} for your valuable time and contribution in our GameZone 💗. 
+              Let’s build this GameZone together! 🤝 
+              Hoping to see you again with another PR soon 😇. 
+              Wishing you all the best on your Open Source journey! 🚀
             `;
             await github.issues.createComment({ owner, repo, issue_number: number, body: commentBody });
-            console.log(`Commented on the closed PR: ${commentBody}.`);
+            console.log(`Commented on the closed PR: ${commentBody.trim()}.`);

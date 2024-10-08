@@ -1,23 +1,23 @@
 ## Description
-Please provide a brief summary of the changes made in this pull request. Include any relevant context or background information.
+Provide a concise summary of changes made in this PR. Include relevant context or background.
 
 ## Related Issue
-Link to the issue this PR addresses (if applicable):
-- Fixes #[issue number]
+Link to the issue addressed:
+- Resolves #[issue number]
 
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Documentation update
-- [ ] Other (please describe):
+## Change Type
+Select the type of change:
+- [ ] 🐛 Bug fix
+- [ ] ✨ New feature
+- [ ] 📚 Documentation update
+- [ ] 🔧 Other (describe):
 
 ## Checklist
-- [ ] I have read the contributing guidelines.
-- [ ] I have followed the code style of this project.
-- [ ] My code implements the changes requested in the issue.
-- [ ] I have added tests to cover my changes (if applicable).
-- [ ] I have updated the documentation (if necessary).
-- [ ] This PR is ready for review.
+- [ ] I’ve read and followed the contributing guidelines.
+- [ ] Code adheres to project style and standards.
+- [ ] Tests cover changes (if applicable).
+- [ ] Documentation updated (if required).
+- [ ] Ready for review.
 
 ## Additional Notes
-Any other information that reviewers should know about this PR.
+Provide any extra details for reviewers.

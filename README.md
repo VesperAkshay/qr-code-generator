@@ -1,7 +1,7 @@
 <a id="top"></a>
-<h1 align="center">QR Code Customization</h1>
+<h1 align="center">QR Code Generator</h1>
 <h3 align="center">
-   Welcome to the QR Code Customization Website project! This web application allows users to generate and customize QR codes with various options, including text input, color, pattern, frame, and more.
+   Welcome to the QR Code Generator Website project! This web application allows users to generate and customize QR codes with various options, including text input, color, pattern, frame, and more.
  
 </h3>
 
@@ -53,13 +53,16 @@
 
 ## ✨Contributing
 
-We welcome contributions from the open-source community! If you'd like to contribute:
+We welcome all the contributions from the open-source community! If you'd like to contribute follow these steps:
 
 1. Fork the repository.
-2. Create a new feature branch *(git checkout -b feature/your-feature).*
-3. Commit your changes *(git commit -m 'Add some feature').*
-4. Push to the branch *(git push origin feature/your-feature).*
+2. Create a new feature branch
+3. Commit your changes
+4. Push to the branch
 5. Open a Pull Request.
+
+We welcome all contributions to improve **QR Code Generator**! If you'd like to contribute, please follow the [Contributing.md](./Contributing.md) to get details on how to get started.
+
    
 To maintain quality and consistency, please adhere to the following guidelines:
 1. Code Style: Follow the coding style used throughout the project. Clean, readable code with comments is always appreciated.
@@ -174,9 +177,18 @@ For Queries and issue related question you can contact me on Discord
 
 *Discord Username:* akshaypatell_
 
+
+## 👥 Team
+
+| ![Akshay Patel](https://avatars.githubusercontent.com/u/118452811?v=4&s=80)|
+|:--:|
+| **Akshay Patel** <br> <sub>Project Admin</sub> | 
+| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/akshay-patel-3b0b97284/) | 
+
 ## 🪄Code of conduct
 
 Want to be part of the community? Check out our **[Code of Conduct](https://github.com/VesperAkshay/qr-code-generator/blob/main/Code_Of_Conduct.md)**
+
 
 <hr>
 <div>
