@@ -1,14 +1,6 @@
 
-import React, { useState } from "react";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  sendEmailVerification,
-  signOut,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -20,42 +12,54 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 
-
-
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [emailTouched, setEmailTouched] = useState(false);
   const [password, setPassword] = useState("");
 
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const { currentUser, loading: authLoading } = useAuth();
   const auth = getAuth(); // Initialize auth globally
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match.");
+  const validateEmail = (email) => {
+    const emailExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailExp.test(email);
+  };
+
+  const handleEmailChange = (e) => {
+    const emailValue = e.target.value;
+    setEmail(emailValue);
+
+    if (!validateEmail(emailValue)) {
+      setEmailError(true);
     } else {
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        navigate("/dashboard");
-      } catch (error) {
-        toast.error(error.message);
-      }
+      setEmailError(false);
     }
   };
 
-//leaving here for design updates on where to place this functionality 
-  const handleGoogleRegister = async () => {
-    const provider = new GoogleAuthProvider();
+  const handleEmailBlur = () => {
+    setEmailTouched(true);
+    if (emailError) {
+      toast.error("Please enter a valid email address.");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (emailError || !validateEmail(email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
     try {
-      await signInWithPopup(auth, provider);
+      await createUserWithEmailAndPassword(auth, email, password);
       navigate("/dashboard");
     } catch (error) {
       toast.error(error.message);
@@ -100,7 +104,7 @@ export default function Register() {
           Sign Up
         </h1>
         <div className="mb-4 flex flex-row items-center min-w-full py-3 border-b-2 border-gray-400">
-          <span className="pr-2" >
+          <span className="pr-2">
             <FaUser />
           </span>
           <motion.input
@@ -114,14 +118,15 @@ export default function Register() {
           />
         </div>
         <div className="mb-4 flex flex-row min-w-full items-center py-3 border-b-2 border-gray-400">
-          <span className="pr-2" >
+          <span className="pr-2">
             <MdEmail className="" />
           </span>
           <motion.input
             type="email"
             placeholder="Your Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
+            onBlur={handleEmailBlur}
             className="w-full pl-2"
             required
 
@@ -177,8 +182,12 @@ export default function Register() {
 
         <div className="min-w-full flex gap-4 flex-row mb-14">
           <motion.input type="checkbox" className="" />
-
-          <p className="min-w-full text-xs">I agree to all statements in <Link to="/settings" className="underline hover:text-slate-400" href="">Terms of Service</Link> </p>
+          <p className="min-w-full text-xs">
+            I agree to all statements in{" "}
+            <Link to="/settings" className="underline hover:text-slate-400" href="">
+              Terms of Service
+            </Link>{" "}
+          </p>
 
         </div>
         <motion.button
@@ -189,9 +198,13 @@ export default function Register() {
           Register
         </motion.button>
       </motion.form>
-      <div className="flex flex-col justify-items-center gap-4 align-center text-center hidden sm:block">
-        <img alt="OfficeIcon" src={OfficeIcon}  className="mb-6"/>
-        <p><Link to="/login" className="underline hover:text-slate-400" href="">I am already a member</Link></p>
+      <div className="flex flex-col justify-items-center gap-4 align-center text-center sm:block">
+        <img alt="OfficeIcon" src={OfficeIcon} className="mb-6" />
+        <p>
+          <Link to="/login" className="underline hover:text-slate-400" href="">
+            I am already a member
+          </Link>
+        </p>
       </div>
     </div>
   );
