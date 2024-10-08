@@ -1,7 +1,5 @@
-
-
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth"; // Add GoogleAuthProvider here
+import { getAuth, onAuthStateChanged } from "firebase/auth"; // Import onAuthStateChanged here
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -15,14 +13,14 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-// Export auth and provider for Google Sign-In
-const googleProvider = new GoogleAuthProvider(); // Initialize Google Auth Provider
 
-export { auth, db, storage, onAuthStateChanged, googleProvider }; // Export Google provider
 
+
+export { auth, db, storage, onAuthStateChanged }; // Export onAuthStateChanged
 
