@@ -10,6 +10,20 @@ import { useAuth } from "../context/AuthContext";
 import LinkedinLogo from '../assets/linkedin-logo.png';
 import { ThemeContext } from "../context/ThemeContext";
 
+// Different fuctions to open links in new tab
+function openLinkFB() {
+  window.open("https://www.facebook.com");
+}
+function openLinkX() {
+  window.open("https://www.twitter.com");
+}
+function openLinkIG() {
+  window.open("https://www.instagram.com");
+}
+function openLinkLI() {
+  window.open("https://www.linkedin.com");
+}
+
 export default function Home() {
   // const { darkMode, setDarkMode } = useContext(ThemeContext);
   const { currentUser } = useAuth();
@@ -30,7 +44,7 @@ export default function Home() {
 
   return (
     <div className="flex justify-center items-center min-h-screen p-2 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800">
-      
+
       <motion.div
         className="text-center p-8 bg-white dark:bg-indigo-950 bg-opacity-90 rounded-3xl shadow-2xl"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -119,13 +133,13 @@ export default function Home() {
             transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
           >
             <Link
-              to={currentUser?'/dashboard':"/login"}
+              to={currentUser ? '/dashboard' : "/login"}
               className="inline-flex items-center text-white px-8 py-3 rounded-full transition-translate duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 text-xl font-semibold bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 hover:bg-gradient-to-bl"
             >
               {currentUser ? (
                 <RiDashboardHorizontalFill className="mr-2" size={24} />
               ) : (
-                <FaSignInAlt className="mr-2"  size={24} />
+                <FaSignInAlt className="mr-2" size={24} />
               )}
               {currentUser ? "Get Started" : "Login"}
             </Link>
@@ -210,29 +224,30 @@ export default function Home() {
             news!
           </h4>
           <div className="flex justify-center space-x-6">
+            {/* added onclick attribute and set to call openLink functions, respectively for that website */}
             <a
               href="https://www.facebook.com"
               className="text-blue-600 text-3xl hover:text-blue-800"
             >
-              <img src={MetaLogo} alt="Facebook" className="h-8 w-8" />
+              <img src={MetaLogo} alt="Facebook" className="h-8 w-8" onclick="openLinkFB();" />
             </a>
             <a
               href="https://www.twitter.com"
               className="text-blue-400 text-3xl hover:text-blue-600"
             >
-              <img src={TwitterLogo} alt="Twitter" className="h-8 w-8" />
+              <img src={TwitterLogo} alt="Twitter" className="h-8 w-8" onclick="openLinkX();" />
             </a>
             <a
               href="https://www.instagram.com"
               className="text-pink-600 text-3xl hover:text-pink-800"
             >
-              <img src={InstagramLogo} alt="Instagram" className="h-8 w-8" />
+              <img src={InstagramLogo} alt="Instagram" className="h-8 w-8" onclick="openLinkIG();" />
             </a>
             <a
               href="https://www.linkedin.com"
               className="text-blue-700 text-3xl hover:text-blue-900"
             >
-              <img src={LinkedinLogo} alt="Instagram" className="h-8 w-8" />
+              <img src={LinkedinLogo} alt="Instagram" className="h-8 w-8" onclick="openLinkLI();" />
             </a>
           </div>
         </motion.div>
