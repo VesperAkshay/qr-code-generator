@@ -9,6 +9,7 @@ import { RiLockPasswordFill, RiLockPasswordLine } from "react-icons/ri";
 import OfficeIcon from "../assets/office-computer-table.svg";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import {FaEye, FaEyeSlash} from 'react-icons/fa';
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -16,6 +17,7 @@ export default function Register() {
   const [emailError, setEmailError] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
@@ -40,6 +42,10 @@ export default function Register() {
     if (emailError) {
       toast.error("Please enter a valid email address.");
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
   };
 
   const handleSubmit = async (e) => {
@@ -120,6 +126,12 @@ export default function Register() {
             }}
             style={{ backgroundColor: "white !important" }}
           />
+           <span 
+            className="absolute right-4 top-4 cursor-pointer text-gray-600"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
         </div>
         <div className="mb-8 flex flex-row items-center py-3 gap-2 min-w-full border-b-2 border-gray-400 w-full">
           <span className="pr-2">
