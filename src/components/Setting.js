@@ -7,6 +7,7 @@ import { updateProfile, updateEmail, updatePassword, reauthenticateWithCredentia
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
+import { FaArrowLeft } from 'react-icons/fa';
 
 export default function Settings() {
   const { currentUser, logout } = useAuth();
@@ -148,6 +149,13 @@ const handleUpdatePassword = async () => {
   };
 
   return (
+    <>
+    <button
+        onClick={() => window.location.href = '/dashboard'} // Sample URL
+        className="flex ml-4 mt-6 items-center text-yellow-500 hover:text-yellow-600 font-medium mb-6"
+      >
+        <FaArrowLeft className="mr-2" /> Go to Dashboard
+      </button>
     <motion.div
       className="min-h-screen flex items-center justify-center p-6"
       initial={{ opacity: 0, y: 50 }}
@@ -288,5 +296,6 @@ const handleUpdatePassword = async () => {
         </form>
       </div>
     </motion.div>
+  </>
   );
 }

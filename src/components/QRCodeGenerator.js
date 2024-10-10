@@ -9,6 +9,7 @@ import SizeSlider from "./SizeSlider";
 import FileUploader from "./FileUploader";
 import DownloadButton from "./DownloadButton";
 import toast from "react-hot-toast";
+import { FaArrowLeft } from 'react-icons/fa';
 
 export default function QRCodeGenerator() {
   const [text, setText] = useState("");
@@ -167,13 +168,20 @@ export default function QRCodeGenerator() {
   };
 
   return (
-    <motion.div
+    <>
+      <motion.div
       className="p-8 max-w-lg mx-auto bg-purple-100 dark:bg-indigo-950 rounded-xl shadow-lg mt-10"
       initial={{ opacity: 0, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       whileHover={{ scale: 1 }}
     >
+      <button 
+        onClick={() => window.location.href = '/dashboard'} // Sample URL
+        className="flex items-center text-yellow-500 hover:text-yellow-600 font-medium mb-6"
+      >
+        <FaArrowLeft className="mr-2" /> Dashboard
+    </button>
       <motion.h1
         className="text-4xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100"
         initial={{ opacity: 0, y: -20 }}
@@ -263,5 +271,6 @@ export default function QRCodeGenerator() {
         />
       )}
     </motion.div>
+  </>
   );
 }

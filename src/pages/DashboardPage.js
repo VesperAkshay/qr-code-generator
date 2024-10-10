@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import { ThemeContext } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
+import { FaArrowLeft } from 'react-icons/fa';
 
 export default function DashboardPage() {
   const { logout } = useAuth();
@@ -144,59 +145,59 @@ export default function DashboardPage() {
       }
     )
   };
-  
+
   return (
     <div className="p-2">
-    <div
-      className="min-h-screen rounded-3xl bg-gradient-to-r p-8 from-violet-500 via-purple-500 to-pink-500 dark:from-violet-950 dark:to-indigo-950"
-    >
-    {/* bg-gradient-to-r from-[#192646] to-[#00050e] */}
-      <h1 className="text-5xl font-extrabold text-center text-white mb-12">
-        Dashboard
-      </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {dashboardCards.map(
-          ({ to, icon, title, description, color, bgColor }, index) => (
-            <motion.div
-              key={index}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
-              }}
-              whileTap={{ scale: 0.98 }}
-              className={`p-6 ${bgColor} dark:filter dark:brightness-100 rounded-2xl shadow-lg transition-transform duration-300`}
-            >
-              <Link to={to} className="text-center flex flex-col items-center">
-                <div className={`text-6xl mb-4 ${color} p-4 rounded-full shadow-md transition-transform duration-300`}>
-                  {icon}
-                </div>
-                <h2 className="text-2xl font-semibold text-white mb-2">
-                  {title}
-                </h2>
-                <p className="text-white">{description}</p>
-              </Link>
-            </motion.div>
-          )
-        )}
-        <motion.div
-          key={-1}
-          onClick={handleLogout}
-          whileHover={{
-            scale: 1.05,
-            boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
-          }}
-          whileTap={{ scale: 0.98 }}
-          className="p-6 bg-gray-600 dark:filter dark:brightness-100 rounded-2xl shadow-lg transition-transform duration-300 cursor-pointer"
-        >
-          <div className="text-center flex flex-col items-center">
-            <div className="text-6xl mb-4 text-white p-4 rounded-full shadow-md transition-transform duration-300">
-              <FaSignOutAlt />
+      <div
+        className="min-h-screen rounded-3xl bg-gradient-to-r p-8 from-violet-500 via-purple-500 to-pink-500 dark:from-violet-950 dark:to-indigo-950"
+      >
+        {/* bg-gradient-to-r from-[#192646] to-[#00050e] */}
+        <h1 className="text-5xl font-extrabold text-center text-white mb-12">
+          Dashboard
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {dashboardCards.map(
+            ({ to, icon, title, description, color, bgColor }, index) => (
+              <motion.div
+                key={index}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
+                }}
+                whileTap={{ scale: 0.98 }}
+                className={`p-6 ${bgColor} dark:filter dark:brightness-100 rounded-2xl shadow-lg transition-transform duration-300`}
+              >
+                <Link to={to} className="text-center flex flex-col items-center">
+                  <div className={`text-6xl mb-4 ${color} p-4 rounded-full shadow-md transition-transform duration-300`}>
+                    {icon}
+                  </div>
+                  <h2 className="text-2xl font-semibold text-white mb-2">
+                    {title}
+                  </h2>
+                  <p className="text-white">{description}</p>
+                </Link>
+              </motion.div>
+            )
+          )}
+          <motion.div
+            key={-1}
+            onClick={handleLogout}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.2)",
+            }}
+            whileTap={{ scale: 0.98 }}
+            className="p-6 bg-gray-600 dark:filter dark:brightness-100 rounded-2xl shadow-lg transition-transform duration-300 cursor-pointer"
+          >
+            <div className="text-center flex flex-col items-center">
+              <div className="text-6xl mb-4 text-white p-4 rounded-full shadow-md transition-transform duration-300">
+                <FaSignOutAlt />
+              </div>
+              <h2 className="text-2xl font-semibold text-white mb-2">Logout</h2>
+              <p className="text-white">Sign out of your account.</p>
             </div>
-            <h2 className="text-2xl font-semibold text-white mb-2">Logout</h2>
-            <p className="text-white">Sign out of your account.</p>
-          </div>
-        </motion.div>
-      </div>
-    </div></div>
+          </motion.div>
+        </div>
+      </div></div>
   );
 }

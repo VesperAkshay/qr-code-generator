@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { motion } from 'framer-motion';
-import { FiPlus, FiDownload, FiTrash, FiSettings } from 'react-icons/fi';
+import { FiPlus, FiDownload, FiTrash, FiSettings, FiLogOut } from 'react-icons/fi';
+import { FaArrowLeft } from 'react-icons/fa';
 
 export default function BulkQRCode() {
   const [urls, setUrls] = useState(['']);
@@ -37,16 +38,27 @@ export default function BulkQRCode() {
     urls.forEach((_, index) => downloadQRCode(index));
   };
 
+  const logQRCodes = () => {
+    urls.forEach((url, index) => {
+      console.log(`QR Code ${index + 1}: ${url}`);
+    });
+  };
+
   const handleSizeChange = (e) => {
     setSize(parseInt(e.target.value, 10));
   };
 
   return (
     <div className="min-h-screen p-8">
+      <button
+        onClick={() => window.location.href = '/dashboard'} // Sample URL
+        className=" top-4 left-2 flex items-center text-yellow-500 hover:text-yellow-600 font-medium"
+      >
+        <FaArrowLeft className="mr-2" /> Dashboard
+      </button>
       <h1 className="text-5xl font-extrabold text-center text-white mb-12">
         Bulk QR Code Generator
       </h1>
-
       <div className="bg-purple-100 dark:text-gray-200 dark:bg-[#2b2661] p-6 rounded-xl shadow-lg mb-8">
         <h2 className="text-2xl font-semibold mb-4 flex items-center">
           <FiSettings className="mr-2" /> Customize QR Codes
@@ -152,6 +164,16 @@ export default function BulkQRCode() {
           whileTap={{ scale: 0.95 }}
         >
           <FiDownload className="mr-2" /> Download All QR Codes
+        </motion.button>
+
+        {/* New button to log QR codes */}
+        <motion.button
+          onClick={logQRCodes}
+          className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 self-center flex items-center"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FiLogOut className="mr-2" /> Log QR Codes
         </motion.button>
       </div>
     </div>
