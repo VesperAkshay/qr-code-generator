@@ -3,6 +3,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth"; // Import onAuthSta
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+console.log('API Key:', process.env.REACT_APP_FIREBASE_API_KEY);
+
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -13,14 +15,9 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-
-
-
 export { auth, db, storage, onAuthStateChanged }; // Export onAuthStateChanged
-

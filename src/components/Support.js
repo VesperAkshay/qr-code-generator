@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { BiSupport } from 'react-icons/bi';
+import { FaArrowLeft } from 'react-icons/fa';
 
 export default function Support() {
   const [email, setEmail] = useState('');
@@ -21,6 +22,13 @@ export default function Support() {
     setError(''); 
   };
   return (
+    <>
+    <button
+        onClick={() => window.location.href = '/dashboard'} // Sample URL
+        className="flex ml-4 mt-6 items-center text-yellow-500 hover:text-yellow-600 font-medium mb-6"
+      >
+        <FaArrowLeft className="mr-2" /> Go to Dashboard
+      </button>
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className=" bg-purple-100 dark:bg-[#2b2661] rounded-xl shadow-lg p-8 max-w-lg w-full space-y-6 transition-transform transform hover:scale-105">
         <div className="flex items-center justify-center">
@@ -69,5 +77,6 @@ export default function Support() {
         </form>
       </div>
     </div>
+    </>
   );
 }

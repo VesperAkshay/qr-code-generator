@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaClipboard, FaCamera, FaImage, FaTimes, FaCheck, FaLightbulb } from 'react-icons/fa';
+import { FaClipboard, FaCamera, FaImage, FaTimes, FaCheck, FaLightbulb, FaArrowLeft } from 'react-icons/fa';
 import QrScanner from "qr-scanner";
 import toast from 'react-hot-toast';
 
@@ -132,7 +132,17 @@ export default function QRScanner() {
     };
 
     return (
-        <div className="p-8 bg-purple-100 dark:bg-[#2b2661] shadow-lg rounded-lg max-w-lg mx-auto">
+        <div className="p-8 bg-purple-100 dark:bg-[#2b2661] shadow-lg rounded-lg max-w-lg mx-auto relative"> {/* Add relative for positioning */}
+            <br></br>
+            <br></br>
+            {/* Back Button */}
+            <button
+                onClick={() => window.location.href = '/dashboard'} 
+                className="absolute top-2 left-2 flex items-center text-yellow-500 hover:text-yellow-600 font-medium"
+            >
+                <FaArrowLeft className="mr-2" /> Dashboard
+            </button>
+
             <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800 flex items-center justify-center dark:text-gray-200">
                 <FaCamera className="mr-2" /> QR Code Scanner
             </h1>
@@ -204,13 +214,12 @@ export default function QRScanner() {
 
             {scannedData.result && (
                 <div
-                    className={`p-4 rounded-lg font-semibold flex items-center justify-between ${
-                        scannedData.error ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
-                    }`}
+                    className={`p-4 rounded-lg font-semibold flex items-center justify-between ${scannedData.error ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                        }`}
                 >
                     <span>Scanned Data: {scannedData.result}</span>
                     <button onClick={copyToClipboard}
-                            className="ml-4 text-blue-600 hover:text-blue-800 flex items-center">
+                        className="ml-4 text-blue-600 hover:text-blue-800 flex items-center">
                         <FaClipboard size={24} className="mr-2" /> Copy
                     </button>
                 </div>

@@ -7,6 +7,7 @@ import { MdMarkEmailRead } from "react-icons/md"; // Make sure the path is corre
 import { motion } from "framer-motion";
 import AvatarSelectionModal from "./AvatarSelectionModel";
 import toast from "react-hot-toast";
+import { FaArrowLeft } from 'react-icons/fa';
 
 const avatars = [
   "/avatars/avatar1.png",
@@ -115,6 +116,13 @@ export default function Profile() {
   };
 
   return (
+    <>
+    <button
+        onClick={() => window.location.href = '/dashboard'} // Sample URL
+        className="flex items-center text-yellow-500 hover:text-yellow-600 font-medium mb-6"
+      >
+        <FaArrowLeft className="mr-2" /> Go to Dashboard
+      </button>
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
@@ -242,5 +250,6 @@ export default function Profile() {
         onSelectAvatar={handleSelectAvatar}
       />
     </motion.div>
+    </>
   );
 }
