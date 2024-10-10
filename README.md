@@ -1,14 +1,18 @@
 <a id="top"></a>
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/f60e197d-8113-47fb-b5d6-be955fc3a94b" alt="image" width="100"/>
+</div>
 <h1 align="center">QR Code Generator</h1>
 <h3 align="center">
    Welcome to the QR Code Generator Website project! This web application allows users to generate and customize QR codes with various options, including text input, color, pattern, frame, and more.
- 
 </h3>
 
 <hr/>
 
-![image](https://github.com/user-attachments/assets/5c981030-6577-4d42-a57b-d5c9a6798562)
-
+## 📈 GitHub Repository Stats
+| 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** | ✅ **Contributors** |
+|--------------|--------------|---------------|-----------------|------------------|------------------|
+| ![GitHub stars](https://img.shields.io/github/stars/VesperAkshay/qr-code-generator) | ![forks](https://img.shields.io/github/forks/VesperAkshay/qr-code-generator) | ![issues](https://img.shields.io/github/issues/VesperAkshay/qr-code-generator?color=32CD32) | ![pull requests](https://img.shields.io/github/issues-pr/VesperAkshay/qr-code-generator?color=FFFF8F) | ![Closed PRs](https://img.shields.io/github/issues-pr-closed/VesperAkshay/qr-code-generator?color=20B2AA) | ![Contributors](https://img.shields.io/github/contributors/VesperAkshay/qr-code-generator?color=00FA9A) |
 
 <details>
   <summary><h2>:pushpin:Table of Contents: </h2></summary>
@@ -25,7 +29,7 @@
 <hr>
 
 
-## Features
+## 🪄 Features
 
 - **User Authentication:** Securely register and log in with *email* or *Google authentication* powered by Firebase. .
 - **Dashboard:**
@@ -135,7 +139,7 @@ npm install
     ```
 
 ## Env template 
-### Add Firebase API
+### Add Firebase API (from .env.sample)
 ```bash
 REACT_APP_FIREBASE_API_KEY=""
 REACT_APP_FIREBASE_AUTH_DOMAIN=""
@@ -145,6 +149,14 @@ REACT_APP_FIREBASE_MESSAGING_SENDER_ID=""
 REACT_APP_FIREBASE_APP_ID=""
 REACT_APP_FIREBASE_MEASUREMENT_ID=""
 ```
+
+## Firebase setup![image](https://github.com/user-attachments/assets/026e6976-21e1-44b7-9aa5-b1e0e9e38078)
+1. Visit [Firebase](https://firebase.google.com/)  and navigate to the Firebase console.
+2. Click "Get started with Firebase" and create a new project.
+3. In the left sidebar under the "Build" section, select "Authentication." Enable Email/Password as a sign-in method.
+4. From the project overview, go to "Project settings."
+5. Scroll down and create a web app for the project. Register the app by following the provided instructions.
+All KEY values for .env will be available while creating the project app.
 
 
 <hr>
@@ -195,10 +207,16 @@ Want to be part of the community? Check out our **[Code of Conduct](https://gith
   <h2><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f_1f3fb/512.webp" width="35" height="35"> Support </h2>
 </div>
 
+## Meet Our Wonderful Contributors
+
+💝 Thank you to all the amazing contributors who have made this project possible! 💝
+
+<a href="https://github.com/VesperAkshay/qr-code-generator/graphs/contributors">
+  <img align="center" src="https://contrib.rocks/image?max=100&repo=VesperAkshay/qr-code-generator" />
+</a> 
+<br>
 <div>
   Don't forget to leave a star<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f31f/512.webp" width="35" height="30"> for this project!
 </div> <br>
 
 <a href="#top" style="position: fixed; bottom: 20px; right: 20px; background-color: black ; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px; font-family: Arial; font-size: 16px;">Go to Top</a>
-
-
