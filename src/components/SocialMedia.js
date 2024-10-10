@@ -87,9 +87,8 @@ export default function SocialMedia() {
           <motion.button
             key={platform.name}
             onClick={() => handleSocialMediaChange(platform)}
-            className={`p-4 m-2 rounded-full shadow-lg transition-transform duration-300 ease-in-out ${
-              socialMedia === platform.name ? "transform scale-110" : ""
-            }`}
+            className={`p-4 m-2 rounded-full shadow-lg transition-transform duration-300 ease-in-out ${socialMedia === platform.name ? "transform scale-110" : ""
+              }`}
             style={{ backgroundColor: platform.color }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -121,9 +120,8 @@ export default function SocialMedia() {
           onChange={(e) => setSize(e.target.value)}
           className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer"
           style={{
-            background: `linear-gradient(to right, #4f46e5 ${
-              ((size - 128) / 384) * 100
-            }%, #d1d5db ${((size - 128) / 384) * 100}%)`,
+            background: `linear-gradient(to right, #4f46e5 ${((size - 128) / 384) * 100
+              }%, #d1d5db ${((size - 128) / 384) * 100}%)`,
           }}
         />
       </div>

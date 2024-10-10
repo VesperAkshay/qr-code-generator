@@ -204,13 +204,12 @@ export default function QRScanner() {
 
             {scannedData.result && (
                 <div
-                    className={`p-4 rounded-lg font-semibold flex items-center justify-between ${
-                        scannedData.error ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
-                    }`}
+                    className={`p-4 rounded-lg font-semibold flex items-center justify-between ${scannedData.error ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                        }`}
                 >
                     <span>Scanned Data: {scannedData.result}</span>
                     <button onClick={copyToClipboard}
-                            className="ml-4 text-blue-600 hover:text-blue-800 flex items-center">
+                        className="ml-4 text-blue-600 hover:text-blue-800 flex items-center">
                         <FaClipboard size={24} className="mr-2" /> Copy
                     </button>
                 </div>

@@ -24,9 +24,9 @@ export default function WifiForm({ wifiDetails, setWifiDetails, setText }) {
           { name: 'password', label: 'Password', icon: faNetworkWired, placeholder: 'Your Network Password' }
         ].map(({ name, label, icon, placeholder }) => (
           <div key={name} className="">
-              <label htmlFor={name} className="block ml-6 text-gray-700 dark:text-gray-200 font-medium mb-1 capitalize">{label}</label>
+            <label htmlFor={name} className="block ml-6 text-gray-700 dark:text-gray-200 font-medium mb-1 capitalize">{label}</label>
             <div className="flex space-x-3 items-center">
-            <FontAwesomeIcon icon={icon} className="text-gray-600 dark:text-gray-200" />
+              <FontAwesomeIcon icon={icon} className="text-gray-600 dark:text-gray-200" />
               <input
                 type="text"
                 id={name}

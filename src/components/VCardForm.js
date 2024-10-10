@@ -30,7 +30,7 @@ export default function VCardForm({ vCardDetails, setVCardDetails, setText }) {
           <div key={name} className="">
             <label htmlFor={name} className="block ml-6 text-gray-700 dark:text-gray-200 font-medium mb-1 capitalize">{label}</label>
             <div className="flex space-x-3 items-center">
-            <FontAwesomeIcon icon={icon} className="text-gray-600 dark:text-gray-200" />
+              <FontAwesomeIcon icon={icon} className="text-gray-600 dark:text-gray-200" />
               <input
                 type={type}
                 id={name}

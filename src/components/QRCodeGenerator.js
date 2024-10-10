@@ -86,9 +86,9 @@ export default function QRCodeGenerator() {
           '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR IP address
           '(\\:\\d+)?(\\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?' + // port and path
           '(\\?[;&a-zA-Z0-9%_+.~#?&//=]*)?' + // query string
-          '(\\#[-a-zA-Z0-9_]*)?$','i' // fragment locator
+          '(\\#[-a-zA-Z0-9_]*)?$', 'i' // fragment locator
         );
-        
+
         if (!urlPattern.test(text.trim())) {
           toast.error("Invalid URL. Please enter a valid URL.");
           return;

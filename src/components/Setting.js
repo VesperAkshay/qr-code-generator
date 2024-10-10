@@ -113,7 +113,7 @@ export default function Settings() {
           <FaUserCog className="text-blue-500 w-16 h-16" />
         </div>
         <h1 className="text-3xl font-extrabold text-center text-gray-800 dark:text-gray-200">Settings</h1>
-        
+
         {success && <p className="text-green-500 text-center font-semibold">{success}</p>}
         {error && <p className="text-red-500 text-center font-semibold">{error}</p>}
 

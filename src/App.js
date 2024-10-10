@@ -31,11 +31,10 @@ function BackgroundWrapper({ children }) {
 
   return (
     <div
-      className={`min-h-screen ${
-        location.pathname === "/register"
+      className={`min-h-screen ${location.pathname === "/register"
           ? "bg-white"
           : "bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800"
-      }`}
+        }`}
     >
       {children}
     </div>

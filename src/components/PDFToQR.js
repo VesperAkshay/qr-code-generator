@@ -22,13 +22,13 @@ export default function PdfQRCodeGenerator() {
 
       // Create a storage reference
       const storageRef = ref(storage, `pdfs/${file.name}`);
-      
+
       // Upload the PDF
       await uploadBytes(storageRef, file);
-      
+
       // Get the download URL
       const downloadURL = await getDownloadURL(storageRef);
-      
+
       setPdfURL(downloadURL);
       setQRCodeURL(downloadURL);
       setIsUploading(false);
@@ -74,21 +74,21 @@ export default function PdfQRCodeGenerator() {
               <div className="flex justify-between items-center">
                 <div>
                   <label className="block text-gray-600 dark:text-gray-300 font-medium mb-2">Color</label>
-                  <input 
-                    type="color" 
-                    value={qrColor} 
-                    onChange={(e) => setQrColor(e.target.value)} 
+                  <input
+                    type="color"
+                    value={qrColor}
+                    onChange={(e) => setQrColor(e.target.value)}
                     className="w-full cursor-pointer"
                   />
                 </div>
                 <div>
                   <label className="block text-gray-600 dark:text-gray-300 font-medium mb-2">Size</label>
-                  <input 
-                    type="number" 
-                    value={qrSize} 
-                    onChange={(e) => setQrSize(Number(e.target.value))} 
-                    min="128" 
-                    max="512" 
+                  <input
+                    type="number"
+                    value={qrSize}
+                    onChange={(e) => setQrSize(Number(e.target.value))}
+                    min="128"
+                    max="512"
                     className="w-full p-2 border border-gray-400 rounded-lg"
                   />
                 </div>
@@ -103,10 +103,10 @@ export default function PdfQRCodeGenerator() {
             </div>
 
             <div className="mt-6 flex justify-center">
-              <motion.button 
-                whileHover={{ scale: 1.05 }} 
-                whileTap={{ scale: 0.95 }} 
-                onClick={handleDownloadQRCode} 
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleDownloadQRCode}
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center shadow-lg"
               >
                 <FaDownload className="mr-2" /> Download QR Code

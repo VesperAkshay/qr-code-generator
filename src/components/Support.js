@@ -12,13 +12,13 @@ export default function Support() {
     e.preventDefault();
     if (message.length < 5) {
       setError('Message must be at least 5 characters long.');
-      return; 
+      return;
     }
     // Handle form submission (e.g., send the data to an API)
     setSuccess('Your message has been sent successfully!');
     setEmail('');
     setMessage('');
-    setError(''); 
+    setError('');
   };
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
@@ -28,7 +28,7 @@ export default function Support() {
         </div>
         <h1 className="text-3xl font-extrabold text-center text-gray-800 dark:text-gray-200">Support</h1>
         <p className="text-center text-gray-600 dark:text-gray-400">Have any questions or need help? Fill out the form below, and we will get back to you as soon as possible.</p>
-        
+
         {success && <p className="text-green-500 text-center font-semibold">{success}</p>}
         {error && <p className="text-red-500 text-center font-semibold">{error}</p>} {/* Display error message */}
 
@@ -53,7 +53,7 @@ export default function Support() {
               placeholder="Enter your message"
               rows="5"
               required
-              minLength={5} 
+              minLength={5}
             />
             {message.length > 0 && message.length < 5 && (
               <p className="text-red-600 mt-1">Message must be at least 5 characters long.</p>

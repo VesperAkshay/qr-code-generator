@@ -17,11 +17,10 @@ export default function CategorySelector({ category, handleCategoryChange }) {
         <motion.button
           key={name}
           onClick={() => handleCategoryChange(name)}
-          className={`flex flex-col items-center p-4 rounded-lg font-medium focus:outline-none transition-transform ${
-            category === name
+          className={`flex flex-col items-center p-4 rounded-lg font-medium focus:outline-none transition-transform ${category === name
               ? 'bg-blue-500 text-white shadow-2xl transform scale-105'
               : 'bg-white dark:bg-indigo-950 text-gray-700 dark:text-gray-200 shadow-md'
-          }`}
+            }`}
           whileHover={{
             scale: 1.12,
             rotate: 1,

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { motion } from 'framer-motion';
 import { useAuth } from "../context/AuthContext";
-import {FaEye, FaEyeSlash} from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -29,7 +29,7 @@ export default function Login() {
         } else {
           // If user is signed in but not verified, log them out and show error
           setError('Your email is not verified. Please check your inbox.');
-          signOut(auth); 
+          signOut(auth);
         }
       }
     });
@@ -97,8 +97,8 @@ export default function Login() {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
-      <motion.form 
-        onSubmit={handleSubmit} 
+      <motion.form
+        onSubmit={handleSubmit}
         className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-sm"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -128,7 +128,7 @@ export default function Login() {
             required
             whileFocus={{ scale: 1.02, boxShadow: "0 0 10px rgba(99, 102, 241, 0.5)" }}
           />
-          <span 
+          <span
             className="absolute right-4 top-4 cursor-pointer text-gray-600"
             onClick={togglePasswordVisibility}
           >
