@@ -19,6 +19,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false); // New state for terms
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -50,6 +51,12 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isTermsAccepted) {
+      toast.error("You must agree to the terms to register.");
+      return;
+    }
+
     if (emailError || !validateEmail(email)) {
       toast.error("Please enter a valid email address.");
       return;
@@ -138,7 +145,11 @@ export default function Register() {
           />
         </div>
         <div className="flex gap-4 flex-row mb-6">
-          <motion.input type="checkbox" />
+          <motion.input
+            type="checkbox"
+            checked={isTermsAccepted}
+            onChange={(e) => setIsTermsAccepted(e.target.checked)} // Update checkbox state
+          />
           <p className="text-xs">
             I agree to all statements in{" "}
             <Link to="/settings" className="underline hover:text-slate-400">
@@ -148,8 +159,9 @@ export default function Register() {
         </div>
         <motion.button
           type="submit"
-          className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-400 transition-colors duration-300 shadow-md font-semibold"
+          className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-400 transition-colors duration-300 shadow-md font-semibold disabled:cursor-not-allowed"
           whileHover={{ scale: 1.05 }}
+          disabled={!isTermsAccepted} // Disable button when terms are not accepted
         >
           Register
         </motion.button>
