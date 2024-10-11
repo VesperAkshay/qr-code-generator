@@ -9,7 +9,7 @@ import { RiLockPasswordFill, RiLockPasswordLine } from "react-icons/ri";
 import OfficeIcon from "../assets/office-computer-table.svg";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import {FaEye, FaEyeSlash} from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -67,19 +67,19 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen max-w-screen-lg bg-white grid grid-cols-[auto,1fr] justify-items-center  mx-auto items-center pb-32">
+    <div className="min-h-screen bg-white grid grid-cols-1 lg:grid-cols-[auto,1fr] justify-items-center items-center p-6 md:p-12 lg:p-0 lg:max-w-screen-lg mx-auto">
       <motion.form
         onSubmit={handleSubmit}
-        className="bg-white p-10 items-left min-w-[26rem] max-w-full ml-8"
+        className="bg-white p-6 md:p-10 items-left min-w-[20rem] max-w-full lg:ml-8 shadow-lg rounded-lg w-full lg:w-auto"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         whileHover={{ scale: 1.02 }}
       >
-        <h1 className="text-3xl font-extrabold text-left mb-12 text-gray-800 ">
+        <h1 className="text-2xl md:text-3xl font-extrabold text-left mb-6 md:mb-12 text-gray-800">
           Sign Up
         </h1>
-        <div className="mb-4 flex flex-row items-center min-w-full py-3 border-b-2 border-gray-400">
+        <div className="mb-4 flex flex-row items-center py-2 border-b-2 border-gray-400">
           <span className="pr-2">
             <FaUser />
           </span>
@@ -91,9 +91,9 @@ export default function Register() {
             className="w-full pl-2"
           />
         </div>
-        <div className="mb-4 flex flex-row min-w-full items-center py-3 border-b-2 border-gray-400">
+        <div className="mb-4 flex flex-row items-center py-2 border-b-2 border-gray-400">
           <span className="pr-2">
-            <MdEmail className="" />
+            <MdEmail />
           </span>
           <motion.input
             type="email"
@@ -103,37 +103,28 @@ export default function Register() {
             onBlur={handleEmailBlur}
             className="w-full pl-2"
             required
-            whileFocus={{
-              scale: 1.02,
-              boxShadow: "0 0 10px rgba(59, 130, 246, 0.5)",
-            }}
           />
         </div>
-        <div className="mb-4 flex flex-row gap-2 items-center py-3 min-w-full border-b-2 border-gray-400 w-full">
+        <div className="mb-4 flex flex-row relative gap-2 items-center py-2 border-b-2 border-gray-400">
           <span>
             <RiLockPasswordFill />
           </span>
           <motion.input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full pl-2"
             required
-            whileFocus={{
-              scale: 1.02,
-              boxShadow: "0 0 10px rgba(59, 130, 246, 0.5)",
-            }}
-            style={{ backgroundColor: "white !important" }}
           />
-           <span 
-            className="absolute right-4 top-4 cursor-pointer text-gray-600"
+          <span
+            className="absolute right-4 cursor-pointer text-gray-600"
             onClick={togglePasswordVisibility}
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
-        <div className="mb-8 flex flex-row items-center py-3 gap-2 min-w-full border-b-2 border-gray-400 w-full">
+        <div className="mb-8 flex flex-row items-center py-2 border-b-2 border-gray-400">
           <span className="pr-2">
             <RiLockPasswordLine />
           </span>
@@ -144,35 +135,29 @@ export default function Register() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             className="w-full"
             required
-            animate={{ backgroundColor: "#ffffff" }}
-            whileFocus={{
-              scale: 1.02,
-              boxShadow: "0 0 10px rgba(59, 130, 246, 0.5)",
-            }}
           />
         </div>
-
-        <div className="min-w-full flex gap-4 flex-row mb-14">
-          <motion.input type="checkbox" className="" />
-          <p className="min-w-full text-xs">
+        <div className="flex gap-4 flex-row mb-6">
+          <motion.input type="checkbox" />
+          <p className="text-xs">
             I agree to all statements in{" "}
-            <Link to="/settings" className="underline hover:text-slate-400" href="">
+            <Link to="/settings" className="underline hover:text-slate-400">
               Terms of Service
-            </Link>{" "}
+            </Link>
           </p>
         </div>
         <motion.button
           type="submit"
-          className=" bg-blue-400 text-white py-3 px-8 rounded-lg hover:bg-blue-300 transition-colors duration-300 shadow-lg font-semibold"
+          className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-400 transition-colors duration-300 shadow-md font-semibold"
           whileHover={{ scale: 1.05 }}
         >
           Register
         </motion.button>
       </motion.form>
-      <div className="flex flex-col justify-items-center gap-4 align-center text-center sm:block">
-        <img alt="OfficeIcon" src={OfficeIcon} className="mb-6" />
+      <div className="flex flex-col justify-center items-center mt-8 lg:mt-0 lg:block">
+        <img alt="OfficeIcon" src={OfficeIcon} className="mb-6 w-64 lg:w-auto" />
         <p>
-          <Link to="/login" className="underline hover:text-slate-400" href="">
+          <Link to="/login" className="underline hover:text-slate-400">
             I am already a member
           </Link>
         </p>
