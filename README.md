@@ -139,7 +139,7 @@ npm install
     ```
 
 ## Env template 
-### Add Firebase API
+### Add Firebase API (from .env.sample)
 ```bash
 REACT_APP_FIREBASE_API_KEY=""
 REACT_APP_FIREBASE_AUTH_DOMAIN=""

@@ -1,6 +1,14 @@
 import React, { useState, useRef } from "react";
 import { QRCodeCanvas } from "qrcode.react";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedin,
+  FaWhatsapp,
+  FaTiktok,
+  FaSnapchatGhost,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
 import { FiUpload } from "react-icons/fi";
 
@@ -10,6 +18,8 @@ import TwitterLogo from "../assets/twitter-logo.png";
 import InstagramLogo from "../assets/instagram-logo.png";
 import LinkedInLogo from "../assets/linkedin-logo.png";
 import WhatsappLogo from "../assets/whatsapp.png";
+import TiktokLogo from "../assets/tik-tok.png";
+import SnapchatLogo from "../assets/snapchat.png";
 
 // List of social platforms and their properties
 const socialMediaOptions = [
@@ -26,12 +36,6 @@ const socialMediaOptions = [
     logoUrl: TwitterLogo,
   },
   {
-    name: "Instagram",
-    icon: <FaInstagram />,
-    color: "#E1306C",
-    logoUrl: InstagramLogo,
-  },
-  {
     name: "LinkedIn",
     icon: <FaLinkedin />,
     color: "#0077B5",
@@ -42,6 +46,24 @@ const socialMediaOptions = [
     icon: <FaWhatsapp />,
     color: "#25D366",
     logoUrl: WhatsappLogo,
+  },
+  {
+    name: "Snapchat",
+    icon: <FaSnapchatGhost />,
+    color: "#FFC300",
+    logoUrl: SnapchatLogo,
+  },
+  {
+    name: "TikTok",
+    icon: <FaTiktok />,
+    color: "#FF8C00",
+    logoUrl: TiktokLogo,
+  },
+  {
+    name: "Instagram",
+    icon: <FaInstagram />,
+    color: "#E1306C",
+    logoUrl: InstagramLogo,
   },
 ];
 
@@ -103,18 +125,26 @@ export default function SocialMediaQRCodeGenerator() {
       {/* Social Media Selection */}
       <div className="flex flex-wrap justify-center mb-6">
         {socialMediaOptions.map((platform) => (
-          <motion.button
-            key={platform.name}
-            onClick={() => handleSocialMediaChange(platform)}
-            className={`p-4 m-2 rounded-full shadow-lg transition-transform duration-300 ease-in-out ${
-              socialMedia === platform.name ? "transform scale-110" : ""
-            }`}
-            style={{ backgroundColor: platform.color }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {platform.icon}
-          </motion.button>
+          <motion.div key={platform.name} className="relative group">
+            <motion.button
+              onClick={() => handleSocialMediaChange(platform)}
+              className={`p-4 m-2 rounded-full shadow-lg transition-transform duration-300 ease-in-out ${
+                socialMedia === platform.name ? "transform scale-110" : ""
+              }`}
+              style={{ backgroundColor: platform.color }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {platform.icon}
+            </motion.button>
+
+            <div
+              className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-xs rounded py-1 px-2"
+              style={{ backgroundColor: platform.color }}
+            >
+              {platform.name}
+            </div>
+          </motion.div>
         ))}
       </div>
 
@@ -128,7 +158,7 @@ export default function SocialMediaQRCodeGenerator() {
           placeholder="Enter your URL or text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full p-3 border border-gray-300 dark:border-gray-600 bg-purple-100 dark:bg-[#2b2661] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-lg"
+          className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:text-gray-200 bg-purple-100 dark:bg-[#2b2661] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-lg"
         />
       </div>
 
@@ -220,13 +250,16 @@ export default function SocialMediaQRCodeGenerator() {
       </div>
 
       {/* Download Button */}
-      <button
-        onClick={downloadQRCode}
-        className="w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-      >
-        Download QR Code
-
-      </button>
+      <div className="flex justify-center">
+        <motion.button
+          onClick={downloadQRCode}
+          className="bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-500 hover:to-indigo-400 text-white font-bold py-2 px-6 rounded-lg shadow-lg"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Download QR Code
+        </motion.button>
+      </div>
     </div>
   );
 }

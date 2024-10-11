@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
@@ -10,7 +9,7 @@ import { RiLockPasswordFill, RiLockPasswordLine } from "react-icons/ri";
 import OfficeIcon from "../assets/office-computer-table.svg";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import {FaEye, FaEyeSlash} from 'react-icons/fa';
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -18,12 +17,9 @@ export default function Register() {
   const [emailError, setEmailError] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
   const [password, setPassword] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-  const { currentUser, loading: authLoading } = useAuth();
-  const auth = getAuth(); // Initialize auth globally
-
 
   const validateEmail = (email) => {
     const emailExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,6 +44,10 @@ export default function Register() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (emailError || !validateEmail(email)) {
@@ -63,28 +63,7 @@ export default function Register() {
       navigate("/dashboard");
     } catch (error) {
       toast.error(error.message);
-
     }
-  };
-
-  const handleGoogleRegister = async () => {
-    const provider = new GoogleAuthProvider();
-    setLoading(true); // Set loading to true while signing in
-
-    try {
-      await signInWithPopup(auth, provider);
-      setSuccessMessage("Google registration successful!");
-      navigate("/dashboard"); // Navigate to dashboard after successful login
-    } catch (error) {
-      setError(error.message);
-      console.error("Error during Google registration", error);
-    } finally {
-      setLoading(false); // Set loading to false after operation completes
-    }
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
   };
 
   return (
@@ -97,10 +76,7 @@ export default function Register() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         whileHover={{ scale: 1.02 }}
       >
-
-        <h1 className="text-3xl font-extrabold text-left mb-12 text-gray-800 ">Create an Account</h1>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        {successMessage && <p className="text-green-500 mb-4">{successMessage}</p>}
+        <h1 className="text-3xl font-extrabold text-left mb-12 text-gray-800 ">
           Sign Up
         </h1>
         <div className="mb-4 flex flex-row items-center min-w-full py-3 border-b-2 border-gray-400">
@@ -113,8 +89,6 @@ export default function Register() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full pl-2"
-
-            required
           />
         </div>
         <div className="mb-4 flex flex-row min-w-full items-center py-3 border-b-2 border-gray-400">
@@ -129,8 +103,6 @@ export default function Register() {
             onBlur={handleEmailBlur}
             className="w-full pl-2"
             required
-
-
             whileFocus={{
               scale: 1.02,
               boxShadow: "0 0 10px rgba(59, 130, 246, 0.5)",
@@ -138,34 +110,34 @@ export default function Register() {
           />
         </div>
         <div className="mb-4 flex flex-row gap-2 items-center py-3 min-w-full border-b-2 border-gray-400 w-full">
-
           <span>
             <RiLockPasswordFill />
           </span>
           <motion.input
-
-
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full pl-2"
             required
-
             whileFocus={{
               scale: 1.02,
               boxShadow: "0 0 10px rgba(59, 130, 246, 0.5)",
             }}
             style={{ backgroundColor: "white !important" }}
           />
+           <span 
+            className="absolute right-4 top-4 cursor-pointer text-gray-600"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
         </div>
-
         <div className="mb-8 flex flex-row items-center py-3 gap-2 min-w-full border-b-2 border-gray-400 w-full">
           <span className="pr-2">
             <RiLockPasswordLine />
           </span>
           <motion.input
-
             type="password"
             placeholder="Repeat your Password"
             value={confirmPassword}
@@ -188,7 +160,6 @@ export default function Register() {
               Terms of Service
             </Link>{" "}
           </p>
-
         </div>
         <motion.button
           type="submit"

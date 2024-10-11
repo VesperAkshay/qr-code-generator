@@ -17,6 +17,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 /bun.lockb
 
 npm-debug.log*
@@ -24,3 +25,4 @@ yarn-debug.log*
 yarn-error.log*
 .idea
 debug.log
+*.env
