@@ -41,15 +41,23 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     try {
+      // Sign in with email and password
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       setCurrentUser(user);
-
+  
+      // Check if email is verified
       if (user.emailVerified) {
         setEmailAuthVerified(true);
         navigate('/dashboard');
       } else {
+        // Show modal to resend verification email
         setShowVerificationModal(true);
+  
+        // Send verification email
+        await sendEmailVerification(user);
+        console.log("Verification email sent");
+        alert('Verification email sent! Please check your inbox.');
       }
     } catch (error) {
       setError(error.message);
@@ -58,7 +66,6 @@ export default function Login() {
       setLoading(false);
     }
   };
-
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     setLoading(true);

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sendEmailVerification } from "firebase/auth"; 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
@@ -42,8 +43,11 @@ export default function Register() {
     }
   };
 
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // Validate email and password
     if (emailError || !validateEmail(email)) {
       toast.error("Please enter a valid email address.");
       return;
@@ -52,14 +56,26 @@ export default function Register() {
       toast.error("Passwords do not match.");
       return;
     }
+  
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard");
+      // Create a new user with email and password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+  
+      // Send email verification
+      await sendEmailVerification(user);
+  
+      // Display a success message for email verification
+      toast.success("Registration successful! Please check your email for verification.");
+  
+      // Navigate to the login page
+      navigate("/login");
+  
     } catch (error) {
+      // Handle any errors during registration
       toast.error(error.message);
     }
   };
-
   return (
     <div className="min-h-screen max-w-screen-lg bg-white grid grid-cols-[auto,1fr] justify-items-center  mx-auto items-center pb-32">
       <motion.form
