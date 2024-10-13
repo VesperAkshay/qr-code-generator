@@ -1,47 +1,3 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import DashboardPage from "./pages/DashboardPage";
-import QRCodePage from "./pages/QRCodePage";
-import ProfilePage from "./pages/ProfilePage";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import { AuthProvider } from "./context/AuthContext";
-import Support from "./components/Support";
-import Settings from "./components/Setting";
-import ImageQRCodeGenerator from "./components/ImageQRCodeGenerator";
-import SocialMedia from "./components/SocialMedia";
-import BulkQRCode from "./components/BulkQRCode";
-import Moreinfo from "./components/Moreinfo";
-import QRScanner from "./components/QRScanner";
-import PdfQRCodeGenerator from "./components/PDFToQR";
-import { ThemeProvider } from "./context/ThemeContext";
-import { Toaster } from "react-hot-toast";
-import ProtectedRoute from "./components/ProtectedRoute";
-import NotFoundPage from "./components/Error404";
-
-function BackgroundWrapper({ children }) {
-  const location = useLocation();
-
-  return (
-    <div
-      className={`min-h-screen ${
-        location.pathname === "/register"
-          ? "bg-white"
-          : "bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800"
-      }`}
-    >
-      {children}
-    </div>
-  );
-}
-
 export default function App() {
   return (
     <AuthProvider>
@@ -136,6 +92,8 @@ export default function App() {
               />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
+           
+            <Chatbot />
           </BackgroundWrapper>
           <Toaster />
         </Router>
