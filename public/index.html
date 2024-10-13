@@ -56,7 +56,7 @@
           z-index: 100;
           border: none;
           outline: none;
-          background-color: #007BFF; /* Button color */
+          background-color: #010912; /* Button color */
           color: white; /* Text color */
           cursor: pointer;
           padding: 10px 15px;
@@ -65,7 +65,7 @@
       }
 
       #themeToggleBtn:hover {
-          background-color: #0056b3; /* Darker button color on hover */
+          background-color: #187acf; /* Darker button color on hover */
       }
 
       /* Social icons styles */
@@ -106,7 +106,7 @@
     <!-- Arrow icon for the Scroll to Top button -->
     <button id="scrollToTopBtn" aria-label="Scroll to top">&uarr;</button>
     <!-- Theme toggle button -->
-    <button id="themeToggleBtn" aria-label="Toggle dark mode">Dark Mode</button>
+    <button id="themeToggleBtn" aria-label="🌙">☀</button>
 
     <!-- Social Icons -->
     <div class="social-icons">
@@ -133,7 +133,7 @@
       // Check localStorage for theme preference and apply it
       if (localStorage.getItem('theme') === 'dark') {
           body.classList.add('dark-mode');
-          themeToggleBtn.textContent = 'Toggle Light Mode'; // Change button text
+          themeToggleBtn.textContent = '☀'; // Change button text
       }
 
       // Show or hide the Scroll to Top button based on scroll position
@@ -159,10 +159,10 @@
           // Change button text based on current theme
           if (body.classList.contains('dark-mode')) {
               localStorage.setItem('theme', 'dark'); // Store theme preference
-              themeToggleBtn.textContent = 'Toggle Light Mode';
+              themeToggleBtn.textContent = '☀';
           } else {
               localStorage.setItem('theme', 'light'); // Store theme preference
-              themeToggleBtn.textContent = 'Toggle Dark Mode';
+              themeToggleBtn.textContent = ' 🌙';
           }
       });
     </script>
