@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { updateProfile, updatePassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { FaUserEdit, FaLock, FaSignOutAlt, FaEdit } from "react-icons/fa";
 import { MdMarkEmailRead } from "react-icons/md"; // Make sure the path is correct
+import { auth } from "../firebase";
 import { motion } from "framer-motion";
 import AvatarSelectionModal from "./AvatarSelectionModel";
 import toast from "react-hot-toast";
@@ -24,6 +25,7 @@ const avatars = [
 export default function Profile() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
+  const [provider, setProvider] = useState();
   const [displayName, setDisplayName] = useState(
     currentUser.displayName ? currentUser.displayName : ""
   );
@@ -33,6 +35,9 @@ export default function Profile() {
   const [success, setSuccess] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  useEffect(() => {
+    setProvider(auth.currentUser.providerData[0].providerId);
+  }, []);
   const handleUpdateProfile = async () => {
     try {
       await updateProfile(currentUser, {
@@ -102,9 +107,9 @@ export default function Profile() {
       ),
       {
         duration: 0, // Keep the toast open until dismissed
-        position: 'top-center', // Adjust position if needed
+        position: "top-center", // Adjust position if needed
       }
-    )
+    );
   };
 
   const openModal = () => setIsModalOpen(true);
@@ -156,7 +161,9 @@ export default function Profile() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">Display Name</label>
+          <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">
+            Display Name
+          </label>
           <div className="relative mt-2">
             <FaUserEdit className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400" />
             <input
@@ -174,7 +181,9 @@ export default function Profile() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">Email</label>
+          <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">
+            Email
+          </label>
           <div className="relative mt-2">
             <MdMarkEmailRead className="text-xl absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-300" />
             <input
@@ -183,26 +192,30 @@ export default function Profile() {
               disabled
               className="font-semibold pl-12 py-3 border border-gray-400 rounded-lg w-full bg-gray-200 dark:text-gray-400 dark:bg-indigo-950 cursor-not-allowed text-gray-900"
               placeholder="Your email address"
-            /></div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-        >
-          <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">New Password</label>
-          <div className="relative mt-2">
-            <FaLock className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400" />
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="font-semibold pl-12 pr-4 py-3 border border-gray-400 dark:text-gray-200 dark:bg-indigo-950 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-black bg-gray-50 text-gray-900 transition duration-300"
-              placeholder="Enter new password"
             />
           </div>
         </motion.div>
+        {provider != "google.com" && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+          >
+            <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">
+              New Password
+            </label>
+            <div className="relative mt-2">
+              <FaLock className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="font-semibold pl-12 pr-4 py-3 border border-gray-400 dark:text-gray-200 dark:bg-indigo-950 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-black bg-gray-50 text-gray-900 transition duration-300"
+                placeholder="Enter new password"
+              />
+            </div>
+          </motion.div>
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 justify-between mt-8">
@@ -215,15 +228,17 @@ export default function Profile() {
           <FaUserEdit className="mr-2" />
           Update Profile
         </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleUpdatePassword}
-          className="bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition duration-300 shadow-lg flex items-center justify-center w-full"
-        >
-          <FaLock className="mr-2" />
-          Update Password
-        </motion.button>
+        {provider != "google.com" && (
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleUpdatePassword}
+            className="bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition duration-300 shadow-lg flex items-center justify-center w-full"
+          >
+            <FaLock className="mr-2" />
+            Update Password
+          </motion.button>
+        )}
       </div>
 
       <motion.button
