@@ -26,6 +26,8 @@ import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFoundPage from "./components/Error404";
 
+import ScrollButton from "./components/ScrollButton"; // Import the ScrollButton
+
 function BackgroundWrapper({ children }) {
   const location = useLocation();
 
@@ -136,6 +138,7 @@ export default function App() {
               />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
+            <ScrollButton />
           </BackgroundWrapper>
           <Toaster />
         </Router>
