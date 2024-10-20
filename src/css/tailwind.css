@@ -13,56 +13,84 @@ svg.code-outline-highlight {
     stroke-width: 5px !important;
 }
 
+@media (max-width: 768px) {
+  svg.code-outline-highlight {
+    stroke-dasharray: 20 !important;
+    stroke-width: 3px !important;
+  }
+}
+
 body {
     cursor: url("../assets/custom-pointer.png"), auto;
     --sb-track-color: #232E33;
     --sb-thumb-color: #ffffff;
     --sb-size: 8px;
-  }
-  
-  body::-webkit-scrollbar {
-    width: var(--sb-size)
-  }
-  
-  body::-webkit-scrollbar-track {
-    background: var(--sb-track-color);
-    border-radius: 4px;
-  }
-  
-  body::-webkit-scrollbar-thumb {
-    background: var(--sb-thumb-color);
-    border-radius: 3px;
-    
-  }
-  
-  /* CSS for qrcode size slider */
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Remove default appearance */
-    height: 24px; /* Height of the thumb */
-    width: 24px; /* Width of the thumb */
-    background: #4f46e5; /* Color of the thumb (change this to desired color) */
-    border-radius: 50%; /* Make it circular */
-    cursor: pointer; /* Pointer cursor on hover */
-    margin-top: 0px; /* Center thumb vertically */
 }
 
-  @supports not selector(::-webkit-scrollbar) {
-    body {
-      scrollbar-color: var(--sb-thumb-color)
-                       var(--sb-track-color);
-    }
+@media (min-width: 768px) {
+  body {
+    --sb-size: 10px;
   }
+}
 
-  input:-webkit-autofill {
+body::-webkit-scrollbar {
+    width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 24px;
+    width: 24px;
+    background: #4f46e5;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 0px;
+}
+
+@media (max-width: 768px) {
+  input[type="range"]::-webkit-slider-thumb {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+input:-webkit-autofill {
     background-color: white !important;
     color: black !important;
     box-shadow: 0 0 0px 1000px white inset !important;
     -webkit-text-fill-color: black !important;
     transition: background-color 5000s ease-in-out 0s;
-  }
+}
 
-  input:-moz-autofill {
+input:-moz-autofill {
     background-color: white !important;
     color: black !important;
     box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    body {
+      scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
+}
+
+@media (max-width: 640px) {
+  body {
+    --sb-size: 6px;
   }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    height: 18px;
+    width: 18px;
+  }
+}
