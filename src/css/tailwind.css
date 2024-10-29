@@ -2,6 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+.container_1 {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.accordion__wrapper {
+  padding: 1rem;
+}
+
+.accordion__title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.accordion {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+.accordion__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.accordion__content {
+  padding: 1rem;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+.accordion__icon i {
+  transition: transform 0.3s ease;
+}
+
+
 svg.scan-region-highlight-svg {
     stroke: #3b82f6 !important;
     animation: none !important;
@@ -66,3 +110,46 @@ body {
     color: black !important;
     box-shadow: 0 0 0px 1000px white inset !important;
   }
+
+.faq-item {
+    background-color: rgba(59, 130, 246, 0.8); /* Semi-transparent blue background */
+    border-radius: 5px; /* Rounded corners */
+    padding: 1rem; /* Padding inside the item */
+    margin: 0 auto; /* Center the item */
+    margin-bottom: 1rem; /* Space between items */
+    transition: background-color 0.3s; /* Smooth transition */
+    max-width: 600px; /* Set a max width for the items */
+}
+
+.faq-item:hover {
+    background-color: rgba(37, 99, 235, 0.8); /* Darker blue on hover */
+}
+
+.faq-item h3 {
+    cursor: pointer; /* Pointer cursor for questions */
+    display: flex; /* Flexbox for alignment */
+    justify-content: center; /* Center question text */
+    align-items: center; /* Center vertically */
+}
+
+.faq-item p {
+    margin: 0; /* Remove default margin */
+    padding-top: 0.5rem; /* Space above the answer */
+    text-align: center; /* Center align answer text */
+}
+
+/* FAQ Section Styles */
+.faq-container {
+    background: transparent; /* Make the background transparent to match the page */
+    color: white; /* Text color */
+    padding: 2rem; /* Padding around the FAQ section */
+    border-radius: 8px; /* Rounded corners */
+    margin-top: 2rem; /* Space above the FAQ section */
+    text-align: center; /* Center align text */
+}
+
+.faq-container h2 {
+    font-size: 2rem; /* Title size */
+    font-weight: bold; /* Title weight */
+    margin-bottom: 1rem; /* Space below the title */
+}
