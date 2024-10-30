@@ -1,6 +1,6 @@
 <a id="top"></a>
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/f60e197d-8113-47fb-b5d6-be955fc3a94b" alt="image" width="100"/>
+  <img src="https://github.com/user-attachments/assets/232a9dab-6950-440f-bf6b-13fbe1b2bcec" alt="image" width="100"/>
 </div>
 <h1 align="center">QR Code Generator</h1>
 <h3 align="center">
