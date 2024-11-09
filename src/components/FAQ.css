@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f0f0; 
+}
+
+.faq-section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #c5ade9; 
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s; 
+}
+
+.faq-section:hover {
+    background-color: #b69cd9; /* Darker purple when hovering over the entire section */
+}
+
+.faq-item {
+    margin-bottom: 15px;
+}
+
+.faq-item h3 {
+    margin: 0;
+    padding: 10px;
+    background-color: #d1c3e0; /* Slightly darker purple for the header */
+    border-radius: 4px;
+    transition: transform 0.3s; /* Smooth transition for scaling effect */
+}
+
+.faq-item h3:hover {
+    transform: scale(1.02); /* Enlarge the header on hover */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+.faq-answer {
+    display: none; /* Hide answers by default */
+    padding: 10px;
+    background-color: #ffffff; 
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    transition: background-color 0.3s; 
+}
+/* Class for active state of answers */
+.faq-answer.active {
+    display: block; /* Show the answer */
+    background-color: #d3c9e6; 
+}

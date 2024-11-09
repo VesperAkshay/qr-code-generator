@@ -25,7 +25,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFoundPage from "./components/Error404";
-
+import FAQ from "./components/FAQ"; // Importing the FAQ component
 import ScrollButton from "./components/ScrollButton"; // Import the ScrollButton
 
 function BackgroundWrapper({ children }) {
@@ -53,7 +53,7 @@ export default function App() {
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Login />} /> <Route path="/FAQ" element={<FAQ />} />
               <Route path="/register" element={<Register />} />
               <Route
                 path="/dashboard"
