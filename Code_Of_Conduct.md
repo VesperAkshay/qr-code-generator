@@ -1,5 +1,6 @@
 # QR Code Customization Website Project Code of Conduct
 
+
 ## Welcome
 
 Welcome to the **QR Code Customization Website** repository! This project provides users with a web application that allows them to generate and customize QR codes with various options, including text input, color, pattern, frame, and more. Our goal is to create an inclusive, respectful, and collaborative environment where contributors can work together to improve the project and provide a useful tool for users. We are committed to fostering a positive and harassment-free experience for all participants.
