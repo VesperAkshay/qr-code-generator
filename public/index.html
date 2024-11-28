@@ -5,15 +5,28 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="Web site created using create-react-app" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>QR Generator</title>
 
+    <!-- Font Awesome CDN for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
     <style>
+      /* Base styles */
+      body {
+          background-color: white; /* Light mode background */
+          color: black; /* Light mode text color */
+          transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+      }
+
+      /* Dark mode styles */
+      body.dark-mode {
+          background-color: #121212; /* Dark mode background */
+          color: white; /* Dark mode text color */
+      }
+
       /* Scroll to Top button styles */
       #scrollToTopBtn {
           position: fixed;
@@ -34,6 +47,56 @@
       #scrollToTopBtn:hover {
           background-color: #0056b3; /* Darker button color on hover */
       }
+
+      /* Theme toggle button styles */
+      #themeToggleBtn {
+          position: fixed;
+          top: 20px;
+          right: 30px;
+          z-index: 100;
+          border: none;
+          outline: none;
+          background-color: #010912; /* Button color */
+          color: white; /* Text color */
+          cursor: pointer;
+          padding: 10px 15px;
+          border-radius: 5px;
+          font-size: 16px;
+      }
+
+      #themeToggleBtn:hover {
+          background-color: #187acf; /* Darker button color on hover */
+      }
+
+      /* Social icons styles */
+      .social-icons {
+          position: fixed;
+          bottom: 80px;
+          right: 30px;
+          display: flex;
+          gap: 10px;
+      }
+
+      .social-icon {
+          font-size: 24px; /* Icon size */
+          color: #007BFF; /* Icon color */
+          transition: color 0.3s; /* Smooth color transition */
+      }
+
+      .social-icon:hover {
+          animation: blink 0.5s infinite; /* Blink animation on hover */
+          color: #0056b3; /* Darker color on hover */
+      }
+
+      /* Blink animation */
+      @keyframes blink {
+          0%, 100% {
+              opacity: 1;
+          }
+          50% {
+              opacity: 0.5;
+          }
+      }
     </style>
   </head>
   <body>
@@ -41,29 +104,67 @@
     <div id="root"></div>
 
     <!-- Arrow icon for the Scroll to Top button -->
-    <button id="scrollToTopBtn" style="display: none;">&uarr;</button>
+    <button id="scrollToTopBtn" aria-label="Scroll to top">&uarr;</button>
+    <!-- Theme toggle button -->
+    <button id="themeToggleBtn" aria-label="🌙">☀</button>
 
+    <!-- Social Icons -->
+    <div class="social-icons">
+        <a href="#" class="social-icon" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="social-icon" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="social-icon" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="social-icon" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+    </div>
 
     <script>
-      // Get the button
+      // Get the buttons and body element
       const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
+      const body = document.body;
 
-      // Show or hide the button based on scroll position
-      window.onscroll = function() {
+      // Check localStorage for theme preference and apply it
+      if (localStorage.getItem('theme') === 'dark') {
+          body.classList.add('dark-mode');
+          themeToggleBtn.textContent = '☀'; // Change button text
+      }
+
+      // Show or hide the Scroll to Top button based on scroll position
+      window.addEventListener('scroll', function() {
           if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
               scrollToTopBtn.style.display = 'block'; // Show the button
           } else {
               scrollToTopBtn.style.display = 'none'; // Hide the button
           }
-      };
+      });
 
-      // Scroll to the top when the button is clicked
-      scrollToTopBtn.onclick = function() {
+      // Scroll to the top when the Scroll to Top button is clicked
+      scrollToTopBtn.addEventListener('click', function() {
           window.scrollTo({
               top: 0,
               behavior: 'smooth' // Smooth scroll effect
           });
-      };
+      });
+
+      // Toggle dark mode
+      themeToggleBtn.addEventListener('click', function() {
+          body.classList.toggle('dark-mode'); // Toggle the dark-mode class
+          // Change button text based on current theme
+          if (body.classList.contains('dark-mode')) {
+              localStorage.setItem('theme', 'dark'); // Store theme preference
+              themeToggleBtn.textContent = '☀';
+          } else {
+              localStorage.setItem('theme', 'light'); // Store theme preference
+              themeToggleBtn.textContent = ' 🌙';
+          }
+      });
     </script>
     <script>
 window.embeddedChatbotConfig = {
