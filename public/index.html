@@ -5,10 +5,7 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="Web site created using create-react-app" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>QR Generator</title>
@@ -40,28 +37,27 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
-    <!-- Arrow icon for the Scroll to Top button -->
-    <button id="scrollToTopBtn" style="display: none;">&uarr;</button>
-
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" aria-label="Scroll to top" style="display: none;">&uarr;</button>
 
     <script>
-      // Get the button
+      // Get the button element
       const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
-      // Show or hide the button based on scroll position
+      // Show or hide the button based on the scroll position
       window.onscroll = function() {
           if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-              scrollToTopBtn.style.display = 'block'; // Show the button
+              scrollToTopBtn.style.display = 'block'; // Show button when scrolled down 100px
           } else {
-              scrollToTopBtn.style.display = 'none'; // Hide the button
+              scrollToTopBtn.style.display = 'none'; // Hide button when at the top
           }
       };
 
-      // Scroll to the top when the button is clicked
+      // Scroll to top when the button is clicked
       scrollToTopBtn.onclick = function() {
           window.scrollTo({
               top: 0,
-              behavior: 'smooth' // Smooth scroll effect
+              behavior: 'smooth' // Smooth scroll effect to the top
           });
       };
     </script>
