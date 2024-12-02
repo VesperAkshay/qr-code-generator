@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sendEmailVerification } from "firebase/auth"; 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +45,9 @@ export default function Register() {
       toast.error("Please enter a valid email address.");
     }
   };
-
+ 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
@@ -56,7 +59,6 @@ export default function Register() {
       toast.error("You must agree to the terms to register.");
       return;
     }
-
     if (emailError || !validateEmail(email)) {
       toast.error("Please enter a valid email address.");
       return;
@@ -65,14 +67,26 @@ export default function Register() {
       toast.error("Passwords do not match.");
       return;
     }
+  
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard");
+      // Create a new user with email and password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+  
+      // Send email verification
+      await sendEmailVerification(user);
+  
+      // Display a success message for email verification
+      toast.success("Registration successful! Please check your email for verification.");
+  
+      // Navigate to the login page
+      navigate("/login");
+  
     } catch (error) {
+      // Handle any errors during registration
       toast.error(error.message);
     }
   };
-
   return (
     <div className="min-h-screen bg-white grid grid-cols-1 lg:grid-cols-[auto,1fr] justify-items-center items-center p-6 md:p-12 lg:p-0 lg:max-w-screen-lg mx-auto">
       <motion.form
